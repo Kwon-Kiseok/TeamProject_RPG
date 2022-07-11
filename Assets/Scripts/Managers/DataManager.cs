@@ -1,0 +1,63 @@
+using System;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+
+
+using HOGUS.Scripts.DP;
+using HOGUS.Scripts.Data;
+
+// Reference by : https://velog.io/@starkshn/Data-Manager
+// Addressable 관련 : https://seonbicode.tistory.com/52
+
+namespace HOGUS.Scripts.Manager
+{
+    public interface ILoader<Key, Value>
+    {
+        Dictionary<Key, Value> MakeDict();
+    }
+
+    public class DataManager : Singleton<DataManager>
+    {
+        // Temp Example Dict
+        // 필요한 데이터의 딕셔너리가 존재할 경우 Data.Contents에서 추가 후 Dictionary 생성해서 사용
+        public Dictionary<int, Item> itemDict { get; private set; } = new();
+
+        public void Init()
+        {
+            itemDict = LoadJson<ItemData, int, Item>("ItemData").MakeDict();
+        }
+
+        Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+        {
+            //TextAsset textAsset = Resources.Load<TextAsset>($"Datas/{path}");
+
+            var jsHandle = Addressables.LoadAssetAsync<TextAsset>($"Datas/{path}");
+            jsHandle.WaitForCompletion();   // 동기 처리
+            // do work
+            TextAsset textAsset = JsonHandle_Complete(jsHandle, path);
+
+            // Release
+            Addressables.Release(jsHandle);
+
+            return JsonUtility.FromJson<Loader>(textAsset.text);
+        }
+
+        private TextAsset JsonHandle_Complete(AsyncOperationHandle<TextAsset> handle, string path)
+        {
+            if(handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                var jsAsset = handle.Result;
+                File.WriteAllText(path, jsAsset.text);
+                return jsAsset;
+            }
+
+            return null;
+        }
+    }
+}
