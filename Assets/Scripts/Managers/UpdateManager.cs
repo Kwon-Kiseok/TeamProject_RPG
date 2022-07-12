@@ -29,11 +29,17 @@ namespace HOGUS.Scripts.Manager
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 ++GameManager.Instance.Index;
-                if(GameManager.Instance.Index == 3)
+                
+                if(GameManager.Instance.Index == 1)
+                {
+                    DataManager.Instance.Init();
+                }
+                else if(GameManager.Instance.Index == 3)
                 {
                     GameManager.Instance.IsGameOver = true;
                     return;
                 }
+                
 
                 SceneManager.LoadScene(GameManager.Instance.Index);
                 Debug.Log(GameManager.Instance.Index);
@@ -66,6 +72,7 @@ namespace HOGUS.Scripts.Manager
         {
             if (GameManager.Instance.IsGameOver)
             {
+                DataManager.Instance.Save();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #else
