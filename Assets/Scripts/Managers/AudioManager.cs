@@ -31,7 +31,9 @@ namespace HOGUS.Scripts.Manager
         [SerializeField]
         private AudioClip[] bgmList = { };
 
-        private void Awake()
+        protected AudioManager() { }
+
+        private void Start()
         {
             this.sfxSource.loop = false;
             this.bgmSource.loop = true;
@@ -53,6 +55,7 @@ namespace HOGUS.Scripts.Manager
         public static void StopBGM()
         {
             Instance.bgmSource.Stop();
+            Debug.Log("StopBGM");
         }
 
         public static void StopSFX()
