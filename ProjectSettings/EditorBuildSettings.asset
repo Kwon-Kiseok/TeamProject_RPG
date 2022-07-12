@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Init.unity
+    guid: fd841c89c950e3e4d9fc0f1cbe627d59
+  - enabled: 1
     path: Assets/PolygonDungeon/Scenes/Demo.unity
     guid: 7dd3b3b67a8b56d4e8640fa6891eaf3b
   - enabled: 1
@@ -17,5 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OpenScene.unity
     guid: a3b8fb357c97cec4eacd489ba7391482
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9c0bece204662024c9f2871926f61f83, type: 2}
