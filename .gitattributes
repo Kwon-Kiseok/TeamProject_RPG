@@ -1,5 +1,0 @@
-*.anim text !filter !merge !diff
-*.fbx text !filter !merge !diff
-*.png text !filter !merge !diff
-*.tga text !filter !merge !diff
-*.ttf text !filter !merge !diff
