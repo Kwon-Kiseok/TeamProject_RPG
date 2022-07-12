@@ -21,33 +21,14 @@ namespace HOGUS.Scripts.Manager
     {
         List<IUpdatableObject> updatableObjects = new();
 
+        // Update
         private void Update()
         {
-            CheckEndGame();
-
-            // scene test
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                ++GameManager.Instance.Index;
-                
-                if(GameManager.Instance.Index == 1)
-                {
-                    DataManager.Instance.Init();
-                }
-                else if(GameManager.Instance.Index == 3)
-                {
-                    GameManager.Instance.IsGameOver = true;
-                    return;
-                }
-                
-
-                SceneManager.LoadScene(GameManager.Instance.Index);
-                Debug.Log(GameManager.Instance.Index);
-
-            }
+            CheckEndGame();           
 
             for (int i = 0; i < Instance.updatableObjects.Count; ++i)
             {
+                // updatableObjects로 등록된 객체들의 업데이트를 수행해줌
                 Instance.updatableObjects[i].OnUpdate();
             }
         }
