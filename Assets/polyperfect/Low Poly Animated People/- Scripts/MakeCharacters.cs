@@ -77,7 +77,7 @@ namespace PolyPerfect
             {
                 Debug.Log(pathToCurrentFolder + "/" + transform.GetChild(i).transform.name + ".prefab");
 
-                PrefabUtility.SaveAsPrefabAsset(transform.GetChild(i).gameObject, pathToCurrentFolder + "/" + transform.GetChild(i).transform.name + ".prefab");
+                //PrefabUtility.SaveAsPrefabAsset(transform.GetChild(i).gameObject, pathToCurrentFolder + "/" + transform.GetChild(i).transform.name + ".prefab");
             }
         }
 
