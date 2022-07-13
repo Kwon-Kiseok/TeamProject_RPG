@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using HOGUS.Scripts.DP;
 
@@ -10,7 +11,9 @@ namespace HOGUS.Scripts.Manager
     {
         void OnEnable();
         void OnDisable();
+        void OnFixedUpdate();
         void OnUpdate();
+        void OnUpdate(float deltaTime);
     }
 
     // 최적화 관련 : https://gist.github.com/Curookie/e863c94689268eff1d91de6d4a16fab1
@@ -19,12 +22,30 @@ namespace HOGUS.Scripts.Manager
     public class UpdateManager : MonoSingleton<UpdateManager>
     {
         List<IUpdatableObject> updatableObjects = new();
+        private float deltaTime;
 
+        // FixedUpdate
+        private void FixedUpdate()
+        {
+            for (int i = 0; i < Instance.updatableObjects.Count; ++i)
+            {
+                // updatableObjects로 등록된 객체들의 고정업데이트를 수행해줌
+                Instance.updatableObjects[i].OnFixedUpdate();
+            }
+        }
+
+        // Update
         private void Update()
         {
-            for(int i = 0; i < Instance.updatableObjects.Count; ++i)
+            deltaTime = Time.deltaTime;
+
+            CheckEndGame();           
+
+            for (int i = 0; i < Instance.updatableObjects.Count; ++i)
             {
+                // updatableObjects로 등록된 객체들의 업데이트를 수행해줌
                 Instance.updatableObjects[i].OnUpdate();
+                Instance.updatableObjects[i].OnUpdate(deltaTime);
             }
         }
 
@@ -41,6 +62,20 @@ namespace HOGUS.Scripts.Manager
             if(Instance.updatableObjects.Contains(@object))
             {
                 Instance.updatableObjects.Remove(@object);
+            }
+        }
+
+        private void CheckEndGame()
+        {
+            if (GameManager.Instance.IsGameOver)
+            {
+                DataManager.Instance.Save();
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+                return;
             }
         }
     }

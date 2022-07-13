@@ -18,6 +18,11 @@ namespace HOGUS.Scripts.State
             throw new System.NotImplementedException();
         }
 
+        public void StateFixedUpdate()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void StateUpdate()
         {
             throw new System.NotImplementedException();

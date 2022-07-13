@@ -28,16 +28,26 @@ namespace HOGUS.Scripts.Manager
         // 필요한 데이터의 딕셔너리가 존재할 경우 Data.Contents에서 추가 후 Dictionary 생성해서 사용
         public Dictionary<int, Item> itemDict { get; private set; } = new();
 
+        private TextAsset jsAsset;
+
         public void Init()
         {
+            Debug.Log("Load and Init Data");
             itemDict = LoadJson<ItemData, int, Item>("ItemData").MakeDict();
+        }
+
+        public void Save()
+        {
+            if(jsAsset != null)
+                File.WriteAllText(Application.persistentDataPath + "/ItemData_Backup.json", jsAsset.text);
+            Debug.Log("Save Data");
         }
 
         Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
         {
             //TextAsset textAsset = Resources.Load<TextAsset>($"Datas/{path}");
 
-            var jsHandle = Addressables.LoadAssetAsync<TextAsset>($"Datas/{path}");
+            var jsHandle = Addressables.LoadAssetAsync<TextAsset>($"Data/{path}");
             jsHandle.WaitForCompletion();   // 동기 처리
             // do work
             TextAsset textAsset = JsonHandle_Complete(jsHandle, path);
@@ -52,8 +62,8 @@ namespace HOGUS.Scripts.Manager
         {
             if(handle.Status == AsyncOperationStatus.Succeeded)
             {
-                var jsAsset = handle.Result;
-                File.WriteAllText(path, jsAsset.text);
+                jsAsset = handle.Result;
+                Debug.Log(jsAsset);                
                 return jsAsset;
             }
 

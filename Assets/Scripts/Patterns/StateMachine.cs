@@ -40,5 +40,10 @@ namespace HOGUS.Scripts.DP
         {
             CurrentState.StateUpdate();
         }
+
+        public void DoStateFixedUpdate()
+        {
+            CurrentState.StateFixedUpdate();
+        }
     }
 }
