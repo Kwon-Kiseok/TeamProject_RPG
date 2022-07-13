@@ -18,3 +18,4 @@ namespace HOGUS.Scripts.Interface
         void StateExit();
     }
 }
+

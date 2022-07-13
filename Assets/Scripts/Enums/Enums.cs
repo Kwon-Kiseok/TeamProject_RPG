@@ -1,6 +1,6 @@
 namespace HOGUS.Scripts.Enums
 {
-    public enum TestEnum
+    public enum Test
     {
         TEST1,
         TEST2,
@@ -13,4 +13,15 @@ namespace HOGUS.Scripts.Enums
         TEST2,
     }
 
+    public enum BossState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die,
+        Skill,
+        Skill1,
+        Skill2
+    }
 }
