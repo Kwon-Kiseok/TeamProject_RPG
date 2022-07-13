@@ -3,10 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HOGUS.Scripts.Manager;
+using HOGUS.Scripts.DP;
+using HOGUS.Scripts.Interface;
+
 
 public class FPS_Check : MonoBehaviour, IUpdatableObject
 {
     float deltaTime = 0.0f;
+
+    // 키값으로 사용할 현재 상태
+    private enum State
+    {
+        STOP,
+        RUN,
+    }
+    // 객체의 상태들을 키, 밸류로 접근할 딕셔너리
+    private Dictionary<State, IState> dictState = new();
+    // fsm
+    StateMachine stateMachine;
+
+    private void Start()
+    {
+        // 정의된 상태 클래스들 객체 생성
+        var stateStop = new StateStop(this);
+        var stateRun = new StateRun(this);
+
+        // 생성된 상태 객체들을 딕셔너리에 키, 밸류로 저장
+        dictState.Add(State.STOP, stateStop);
+        dictState.Add(State.RUN, stateRun);
+
+        // fsm 생성 및 Initial state 초기화
+        stateMachine = new StateMachine(stateRun);
+    }
 
     void OnGUI()
     {
@@ -36,6 +64,94 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 
     public void OnUpdate()
     {
-        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+    }
+
+    public void OnFixedUpdate()
+    {
+    }
+
+    public void OnUpdate(float deltaTime)
+    {
+        // fsm에 저장된 현재 상태가 StateRun
+        if (stateMachine.CurrentState == dictState[State.RUN])
+        {
+            this.deltaTime += (deltaTime - this.deltaTime) * 0.1f;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stateMachine.SetState(dictState[State.STOP]);
+            }
+        }
+        // fsm에 저장된 현재 상태가 StateStop
+        else if (stateMachine.CurrentState == dictState[State.STOP])
+        {
+            this.deltaTime = 0f;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                stateMachine.SetState(dictState[State.RUN]);
+            }
+        }
     }
 }
+
+#region states
+// 멈춰있는 상태
+public class StateStop : IState
+{
+    // 상태를 소유하고 있는 클래스 객체 생성
+    private FPS_Check fps_Check;
+    
+    // 생성자를 통해 상태를 소유하고 있는 객체에 접근
+    public StateStop(FPS_Check FC)
+    {
+        fps_Check = FC;
+    }
+
+    public void StateEnter()
+    {
+        Debug.Log("State Stop Enter");
+    }
+
+    public void StateExit()
+    {
+        Debug.Log("State Stop Exit");
+    }
+
+    public void StateFixedUpdate()
+    {
+    }
+
+    public void StateUpdate()
+    {        
+    }
+}
+
+public class StateRun : IState
+{
+    private FPS_Check fps_Check;
+
+    public StateRun(FPS_Check FC)
+    {
+        fps_Check = FC;
+    }
+
+    public void StateEnter()
+    {
+        Debug.Log("State Run Enter");
+    }
+
+    public void StateExit()
+    {
+        Debug.Log("State Run Exit");
+    }
+
+    public void StateFixedUpdate()
+    {
+    }
+
+    public void StateUpdate()
+    {
+    }
+}
+#endregion
