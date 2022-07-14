@@ -7,25 +7,31 @@ namespace HOGUS.Scripts.DP
     public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T instance = null;
+        private static object lockObject = new ();
+        private static bool applicationIsQuit = false;
 
         public static T Instance
         {
             get
             {
+                if (applicationIsQuit)
+                    return null;
 
-                if (instance == null)
+                lock (lockObject)
                 {
-                    // 인스턴스 존재 여부 확인
-                    instance = (T)FindObjectOfType(typeof(T));
-
-                    // 생성되지 않았다면 인스턴스 생성
                     if (instance == null)
                     {
-                        var singletonObject = new GameObject();
-                        instance = singletonObject.AddComponent<T>();
-                        singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                        // 인스턴스 존재 여부 확인
+                        instance = (T)FindObjectOfType(typeof(T));
 
-                        //DontDestroyOnLoad(singletonObject);
+                        // 생성되지 않았다면 인스턴스 생성
+                        if (instance == null)
+                        {
+                            var singletonObject = new GameObject();
+                            instance = singletonObject.AddComponent<T>();
+                            singletonObject.name = typeof(T).ToString() + " (Singleton)";
+
+                        }
                     }
                 }
                 return instance;
@@ -35,6 +41,11 @@ namespace HOGUS.Scripts.DP
         protected void Awake()
         {
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            applicationIsQuit = true;
         }
     }
 }

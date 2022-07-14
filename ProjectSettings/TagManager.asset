@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - UICamera
   layers:
   - Default
   - TransparentFX
@@ -15,6 +16,9 @@ TagManager:
   - Enemy
   - Boss
   - Player
+  - MainCamera
+  - MinimapCamera
+  - 
   - 
   - 
   - 

@@ -21,6 +21,8 @@ namespace HOGUS.Scripts.Manager
         List<IUpdatableObject> updatableObjects = new();
         private float deltaTime;
 
+        protected UpdateManager() { }
+
         // FixedUpdate
         private void FixedUpdate()
         {
@@ -41,8 +43,8 @@ namespace HOGUS.Scripts.Manager
             for (int i = 0; i < Instance.updatableObjects.Count; ++i)
             {
                 // updatableObjects로 등록된 객체들의 업데이트를 수행해줌
-                Instance.updatableObjects[i].OnUpdate();
                 Instance.updatableObjects[i].OnUpdate(deltaTime);
+                Instance.updatableObjects[i].OnUpdate();
             }
         }
 
