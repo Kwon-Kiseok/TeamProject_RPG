@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +15,7 @@ public class ExpBarController : MonoBehaviour
     {
         ExpSlider.value += Time.deltaTime;
 
-        if(ExpSlider.value >= 100 )
+        if (ExpSlider.value >= 100)
         {
             Debug.Log("Level UP");
 

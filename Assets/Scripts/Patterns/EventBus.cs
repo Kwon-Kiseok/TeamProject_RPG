@@ -1,7 +1,6 @@
+using HOGUS.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine.Events;
-
-using HOGUS.Scripts.Enums;
 
 namespace HOGUS.Scripts.DP
 {
@@ -37,7 +36,7 @@ namespace HOGUS.Scripts.DP
         public static void Publish(TestEventEnum eventType)
         {
             UnityEvent thisEvent;
-            if(Events.TryGetValue(eventType, out thisEvent))
+            if (Events.TryGetValue(eventType, out thisEvent))
             {
                 thisEvent.Invoke();
             }

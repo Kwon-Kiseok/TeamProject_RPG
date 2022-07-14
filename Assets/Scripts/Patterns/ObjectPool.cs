@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
+using HOGUS.Scripts.Manager;
 using System.Collections.Generic;
 using UnityEngine;
-
-using HOGUS.Scripts.Manager;
 
 namespace HOGUS.Scripts.DP
 {
@@ -24,7 +21,7 @@ namespace HOGUS.Scripts.DP
         Transform trParent;
 
         [Header("오브젝트 배열 큐")]
-        public List<Queue<GameObject> > objectPoolList;
+        public List<Queue<GameObject>> objectPoolList;
 
         private void Start()
         {
@@ -50,7 +47,7 @@ namespace HOGUS.Scripts.DP
         {
             Queue<GameObject> queue = new();
 
-            for(int i = 0; i < objectInfo.count; i++)
+            for (int i = 0; i < objectInfo.count; i++)
             {
                 GameObject objectClone = Instantiate(objectInfo.prefab) as GameObject;
                 objectClone.SetActive(false);

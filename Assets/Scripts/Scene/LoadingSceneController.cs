@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadingSceneController : MonoBehaviour
 {
@@ -28,11 +27,11 @@ public class LoadingSceneController : MonoBehaviour
         op.allowSceneActivation = false;
 
         float timer = 0f;
-        while(!op.isDone)
+        while (!op.isDone)
         {
             yield return null;
 
-            if(op.progress < 0.9f)
+            if (op.progress < 0.9f)
             {
                 loadingBar.fillAmount = op.progress;
             }
@@ -40,7 +39,7 @@ public class LoadingSceneController : MonoBehaviour
             {
                 timer += Time.unscaledDeltaTime;
                 loadingBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
-                if(loadingBar.fillAmount >= 1f)
+                if (loadingBar.fillAmount >= 1f)
                 {
                     op.allowSceneActivation = true;
                     yield break;

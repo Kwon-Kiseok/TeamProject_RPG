@@ -12,7 +12,27 @@ namespace HOGUS.Scripts.Enums
         TEST1,
         TEST2,
     }
-
+#region Player
+    public enum PlayerState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die
+    }
+    #endregion
+    #region Enemy
+    public enum EnemyState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die
+    }
+    #endregion
+    #region Boss
     public enum BossState
     {
         Idle,
@@ -24,4 +44,5 @@ namespace HOGUS.Scripts.Enums
         Skill1,
         Skill2
     }
+    #endregion
 }

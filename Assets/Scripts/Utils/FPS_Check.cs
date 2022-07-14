@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Interface;
+using HOGUS.Scripts.Manager;
+using System.Collections.Generic;
+using UnityEngine;
 
 
 public class FPS_Check : MonoBehaviour, IUpdatableObject
@@ -101,7 +99,7 @@ public class StateStop : IState
 {
     // 상태를 소유하고 있는 클래스 객체 생성
     private FPS_Check fps_Check;
-    
+
     // 생성자를 통해 상태를 소유하고 있는 객체에 접근
     public StateStop(FPS_Check FC)
     {
@@ -123,7 +121,7 @@ public class StateStop : IState
     }
 
     public void StateUpdate()
-    {        
+    {
     }
 }
 
