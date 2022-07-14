@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HOGUS.Scripts.Object.Item
 {
-    public class EquipmentItem : BaseItem
+    public abstract class EquipmentItem : BaseItem
     {
         [Header("³»±¸µµ")]
         public int durability;
@@ -16,5 +16,8 @@ namespace HOGUS.Scripts.Object.Item
         public int requireLevel;
         public int requireStrength;
         public int requireAgility;
+
+        public abstract string GetDescription();
+        public abstract void ApplyAbility();
     }
 }

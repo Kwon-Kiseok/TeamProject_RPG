@@ -14,5 +14,15 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("¹æ¾î·Â")]
         public int defense;
+
+        public override void ApplyAbility()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override string GetDescription()
+        {
+            return this.itemDescription;
+        }
     }
 }

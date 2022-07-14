@@ -12,5 +12,15 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("¸·±â È®·ü")]
         public float blockChance;
+
+        public override void ApplyAbility()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override string GetDescription()
+        {
+            return this.itemDescription;
+        }
     }
 }

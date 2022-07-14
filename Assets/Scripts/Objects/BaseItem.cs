@@ -18,6 +18,9 @@ namespace HOGUS.Scripts.Object.Item
         [Header("아이템 이름")]
         public string itemName;
 
+        [Header("아이템 설명")]
+        public string itemDescription;
+
         [Header("아이템 크기")]
         public int itemWidth;
         public int itemHeight;

@@ -18,5 +18,15 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("공격속도")]
         public int attackSpeed;
+
+        public override void ApplyAbility()
+        {
+            // ??
+        }
+
+        public override string GetDescription()
+        {
+            return this.itemDescription;
+        }
     }
 }
