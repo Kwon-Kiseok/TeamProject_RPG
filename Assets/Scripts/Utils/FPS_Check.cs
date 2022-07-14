@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.DP;
@@ -10,6 +13,8 @@ using HOGUS.Scripts.Interface;
 public class FPS_Check : MonoBehaviour, IUpdatableObject
 {
     float deltaTime = 0.0f;
+
+    public TextMeshProUGUI counterUI;
 
     // 키값으로 사용할 현재 상태
     private enum State
@@ -36,21 +41,21 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
         stateMachine = new StateMachine(stateRun);
     }
 
-    void OnGUI()
-    {
-        int w = Screen.width, h = Screen.height;
+    //void OnGUI()
+    //{
+    //    int w = Screen.width, h = Screen.height;
 
-        GUIStyle style = new GUIStyle();
+    //    GUIStyle style = new GUIStyle();
 
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-        style.alignment = TextAnchor.UpperLeft;
-        style.fontSize = h * 2 / 100;
-        style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0}?ms?({1:0.}?fps)", msec, fps);
-        GUI.Label(rect, text, style);
-    }
+    //    Rect rect = new Rect(0, 0, w, h * 2 / 100);
+    //    style.alignment = TextAnchor.UpperLeft;
+    //    style.fontSize = h * 2 / 100;
+    //    style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
+    //    float msec = deltaTime * 1000.0f;
+    //    float fps = 1.0f / deltaTime;
+    //    string text = string.Format("{0:0.0}?ms?({1:0.}?fps)", msec, fps);
+    //    GUI.Label(rect, text, style);
+    //}
 
     public void OnEnable()
     {
@@ -59,11 +64,18 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 
     public void OnDisable()
     {
-        UpdateManager.Instance.DeregisterUpdatableObject(this);
+        // 어플리케이션 종료 시 싱글턴 매니저 객체가 먼저 소멸될 경우는 실행되면 안됨
+        if(UpdateManager.Instance != null)
+        {
+            UpdateManager.Instance.DeregisterUpdatableObject(this);
+        }
     }
 
     public void OnUpdate()
     {
+        float msec = deltaTime * 1000.0f;
+        float fps = 1.0f / deltaTime;
+        counterUI.text = string.Format("{0:0.0}?ms?({1:0.}?fps)", msec, fps);
     }
 
     public void OnFixedUpdate()
