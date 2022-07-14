@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SkillWindow : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class SkillWindow : MonoBehaviour
     private GameObject passiveSkillWindow;
 
     private bool ActiveButtonCheck;
+
+    private bool SkillWindowOpen;
 
     public void OnClickSkillButton()
     {
