@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 using HOGUS.Scripts.Interface;
+using UnityEngine;
 
 namespace HOGUS.Scripts.DP
 {
@@ -22,7 +19,7 @@ namespace HOGUS.Scripts.DP
         public void SetState(IState state)
         {
             // 상태가 중복으로 들어가지 않음
-            if(CurrentState == state)
+            if (CurrentState == state)
             {
                 return;
             }

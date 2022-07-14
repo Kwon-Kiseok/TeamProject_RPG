@@ -6,8 +6,12 @@ using TMPro;
 
 
 using HOGUS.Scripts.Manager;
+
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Interface;
+using HOGUS.Scripts.Manager;
+using System.Collections.Generic;
+using UnityEngine;
 
 
 public class FPS_Check : MonoBehaviour, IUpdatableObject
@@ -16,28 +20,28 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 
     public TextMeshProUGUI counterUI;
 
-    // Å°°ªÀ¸·Î »ç¿ëÇÒ ÇöÀç »óÅÂ
+    // í‚¤ê°’ìœ¼ë¡œ ì‚¬ìš©í•  í˜„ì¬ ìƒíƒœ
     private enum State
     {
         STOP,
         RUN,
     }
-    // °´Ã¼ÀÇ »óÅÂµéÀ» Å°, ¹ë·ù·Î Á¢±ÙÇÒ µñ¼Å³Ê¸®
+    // ê°ì²´ì˜ ìƒíƒœë“¤ì„ í‚¤, ë°¸ë¥˜ë¡œ ì ‘ê·¼í•  ë”•ì…”ë„ˆë¦¬
     private Dictionary<State, IState> dictState = new();
     // fsm
     StateMachine stateMachine;
 
     private void Start()
     {
-        // Á¤ÀÇµÈ »óÅÂ Å¬·¡½ºµé °´Ã¼ »ı¼º
+        // ì •ì˜ëœ ìƒíƒœ í´ë˜ìŠ¤ë“¤ ê°ì²´ ìƒì„±
         var stateStop = new StateStop(this);
         var stateRun = new StateRun(this);
 
-        // »ı¼ºµÈ »óÅÂ °´Ã¼µéÀ» µñ¼Å³Ê¸®¿¡ Å°, ¹ë·ù·Î ÀúÀå
+        // ìƒì„±ëœ ìƒíƒœ ê°ì²´ë“¤ì„ ë”•ì…”ë„ˆë¦¬ì— í‚¤, ë°¸ë¥˜ë¡œ ì €ì¥
         dictState.Add(State.STOP, stateStop);
         dictState.Add(State.RUN, stateRun);
 
-        // fsm »ı¼º ¹× Initial state ÃÊ±âÈ­
+        // fsm ìƒì„± ë° Initial state ì´ˆê¸°í™”
         stateMachine = new StateMachine(stateRun);
     }
 
@@ -64,7 +68,7 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 
     public void OnDisable()
     {
-        // ¾îÇÃ¸®ÄÉÀÌ¼Ç Á¾·á ½Ã ½Ì±ÛÅÏ ¸Å´ÏÀú °´Ã¼°¡ ¸ÕÀú ¼Ò¸êµÉ °æ¿ì´Â ½ÇÇàµÇ¸é ¾ÈµÊ
+        // ì–´í”Œë¦¬ì¼€ì´ì…˜ ì¢…ë£Œ ì‹œ ì‹±ê¸€í„´ ë§¤ë‹ˆì € ê°ì²´ê°€ ë¨¼ì € ì†Œë©¸ë  ê²½ìš°ëŠ” ì‹¤í–‰ë˜ë©´ ì•ˆë¨
         if(UpdateManager.Instance != null)
         {
             UpdateManager.Instance.DeregisterUpdatableObject(this);
@@ -84,7 +88,7 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 
     public void OnUpdate(float deltaTime)
     {
-        // fsm¿¡ ÀúÀåµÈ ÇöÀç »óÅÂ°¡ StateRun
+        // fsmì— ì €ì¥ëœ í˜„ì¬ ìƒíƒœê°€ StateRun
         if (stateMachine.CurrentState == dictState[State.RUN])
         {
             this.deltaTime += (deltaTime - this.deltaTime) * 0.1f;
@@ -94,7 +98,7 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
                 stateMachine.SetState(dictState[State.STOP]);
             }
         }
-        // fsm¿¡ ÀúÀåµÈ ÇöÀç »óÅÂ°¡ StateStop
+        // fsmì— ì €ì¥ëœ í˜„ì¬ ìƒíƒœê°€ StateStop
         else if (stateMachine.CurrentState == dictState[State.STOP])
         {
             this.deltaTime = 0f;
@@ -108,13 +112,13 @@ public class FPS_Check : MonoBehaviour, IUpdatableObject
 }
 
 #region states
-// ¸ØÃçÀÖ´Â »óÅÂ
+// ë©ˆì¶°ìˆëŠ” ìƒíƒœ
 public class StateStop : IState
 {
-    // »óÅÂ¸¦ ¼ÒÀ¯ÇÏ°í ÀÖ´Â Å¬·¡½º °´Ã¼ »ı¼º
+    // ìƒíƒœë¥¼ ì†Œìœ í•˜ê³  ìˆëŠ” í´ë˜ìŠ¤ ê°ì²´ ìƒì„±
     private FPS_Check fps_Check;
-    
-    // »ı¼ºÀÚ¸¦ ÅëÇØ »óÅÂ¸¦ ¼ÒÀ¯ÇÏ°í ÀÖ´Â °´Ã¼¿¡ Á¢±Ù
+
+    // ìƒì„±ìë¥¼ í†µí•´ ìƒíƒœë¥¼ ì†Œìœ í•˜ê³  ìˆëŠ” ê°ì²´ì— ì ‘ê·¼
     public StateStop(FPS_Check FC)
     {
         fps_Check = FC;
@@ -135,7 +139,7 @@ public class StateStop : IState
     }
 
     public void StateUpdate()
-    {        
+    {
     }
 }
 

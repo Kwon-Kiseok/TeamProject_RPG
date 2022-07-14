@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -25,7 +24,7 @@ public class PolyIk : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        if(!animator.isHuman)
+        if (!animator.isHuman)
         {
             this.enabled = false;
 

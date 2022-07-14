@@ -1,16 +1,10 @@
-using System;
-using System.IO;
-using System.Collections;
+using HOGUS.Scripts.Data;
+using HOGUS.Scripts.DP;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-
-
-using HOGUS.Scripts.DP;
-using HOGUS.Scripts.Data;
 
 // Reference by : https://velog.io/@starkshn/Data-Manager
 // Addressable ฐüทร : https://seonbicode.tistory.com/52
@@ -38,7 +32,7 @@ namespace HOGUS.Scripts.Manager
 
         public void Save()
         {
-            if(jsAsset != null)
+            if (jsAsset != null)
                 File.WriteAllText(Application.persistentDataPath + "/ItemData_Backup.json", jsAsset.text);
             Debug.Log("Save Data");
         }
@@ -60,10 +54,10 @@ namespace HOGUS.Scripts.Manager
 
         private TextAsset JsonHandle_Complete(AsyncOperationHandle<TextAsset> handle, string path)
         {
-            if(handle.Status == AsyncOperationStatus.Succeeded)
+            if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 jsAsset = handle.Result;
-                Debug.Log(jsAsset);                
+                Debug.Log(jsAsset);
                 return jsAsset;
             }
 

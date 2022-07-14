@@ -2,29 +2,29 @@ namespace HOGUS.Scripts.Enums
 {
     #region ItemEnum
     /// <summary>
-    /// ¾ÆÀÌÅÛ Èñ±Íµµµî±Ş
+    /// ì•„ì´í…œ í¬ê·€ë„ë“±ê¸‰
     /// </summary>
     public enum ItemRarity
     {
-        COMMON,     // ÀÏ¹İ (Èò)
-        MAGIC,      // ¸ÅÁ÷ (ÆÄ¶û)
-        RARE,       // Èñ±Í (³ë¶û)
-        UNIQUE,     // °íÀ¯ (¹°ºüÁø ³ë¶û)
-        SET,        // ¼¼Æ® (ÃÊ·Ï)
-        CRAFT,      // Á¦ÀÛ (ÁÖÈ²)
-        RUNEWORDS   // ·é¿öµå (¹°ºüÁø ³ë¶û)
+        COMMON,     // ì¼ë°˜ (í°)
+        MAGIC,      // ë§¤ì§ (íŒŒë‘)
+        RARE,       // í¬ê·€ (ë…¸ë‘)
+        UNIQUE,     // ê³ ìœ  (ë¬¼ë¹ ì§„ ë…¸ë‘)
+        SET,        // ì„¸íŠ¸ (ì´ˆë¡)
+        CRAFT,      // ì œì‘ (ì£¼í™©)
+        RUNEWORDS   // ë£¬ì›Œë“œ (ë¬¼ë¹ ì§„ ë…¸ë‘)
     }
     /// <summary>
-    /// ¾ÆÀÌÅÛ Ç°Áúµî±Ş
+    /// ì•„ì´í…œ í’ˆì§ˆë“±ê¸‰
     /// </summary>
     public enum ItemQuality
     {
-        NORMAL,         // ³ë¸»
-        EXCEPTIONAL,    // ÀÍ¼Á¼Å³Î
-        ELITE           // ¿¤¸®Æ®
+        NORMAL,         // ë…¸ë§
+        EXCEPTIONAL,    // ìµì…‰ì…”ë„
+        ELITE           // ì—˜ë¦¬íŠ¸
     }
     /// <summary>
-    /// ¹«±â Á¾·ù
+    /// ë¬´ê¸° ì¢…ë¥˜
     /// </summary>
     public enum WeaponType
     {
@@ -33,7 +33,7 @@ namespace HOGUS.Scripts.Enums
         STAFF
     }
     /// <summary>
-    /// ¹æ¾î±¸ Á¾·ù
+    /// ë°©ì–´êµ¬ ì¢…ë¥˜
     /// </summary>
     public enum ArmorType
     {
@@ -51,5 +51,37 @@ namespace HOGUS.Scripts.Enums
         TEST1,
         TEST2,
     }
-
+#region Player
+    public enum PlayerState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die
+    }
+    #endregion
+    #region Enemy
+    public enum EnemyState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die
+    }
+    #endregion
+    #region Boss
+    public enum BossState
+    {
+        Idle,
+        Move,
+        Attack,
+        Damaged,
+        Die,
+        Skill,
+        Skill1,
+        Skill2
+    }
+    #endregion
 }

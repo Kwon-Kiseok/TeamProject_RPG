@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // 모노비헤이비어가 필요한 매니저 생성 시 사용할 모노싱글톤

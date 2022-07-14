@@ -1,5 +1,3 @@
-using System;
-
 namespace HOGUS.Scripts.DP
 {
     public class Singleton<T> where T : class, new()
@@ -10,7 +8,7 @@ namespace HOGUS.Scripts.DP
         {
             get
             {
-                if(!Exist())
+                if (!Exist())
                 {
                     instance = new();
                 }

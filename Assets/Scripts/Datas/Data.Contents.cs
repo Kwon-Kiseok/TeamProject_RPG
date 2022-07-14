@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 using HOGUS.Scripts.Manager;
+using System;
+using System.Collections.Generic;
 
 // Reference by : https://velog.io/@starkshn/Data-Manager
 

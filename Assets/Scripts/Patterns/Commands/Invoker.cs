@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HOGUS.Scripts.DP;
 
 namespace HOGUS.Scripts.DP
 {

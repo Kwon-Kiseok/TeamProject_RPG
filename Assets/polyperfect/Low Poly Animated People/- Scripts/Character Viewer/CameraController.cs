@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
@@ -38,7 +36,7 @@ public class CameraController : MonoBehaviour
             canControl = true;
         }
 
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             canControl = false;
         }

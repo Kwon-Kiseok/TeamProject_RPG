@@ -7,7 +7,7 @@ namespace PsychoticLab
     public enum Gender { Male, Female }
     public enum Race { Human, Elf }
     public enum SkinColor { White, Brown, Black, Elf }
-    public enum Elements {  Yes, No }
+    public enum Elements { Yes, No }
     public enum HeadCovering { HeadCoverings_Base_Hair, HeadCoverings_No_FacialHair, HeadCoverings_No_Hair }
     public enum FacialHair { Yes, No }
 
@@ -77,11 +77,11 @@ namespace PsychoticLab
         // reference to camera transform, used for rotation around the model during or after a randomization (this is sourced from Camera.main, so the main camera must be in the scene for this to work)
         Transform camHolder;
 
-		// cam rotation x
-		float x = 16;
+        // cam rotation x
+        float x = 16;
 
-		// cam rotation y
-		float y = -30;
+        // cam rotation y
+        float y = -30;
 
         // randomize character creating button
         void OnGUI()
@@ -135,7 +135,7 @@ namespace PsychoticLab
 
             // setting up the camera position, rotation, and reference for use
             Transform cam = Camera.main.transform;
-            if(cam)
+            if (cam)
             {
                 cam.position = transform.position + new Vector3(0, 0.3f, 2);
                 cam.rotation = Quaternion.Euler(0, -180, 0);

@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Enemy
   - UICamera
   layers:
   - Default
@@ -12,6 +13,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Enemy
+  - Boss
+  - Player
   - MainCamera
   - MinimapCamera
   - 

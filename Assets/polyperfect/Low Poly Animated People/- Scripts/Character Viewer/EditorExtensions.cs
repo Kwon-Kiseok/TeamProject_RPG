@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
-using System.IO;
-using System;
-using UnityEditor;
-using System.Reflection;
 
-public static class EditorExtensions {
+public static class EditorExtensions
+{
 
-	public static void SaveTexture(Sprite sprite, string path, string name)
+    public static void SaveTexture(Sprite sprite, string path, string name)
     {
         byte[] bytes = sprite.texture.EncodeToPNG();
         File.WriteAllBytes(path + "/" + name + ".png", bytes);

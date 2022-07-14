@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
-using System.Linq;
 
 namespace PolyPerfect
 {
@@ -57,7 +54,7 @@ namespace PolyPerfect
 
             //Main Image    
             GUILayout.BeginHorizontal();
-            if(GUILayout.Button(mainTexture))
+            if (GUILayout.Button(mainTexture))
             {
                 Application.OpenURL("https://assetstore.unity.com/?q=Polyperfect&orderBy=0");
             }
@@ -69,7 +66,7 @@ namespace PolyPerfect
             EditorGUILayout.PropertyField(stats);
 
 
-            if (GUILayout.Button("Show Animation States",GUILayout.MaxWidth(Screen.width - 30)))
+            if (GUILayout.Button("Show Animation States", GUILayout.MaxWidth(Screen.width - 30)))
             {
                 AnimationStates = !AnimationStates;
             }
@@ -141,7 +138,7 @@ namespace PolyPerfect
                 EditorGUILayout.PropertyField(surfaceRotationSpeed, true);
             }
 
-            if (GUILayout.Button("Show DEBUG Options",GUILayout.MaxWidth(Screen.width - 30)))
+            if (GUILayout.Button("Show DEBUG Options", GUILayout.MaxWidth(Screen.width - 30)))
             {
                 DEBUGToggle = !DEBUGToggle;
             }

@@ -1,9 +1,6 @@
-using System.Collections;
+using HOGUS.Scripts.DP;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-using HOGUS.Scripts.DP;
 
 namespace HOGUS.Scripts.Manager
 {
@@ -41,7 +38,7 @@ namespace HOGUS.Scripts.Manager
         {
             deltaTime = Time.deltaTime;
 
-            CheckEndGame();           
+            CheckEndGame();
 
             for (int i = 0; i < Instance.updatableObjects.Count; ++i)
             {
@@ -53,7 +50,7 @@ namespace HOGUS.Scripts.Manager
 
         public void RegisterUpdatableObject(IUpdatableObject @object)
         {
-            if(!Instance.updatableObjects.Contains(@object))
+            if (!Instance.updatableObjects.Contains(@object))
             {
                 Instance.updatableObjects.Add(@object);
             }
@@ -61,7 +58,7 @@ namespace HOGUS.Scripts.Manager
 
         public void DeregisterUpdatableObject(IUpdatableObject @object)
         {
-            if(Instance.updatableObjects.Contains(@object))
+            if (Instance.updatableObjects.Contains(@object))
             {
                 Instance.updatableObjects.Remove(@object);
             }

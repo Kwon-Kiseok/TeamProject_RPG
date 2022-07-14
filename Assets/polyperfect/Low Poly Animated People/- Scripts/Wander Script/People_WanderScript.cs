@@ -1,10 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
-
-#if UNITY_EDITOR
-using UnityEditor;
+﻿#if UNITY_EDITOR
 #endif
 
 namespace PolyPerfect
