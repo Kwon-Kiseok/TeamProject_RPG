@@ -7,7 +7,7 @@ using HOGUS.Scripts.DP;
 namespace HOGUS.Scripts.Object.Item
 {
     [CreateAssetMenu(fileName ="New JewelItem", menuName = "Scriptable Item Asset/Jewel Item")]
-    public class JewelItem : Decorator
+    public class JewelItem : BaseItem
     {
         [Header("추가 능력치")]
         public int additionalAbility;
@@ -18,19 +18,36 @@ namespace HOGUS.Scripts.Object.Item
         [Header("장착 유무")]
         public bool InsertSocket = false;
 
-        public JewelItem(WeaponItem weapon)
+        public JewelItem(JewelItem item) : base(item)
         {
-            this.equipment = weapon;
+            this.additionalAbility = item.additionalAbility;
+            this.optionDescription = item.optionDescription;
+            this.InsertSocket = item.InsertSocket;
         }
 
-        public override void ApplyAbility()
+        public void Attach(EquipmentItem equipment)
         {
+            if (!CheckAbleIntoSocket(equipment))
+                return;
+
+            equipment.ApplyAbility(this.additionalAbility);
+            SetDescription(equipment);
+            equipment.socket--;
             InsertSocket = true;
         }
 
-        public override string GetDescription()
+        private void SetDescription(EquipmentItem equipment)
         {
-            return $"{this.equipment.GetDescription()}\n{optionDescription}";
+            equipment.itemDescription = string.Format("{0}\n{1}", equipment.GetDescription() ,optionDescription);
+        }
+
+        private bool CheckAbleIntoSocket(EquipmentItem equipment)
+        {
+            if(equipment.socket > 0 || !InsertSocket)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

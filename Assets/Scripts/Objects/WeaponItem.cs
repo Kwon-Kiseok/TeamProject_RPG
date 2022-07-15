@@ -17,11 +17,20 @@ namespace HOGUS.Scripts.Object.Item
         public int maxDamage;
 
         [Header("공격속도")]
-        public int attackSpeed;
+        public float attackSpeed;
 
-        public override void ApplyAbility()
+        public WeaponItem(WeaponItem item) : base(item)
         {
-            // ??
+            type = item.type;
+            minDamage = item.minDamage;
+            maxDamage = item.maxDamage;
+            attackSpeed = item.attackSpeed;
+        }
+
+        public override void ApplyAbility(int add)
+        {
+            minDamage += add;
+            maxDamage += add;
         }
 
         public override string GetDescription()

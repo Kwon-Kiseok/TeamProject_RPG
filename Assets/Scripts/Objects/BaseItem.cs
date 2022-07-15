@@ -24,5 +24,15 @@ namespace HOGUS.Scripts.Object.Item
         [Header("아이템 크기")]
         public int itemWidth;
         public int itemHeight;
+
+        protected BaseItem(BaseItem item)
+        {
+            quality = item.quality;
+            rarity = item.rarity;
+            itemName = item.itemName;
+            itemDescription = item.itemDescription;
+            itemWidth = item.itemWidth;
+            itemHeight = item.itemHeight;
+        }
     }
 }

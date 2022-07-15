@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193c198d21bb7a94993a5098ac223396, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  quality: 0
+  rarity: 0
+  itemName: Sword
+  itemDescription: "\uD3C9\uBC94\uD55C \uAC80"
+  itemWidth: 1
+  itemHeight: 3
+  durability: 20
+  socket: 0
+  requireLevel: 0
+  requireStrength: 0
+  requireAgility: 0
+  type: 0
+  minDamage: 1
+  maxDamage: 3
+  attackSpeed: 1.2

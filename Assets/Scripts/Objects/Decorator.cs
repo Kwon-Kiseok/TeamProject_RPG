@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using HOGUS.Scripts.Object.Item;
-
 namespace HOGUS.Scripts.DP
 {
-    public abstract class Decorator : EquipmentItem
+    public abstract class Decorator
     {
-        protected EquipmentItem equipment = null;
     }
 }

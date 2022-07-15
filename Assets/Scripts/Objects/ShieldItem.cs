@@ -13,9 +13,15 @@ namespace HOGUS.Scripts.Object.Item
         [Header("¸·±â È®·ü")]
         public float blockChance;
 
-        public override void ApplyAbility()
+        public ShieldItem(ShieldItem item) : base(item)
         {
-            throw new System.NotImplementedException();
+            defense = item.defense;
+            blockChance = item.blockChance;
+        }
+
+        public override void ApplyAbility(int add)
+        {
+            defense += add;
         }
 
         public override string GetDescription()

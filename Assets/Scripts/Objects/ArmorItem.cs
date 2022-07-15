@@ -15,9 +15,15 @@ namespace HOGUS.Scripts.Object.Item
         [Header("¹æ¾î·Â")]
         public int defense;
 
-        public override void ApplyAbility()
+        public ArmorItem(ArmorItem item) : base(item)
         {
-            throw new System.NotImplementedException();
+            type = item.type;
+            defense = item.defense;
+        }
+
+        public override void ApplyAbility(int add)
+        {
+            defense += add;
         }
 
         public override string GetDescription()
