@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HOGUS.Scripts.Object.Item
 {
-    public class EquipmentItem : BaseItem
+    public abstract class EquipmentItem : BaseItem
     {
         [Header("³»±¸µµ")]
         public int durability;
@@ -16,5 +16,19 @@ namespace HOGUS.Scripts.Object.Item
         public int requireLevel;
         public int requireStrength;
         public int requireAgility;
+
+        protected void CopyValue(EquipmentItem item)
+        {
+            base.CopyValue(item);
+
+            this.durability = item.durability;
+            this.socket = item.socket;
+            this.requireLevel = item.requireLevel;
+            this.requireStrength = item.requireStrength;
+            this.requireAgility = item.requireAgility;
+        }
+
+        public abstract string GetDescription();
+        public abstract void ApplyAbility(int add);
     }
 }
