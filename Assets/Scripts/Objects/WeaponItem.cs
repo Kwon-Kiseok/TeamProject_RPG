@@ -9,6 +9,9 @@ namespace HOGUS.Scripts.Object.Item
     [CreateAssetMenu(fileName ="New WeaponItem", menuName = "Scriptable Item Asset/Weapon Item")]
     public class WeaponItem : EquipmentItem
     {
+        [Header("무기 프리팹 Address")]
+        public string refAddress;
+
         [Header("무기 종류")]
         public WeaponType type;
 
@@ -19,8 +22,11 @@ namespace HOGUS.Scripts.Object.Item
         [Header("공격속도")]
         public float attackSpeed;
 
-        public WeaponItem(WeaponItem item) : base(item)
+        public void CopyValue(WeaponItem item)
         {
+            base.CopyValue(item);
+
+            refAddress = item.refAddress;
             type = item.type;
             minDamage = item.minDamage;
             maxDamage = item.maxDamage;

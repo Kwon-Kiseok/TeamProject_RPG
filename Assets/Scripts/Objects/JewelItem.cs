@@ -18,8 +18,9 @@ namespace HOGUS.Scripts.Object.Item
         [Header("ÀåÂø À¯¹«")]
         public bool InsertSocket = false;
 
-        public JewelItem(JewelItem item) : base(item)
+        public void CopyValue(JewelItem item)
         {
+            base.CopyValue(item);
             this.additionalAbility = item.additionalAbility;
             this.optionDescription = item.optionDescription;
             this.InsertSocket = item.InsertSocket;
@@ -43,7 +44,7 @@ namespace HOGUS.Scripts.Object.Item
 
         private bool CheckAbleIntoSocket(EquipmentItem equipment)
         {
-            if(equipment.socket > 0 || !InsertSocket)
+            if(equipment.socket > 0 && !InsertSocket)
             {
                 return true;
             }

@@ -25,7 +25,7 @@ namespace HOGUS.Scripts.Object.Item
         public int itemWidth;
         public int itemHeight;
 
-        protected BaseItem(BaseItem item)
+        protected void CopyValue(BaseItem item)
         {
             quality = item.quality;
             rarity = item.rarity;

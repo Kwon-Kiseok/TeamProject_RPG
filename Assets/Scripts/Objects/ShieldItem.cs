@@ -13,8 +13,9 @@ namespace HOGUS.Scripts.Object.Item
         [Header("¸·±â È®·ü")]
         public float blockChance;
 
-        public ShieldItem(ShieldItem item) : base(item)
+        public void CopyValue(ShieldItem item)
         {
+            base.CopyValue(item);
             defense = item.defense;
             blockChance = item.blockChance;
         }

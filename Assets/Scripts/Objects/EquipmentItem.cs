@@ -17,8 +17,10 @@ namespace HOGUS.Scripts.Object.Item
         public int requireStrength;
         public int requireAgility;
 
-        protected EquipmentItem(EquipmentItem item) : base(item)
+        protected void CopyValue(EquipmentItem item)
         {
+            base.CopyValue(item);
+
             this.durability = item.durability;
             this.socket = item.socket;
             this.requireLevel = item.requireLevel;

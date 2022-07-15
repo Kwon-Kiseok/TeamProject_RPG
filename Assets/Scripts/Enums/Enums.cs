@@ -60,6 +60,17 @@ namespace HOGUS.Scripts.Enums
         Damaged,
         Die
     }
+
+    public enum EquipPart
+    {
+        HELM,
+        ARMOR,
+        GLOVE,
+        BELT,
+        BOOTS,
+        WEAPON,
+        SHIELD
+    }
     #endregion
     #region Enemy
     public enum EnemyState
