@@ -12,5 +12,22 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("¸·±â È®·ü")]
         public float blockChance;
+
+        public void CopyValue(ShieldItem item)
+        {
+            base.CopyValue(item);
+            defense = item.defense;
+            blockChance = item.blockChance;
+        }
+
+        public override void ApplyAbility(int add)
+        {
+            defense += add;
+        }
+
+        public override string GetDescription()
+        {
+            return this.itemDescription;
+        }
     }
 }

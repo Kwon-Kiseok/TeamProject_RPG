@@ -14,5 +14,23 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("¹æ¾î·Â")]
         public int defense;
+
+        public void CopyValue(ArmorItem item)
+        {
+            base.CopyValue(item);
+
+            type = item.type;
+            defense = item.defense;
+        }
+
+        public override void ApplyAbility(int add)
+        {
+            defense += add;
+        }
+
+        public override string GetDescription()
+        {
+            return this.itemDescription;
+        }
     }
 }
