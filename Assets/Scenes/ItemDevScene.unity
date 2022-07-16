@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 108658472}
   - component: {fileID: 108658471}
   - component: {fileID: 108658473}
+  - component: {fileID: 108658474}
   m_Layer: 0
   m_Name: Testsword
   m_TagString: Untagged
@@ -250,6 +251,13 @@ MonoBehaviour:
   weaponPrefab: {fileID: 11400000, guid: 8151a6ab0d7dd554d8ba53d2e0b7ddcb, type: 2}
   jewelPrefab: {fileID: 11400000, guid: 50b5030395843af4799e5772db2c4df4, type: 2}
   weaponEquipPos: {fileID: 1087235122}
+  equipedDefense: 0
+  equipedDodgeChance: 0
+  resMinDamage: 0
+  resMaxDamage: 0
+  resDefense: 0
+  resDodgeChance: 0
+  resAttackSpeed: 0
   testerDataUI: {fileID: 1725647270}
 --- !u!4 &108658472
 Transform:
@@ -280,6 +288,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tester: {fileID: 108658471}
+  equipWeapon: {fileID: 0}
+  equipShield: {fileID: 0}
+--- !u!114 &108658474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108658470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f84dcb3da4ebe849b57031ce906cb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  maxHP: 100
+  currHP: 100
+  minDamage: 5
+  maxDamage: 10
+  defense: 3
+  dodgeChance: 20
+  speed: 5
+  attackSpeed: 1.2
+  exp: 0
+  gold: 0
 --- !u!1 &708545212
 GameObject:
   m_ObjectHideFlags: 0

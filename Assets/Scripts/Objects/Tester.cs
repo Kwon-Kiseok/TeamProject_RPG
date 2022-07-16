@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using HOGUS.Scripts.Data;
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.Object.Item;
@@ -24,11 +25,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
 
     #region base stat
     // 캐릭터의 기본 스탯은 고유
-    public int minDamage = 0;
-    public int maxDamage = 0;
-    public int defense = 0;
-    public float dodgeChance = 0f;
-    public float attackSpeed = 0f;
+    PlayerStat stat;
     #endregion
 
     #region current equipments stat
@@ -64,6 +61,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
     private void Awake()
     {
         equipmentSystem = GetComponent<EquipmentSystem>();
+        stat = GetComponent<PlayerStat>();
     }
 
     public void OnFixedUpdate()
@@ -131,18 +129,18 @@ public class Tester : MonoBehaviour, IUpdatableObject
         // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
         if (equipmentSystem.equipWeapon == null)
         {
-            resMinDamage = minDamage;
-            resMaxDamage = maxDamage;
-            resAttackSpeed = attackSpeed;
+            resMinDamage = stat.MinDamage;
+            resMaxDamage = stat.MaxDamage;
+            resAttackSpeed = stat.AttackSpeed;
         }
         // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
         else
         {
-            resMinDamage = minDamage + equipmentSystem.equipWeapon.minDamage;
-            resMaxDamage = maxDamage + equipmentSystem.equipWeapon.maxDamage;
-            resAttackSpeed = attackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+            resMinDamage = stat.MinDamage + equipmentSystem.equipWeapon.minDamage;
+            resMaxDamage = stat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
+            resAttackSpeed = stat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
         }
-        resDefense = defense + equipedDefense;
-        resDodgeChance = dodgeChance + equipedDodgeChance;
+        resDefense = stat.Defense + equipedDefense;
+        resDodgeChance = stat.DodgeChance + equipedDodgeChance;
     }
 }
