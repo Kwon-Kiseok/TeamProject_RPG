@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - UICamera
+  - Skill
   layers:
   - Default
   - TransparentFX
@@ -18,12 +19,9 @@ TagManager:
   - Player
   - MainCamera
   - MinimapCamera
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Skill
+  - Wall
+  - Weapon
   - 
   - 
   - 
