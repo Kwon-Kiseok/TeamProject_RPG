@@ -73,7 +73,6 @@ namespace HOGUS.Scripts.Character
             }
             Movement();
             stateMachine.DoStateUpdate();
-            Debug.Log(stateMachine.CurrentState);
         }
 
         public void OnUpdate(float deltaTime)

@@ -8,6 +8,7 @@ using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Interface;
 
+
 public class FPS_Check : MonoBehaviour, IUpdatableObject
 {
     float deltaTime = 0.0f;

@@ -81,6 +81,13 @@ namespace HOGUS.Scripts.Enums
         Damaged,
         Die
     }
+    public enum Status
+    {
+        Idle,
+        Trace,
+        Attack,
+        GameOver,
+    }
     #endregion
     #region Boss
     public enum BossState
