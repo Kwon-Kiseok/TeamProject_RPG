@@ -17,8 +17,10 @@ namespace HOGUS.Scripts.CustomSystem
         public Tester tester;
         private GameObject weaponGO;
 
+        public WeaponItem equipWeapon;
+        public ShieldItem equipShield;
         // 장비 아이템 장착 상태를 나타내는 딕셔너리
-        public Dictionary<EquipPart, EquipmentItem> dictEquipmets = new();
+        public Dictionary<EquipPart, ArmorItem> dictEquipmets = new();
 
         /// <summary>
         /// 방어구 아이템 장착 함수
@@ -28,14 +30,13 @@ namespace HOGUS.Scripts.CustomSystem
             // 현재 해당 부위를 장착하고 있다면 장착 해제 후 교환
             if (dictEquipmets.ContainsKey(part))
             {
-                dictEquipmets.Remove(part);
+                DoUnequip(part);
             }
             else
             {
-                tester.defense += armorItem.defense;
+                tester.equipedDefense += armorItem.defense;
             }
             dictEquipmets.Add(part, armorItem);
-
         }
 
         /// <summary>
@@ -43,22 +44,16 @@ namespace HOGUS.Scripts.CustomSystem
         /// </summary>
         public void DoEquip(EquipPart part, WeaponItem weaponItem)
         {
-            if (dictEquipmets.ContainsKey(part))
+            if (equipWeapon != null)
             {
-                dictEquipmets.Remove(part);
-                Destroy(weaponGO);
+                DoUnequip(part);
             }
-            else
-            {
-                tester.minDamage += weaponItem.minDamage;
-                tester.maxDamage += weaponItem.maxDamage;
-                tester.attackSpeed += weaponItem.attackSpeed;
-            }
-            dictEquipmets.Add(part, weaponItem);
+            
+            equipWeapon = weaponItem;
 
             if (part == EquipPart.WEAPON)
             {
-                WeaponItem weaponPart = (WeaponItem)dictEquipmets[part];
+                WeaponItem weaponPart = equipWeapon;
                 AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(weaponPart.refAddress);
                 handle.Completed += AsyncOperationHandle_Complete;
             }
@@ -69,18 +64,22 @@ namespace HOGUS.Scripts.CustomSystem
         /// </summary>
         public void DoUnequip(EquipPart part)
         {
-            if(dictEquipmets.ContainsKey(part))
-            {
-                dictEquipmets.Remove(part);
-            }
-
             if(part == EquipPart.WEAPON)
             {
+                // 인벤토리 구현 후 장착 무기 해제시 
+                // 정보 저장해서 인벤토리에 넣기
+                equipWeapon = null;
                 if(weaponGO != null)
                 {
                     Destroy(weaponGO);
                 }
             }
+            else
+            {
+                tester.equipedDefense -= dictEquipmets[part].defense;
+                dictEquipmets.Remove(part);
+            }
+
         }
 
         private void AsyncOperationHandle_Complete(AsyncOperationHandle<GameObject> handle)

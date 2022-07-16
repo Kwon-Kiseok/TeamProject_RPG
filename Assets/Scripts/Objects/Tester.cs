@@ -22,12 +22,30 @@ public class Tester : MonoBehaviour, IUpdatableObject
     //
     private JewelItem hasJewel;
 
-    // tester stat
-    public int minDamage;
-    public int maxDamage;
-    public int defense;
-    public float dodgeChance;
-    public float attackSpeed;
+    #region base stat
+    // 캐릭터의 기본 스탯은 고유
+    public int minDamage = 0;
+    public int maxDamage = 0;
+    public int defense = 0;
+    public float dodgeChance = 0f;
+    public float attackSpeed = 0f;
+    #endregion
+
+    #region current equipments stat
+    // 캐릭터가 장착하고 있는 장비들의 스탯은 별도로
+    public int equipedDefense = 0;
+
+    public float equipedDodgeChance = 0f;
+    #endregion
+
+    #region result stat
+    // 캐릭터의 기본 스탯은 고유
+    public int resMinDamage = 0;
+    public int resMaxDamage = 0;
+    public int resDefense = 0;
+    public float resDodgeChance = 0f;
+    public float resAttackSpeed = 0f;
+    #endregion
 
     //
     public TextMeshProUGUI testerDataUI;
@@ -50,9 +68,9 @@ public class Tester : MonoBehaviour, IUpdatableObject
 
     public void OnFixedUpdate()
     {
-        if (equipmentSystem.dictEquipmets.ContainsKey(EquipPart.WEAPON))
+        if (equipmentSystem.equipWeapon != null)
         {
-            WeaponItem weaponPart = (WeaponItem)equipmentSystem.dictEquipmets[EquipPart.WEAPON];
+            WeaponItem weaponPart = equipmentSystem.equipWeapon;
 
             if (weaponPart != null)
             {
@@ -72,12 +90,16 @@ public class Tester : MonoBehaviour, IUpdatableObject
             var weapon = ScriptableObject.CreateInstance<WeaponItem>();
             weapon.CopyValue(weaponPrefab);
             equipmentSystem.DoEquip(EquipPart.WEAPON, weapon);
+
+            UpdateStat();
         }
         // 무기 해제 테스트
         else if(Input.GetKeyDown(KeyCode.U))
         {
             equipmentSystem.DoUnequip(EquipPart.WEAPON);
             testerDataUI.text = null;
+
+            UpdateStat();
         }
         // 보석 삽입 테스트 
         else if(Input.GetKeyDown(KeyCode.R))
@@ -87,18 +109,40 @@ public class Tester : MonoBehaviour, IUpdatableObject
                 hasJewel = ScriptableObject.CreateInstance<JewelItem>();
                 hasJewel.CopyValue(jewelPrefab);
             }
-            hasJewel.Attach(equipmentSystem.dictEquipmets[EquipPart.WEAPON]);
+            hasJewel.Attach(equipmentSystem.equipWeapon);
 
             hasJewel = null;
+
+            UpdateStat();
         }
         else if(Input.GetKeyDown(KeyCode.Space))
-        {
+        {            
             // 로그 재확인
-            Debug.Log(string.Format("{0}, {1}, {2}, {3]", minDamage, maxDamage, defense, attackSpeed));
+            Debug.Log(resMinDamage+", "+ resMaxDamage);
         }
     }
 
     public void OnUpdate(float deltaTime)
     {
+    }
+
+    private void UpdateStat()
+    {
+        // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
+        if (equipmentSystem.equipWeapon == null)
+        {
+            resMinDamage = minDamage;
+            resMaxDamage = maxDamage;
+            resAttackSpeed = attackSpeed;
+        }
+        // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
+        else
+        {
+            resMinDamage = minDamage + equipmentSystem.equipWeapon.minDamage;
+            resMaxDamage = maxDamage + equipmentSystem.equipWeapon.maxDamage;
+            resAttackSpeed = attackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+        }
+        resDefense = defense + equipedDefense;
+        resDodgeChance = dodgeChance + equipedDodgeChance;
     }
 }
