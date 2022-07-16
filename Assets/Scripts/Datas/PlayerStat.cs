@@ -20,5 +20,14 @@ namespace HOGUS.Scripts.Data
         public int Gold { get { return gold; } set { gold = value; } }
 
         #endregion
+
+#if UNITY_EDITOR
+        public void PrintDebugStat()
+        {
+            Debug.Log($"level: {level}\nmaxHP: {maxHP}\ncurrHP: {currHP}\nminDamage: {minDamage}\n" +
+                $"maxDamage: {maxDamage}\ndefense: {defense}\ndodgeChance: {dodgeChance}\nspeed: {speed}\n" +
+                $"attackSpeed: {attackSpeed}\nexp: {exp}\ngole: {gold}");
+        }
     }
+#endif
 }

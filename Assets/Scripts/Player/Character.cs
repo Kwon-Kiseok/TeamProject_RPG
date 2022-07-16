@@ -37,8 +37,7 @@ namespace HOGUS.Scripts.Character
                 UpdateManager.Instance.DeregisterUpdatableObject(this);
         }
 
-        public abstract void OnFixedUpdate();
-        public abstract void OnUpdate();
+        public abstract void OnFixedUpdate(float deltaTime);
         public abstract void OnUpdate(float deltaTime);
         #endregion
 
@@ -49,7 +48,7 @@ namespace HOGUS.Scripts.Character
         }
 
         #region Base Function
-        public abstract void Move();    // 이동 함수
+        public abstract void Move(float deltaTime);    // 이동 함수
         #endregion
     }
 }

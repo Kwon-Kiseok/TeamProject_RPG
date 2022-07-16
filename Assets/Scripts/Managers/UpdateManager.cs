@@ -8,8 +8,7 @@ namespace HOGUS.Scripts.Manager
     {
         void OnEnable();
         void OnDisable();
-        void OnFixedUpdate();
-        void OnUpdate();
+        void OnFixedUpdate(float deltaTime);
         void OnUpdate(float deltaTime);
     }
 
@@ -26,17 +25,19 @@ namespace HOGUS.Scripts.Manager
         // FixedUpdate
         private void FixedUpdate()
         {
+            var deltaTime = Time.deltaTime;
+
             for (int i = 0; i < Instance.updatableObjects.Count; ++i)
             {
                 // updatableObjects로 등록된 객체들의 고정업데이트를 수행해줌
-                Instance.updatableObjects[i].OnFixedUpdate();
+                Instance.updatableObjects[i].OnFixedUpdate(deltaTime);
             }
         }
 
         // Update
         private void Update()
         {
-            deltaTime = Time.deltaTime;
+            var deltaTime = Time.deltaTime;
 
             CheckEndGame();
 
@@ -44,7 +45,6 @@ namespace HOGUS.Scripts.Manager
             {
                 // updatableObjects로 등록된 객체들의 업데이트를 수행해줌
                 Instance.updatableObjects[i].OnUpdate(deltaTime);
-                Instance.updatableObjects[i].OnUpdate();
             }
         }
 

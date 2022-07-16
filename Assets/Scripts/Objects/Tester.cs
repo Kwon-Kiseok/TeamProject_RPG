@@ -6,11 +6,11 @@ using TMPro;
 
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.Enums;
-using HOGUS.Scripts.Manager;
+using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Object.Item;
 using HOGUS.Scripts.CustomSystem;
 
-public class Tester : MonoBehaviour, IUpdatableObject
+public class Tester : Character
 {
     //
     public WeaponItem weaponPrefab;
@@ -47,24 +47,13 @@ public class Tester : MonoBehaviour, IUpdatableObject
     //
     public TextMeshProUGUI testerDataUI;
 
-    public void OnDisable()
-    {
-        if(UpdateManager.Instance != null)
-            UpdateManager.Instance.DeregisterUpdatableObject(this);
-    }
-
-    public void OnEnable()
-    {
-        UpdateManager.Instance.RegisterUpdatableObject(this);
-    }
-
     private void Awake()
     {
         equipmentSystem = GetComponent<EquipmentSystem>();
         stat = GetComponent<PlayerStat>();
     }
 
-    public void OnFixedUpdate()
+    public override void OnFixedUpdate(float deltaTime)
     {
         if (equipmentSystem.equipWeapon != null)
         {
@@ -80,10 +69,12 @@ public class Tester : MonoBehaviour, IUpdatableObject
         }
     }
 
-    public void OnUpdate()
+    public override void OnUpdate(float deltaTime)
     {
+        Move(deltaTime);
+
         // 무기 장착 테스트
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             var weapon = ScriptableObject.CreateInstance<WeaponItem>();
             weapon.CopyValue(weaponPrefab);
@@ -92,7 +83,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
             UpdateStat();
         }
         // 무기 해제 테스트
-        else if(Input.GetKeyDown(KeyCode.U))
+        else if (Input.GetKeyDown(KeyCode.U))
         {
             equipmentSystem.DoUnequip(EquipPart.WEAPON);
             testerDataUI.text = null;
@@ -100,7 +91,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
             UpdateStat();
         }
         // 보석 삽입 테스트 
-        else if(Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             if (hasJewel == null)
             {
@@ -113,15 +104,11 @@ public class Tester : MonoBehaviour, IUpdatableObject
 
             UpdateStat();
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {            
-            // 로그 재확인
-            Debug.Log(resMinDamage+", "+ resMaxDamage);
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stat.PrintDebugStat();
+            Debug.Log(resMinDamage + ", " + resMaxDamage);
         }
-    }
-
-    public void OnUpdate(float deltaTime)
-    {
     }
 
     private void UpdateStat()
@@ -142,5 +129,10 @@ public class Tester : MonoBehaviour, IUpdatableObject
         }
         resDefense = stat.Defense + equipedDefense;
         resDodgeChance = stat.DodgeChance + equipedDodgeChance;
+    }
+
+    public override void Move(float deltaTime)
+    {
+        transform.position += stat.Speed * deltaTime * moveDir;
     }
 }
