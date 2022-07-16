@@ -5,14 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 
 
-using HOGUS.Scripts.Manager;
-
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Interface;
 using HOGUS.Scripts.Manager;
-using System.Collections.Generic;
-using UnityEngine;
-
 
 public class FPS_Check : MonoBehaviour, IUpdatableObject
 {

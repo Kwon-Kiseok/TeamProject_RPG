@@ -1,3 +1,4 @@
+using UnityEngine;
 using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Interface;
 using HOGUS.Scripts.Enums;
@@ -5,8 +6,9 @@ namespace HOGUS.Scripts.State
 {
     public class EnemyStateBaseAttack : IState
     {
-        private HandMonster enemy;
-        public EnemyStateBaseAttack(HandMonster e)
+        private MonsterController enemy;
+        private TestPlayer player;
+        public EnemyStateBaseAttack(MonsterController e)
         {
             enemy = e;
         }
@@ -16,7 +18,7 @@ namespace HOGUS.Scripts.State
         }
         public void StateUpdate()
         {
-
+            
         }
         public void StateExit()
         {
