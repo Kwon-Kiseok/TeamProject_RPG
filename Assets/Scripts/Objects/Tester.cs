@@ -17,6 +17,7 @@ public class Tester : Character
     public JewelItem jewelPrefab;
 
     //
+    public Joystick joystick;
     private EquipmentSystem equipmentSystem;
     public Transform weaponEquipPos;
 
@@ -134,5 +135,13 @@ public class Tester : Character
     public override void Move(float deltaTime)
     {
         transform.position += stat.Speed * deltaTime * moveDir;
+    }
+
+    public override void Attack(float deltaTime)
+    {
+    }
+
+    public override void Die()
+    {
     }
 }

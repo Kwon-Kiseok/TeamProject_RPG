@@ -49,6 +49,8 @@ namespace HOGUS.Scripts.Character
 
         #region Base Function
         public abstract void Move(float deltaTime);    // 이동 함수
+        public abstract void Attack(float deltaTime);  // 공격 함수
+        public abstract void Die();                    // 사망 함수
         #endregion
     }
 }

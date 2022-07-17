@@ -17,11 +17,6 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     private Vector2 direction;
 
-    private void Awake()
-    {
-
-    }
-
     private void Start()
     {
         rectTr = GetComponent<RectTransform>();

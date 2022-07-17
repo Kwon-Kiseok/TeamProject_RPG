@@ -214,7 +214,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1a66284f93ee5da4faa156902261b154
-    m_Address: Assets/PolygonFantasyHeroCharacters/Prefabs/Weapons/SM_Wep_Sword_Rapier_01.prefab
+    m_Address: Weapons/SwordRapier
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: dab4d3bfd0f0a6f4aa5249c2d0fce6e3
