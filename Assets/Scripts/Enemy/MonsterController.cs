@@ -111,12 +111,12 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        public void OnFixedUpdate()
+        public void OnFixedUpdate(float deltaTime)
         {
 
         }
 
-        public void OnUpdate()
+        public void OnUpdate(float deltaTime)
         {
             ChasePlayer();
             switch (currentStatus)
@@ -132,11 +132,6 @@ namespace HOGUS.Scripts.Character
                     UpdateAttack();
                     break;
             }
-        }
-
-        public void OnUpdate(float deltaTime)
-        {
-
         }
 
         public void LookTarget()
