@@ -5,9 +5,13 @@ public class ExpBarController : MonoBehaviour
 {
     public Slider ExpSlider;
     // Start is called before the first frame update
+    
+    private Player player;
+
     void Start()
     {
         ExpSlider = GetComponent<Slider>();
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -19,6 +23,7 @@ public class ExpBarController : MonoBehaviour
         {
             Debug.Log("Level UP");
 
+            player.player_Lv++;
             ExpSlider.value = 0;
             ExpSlider.maxValue += 100;
         }

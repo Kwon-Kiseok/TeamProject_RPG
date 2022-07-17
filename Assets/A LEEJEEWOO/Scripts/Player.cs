@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
     public SkillBtn dashing;
     public SkillBtn comboing;
     public SkillBtn healing;
+
+    public float player_Lv = 1f;
 
     private void Awake()
     {
