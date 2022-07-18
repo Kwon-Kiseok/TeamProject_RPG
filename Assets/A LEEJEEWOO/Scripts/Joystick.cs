@@ -15,10 +15,13 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
     [SerializeField]
     private Vector2 direction;
 
+    private Vector3 originalPos;
+
     private void Start()
     {
         leverBackTr = GetComponent<RectTransform>();
         radius = leverBackTr.rect.width * 0.2f;
+
     }
 
     public float GetAxis(string axis)
@@ -55,13 +58,20 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (originalPos == Vector3.zero)
+        {
+            originalPos = leverTr.position;
+        }
+
         ControlJoyStickLever(eventData);
+
+        Debug.Log(eventData.position.x);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         direction = Vector2.zero;
-        leverTr.anchoredPosition = Vector2.zero;
+        leverTr.position = originalPos;
     }
 
     public void DodgeButton()
@@ -71,7 +81,13 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     private void ControlJoyStickLever(PointerEventData eventData)
     {
-        direction = eventData.position - leverBackTr.anchoredPosition;
-        leverTr.anchoredPosition = direction.magnitude < radius ? direction : direction.normalized * radius;
+        var canvas = GetComponentInParent<Canvas>();
+        Vector3 screenPos = eventData.position;
+        screenPos.z = Mathf.Abs(canvas.worldCamera.transform.position.z - leverTr.position.z);
+        var worldPos = canvas.worldCamera.ScreenToWorldPoint(screenPos);
+        // direction 방향 수정해야 함
+        direction = screenPos - originalPos;
+
+        leverTr.position = worldPos;
     }
 }

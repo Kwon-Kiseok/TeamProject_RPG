@@ -60,12 +60,12 @@ public class SkillBtn : MonoBehaviour
             buttonGO.GetComponent<Button>().enabled = false;
 
             skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime1");
+            StartCoroutine("Cooltime");
 
             currentCoolTime = coolTime;
             coolTimeCounter.text = "" + currentCoolTime;
 
-            StartCoroutine("CoolTimeCounter1");
+            StartCoroutine("CoolTimeCounter");
         }
         else
         {
@@ -81,12 +81,12 @@ public class SkillBtn : MonoBehaviour
             buttonGO.GetComponent<Button>().enabled = false;
 
             skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime2");
+            StartCoroutine("Cooltime");
 
             currentCoolTime = coolTime;
             coolTimeCounter.text = "" + currentCoolTime;
 
-            StartCoroutine("CoolTimeCounter2");
+            StartCoroutine("CoolTimeCounter");
         }
         else
         {
@@ -102,12 +102,12 @@ public class SkillBtn : MonoBehaviour
             buttonGO.GetComponent<Button>().enabled = false;
 
             skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime3");
+            StartCoroutine("Cooltime");
 
             currentCoolTime = coolTime;
             coolTimeCounter.text = "" + currentCoolTime;
 
-            StartCoroutine("CoolTimeCounter3");
+            StartCoroutine("CoolTimeCounter");
         }
         else
         {
@@ -135,7 +135,7 @@ public class SkillBtn : MonoBehaviour
     {
         while(currentCoolTime > 0)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(coolTime);
 
             currentCoolTime -= 1.0f;
             coolTimeCounter.text = "" + currentCoolTime;
