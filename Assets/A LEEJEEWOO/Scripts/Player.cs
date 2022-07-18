@@ -37,6 +37,8 @@ public class Player : Character
     public SkillBtn comboing;
     public SkillBtn healing;
 
+    public float player_Lv = 1f;
+
     private void Awake()
     {
         isSkill = false;
