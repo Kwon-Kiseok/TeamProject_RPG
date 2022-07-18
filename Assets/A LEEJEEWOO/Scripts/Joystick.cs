@@ -6,21 +6,22 @@ using UnityEngine.EventSystems;
 
 public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 {
-    public Image point;
-
-    public float radius;
+    private RectTransform leverBackTr;
+    public RectTransform leverTr;
+    private float radius;
 
     public Player player;
 
-    private Vector2 originalPoint = Vector2.zero;
-    private RectTransform rectTr;
-
+    [SerializeField]
     private Vector2 direction;
+
+    private Vector3 originalPos;
 
     private void Start()
     {
-        rectTr = GetComponent<RectTransform>();
-        originalPoint = rectTr.position;
+        leverBackTr = GetComponent<RectTransform>();
+        radius = leverBackTr.rect.width * 0.2f;
+
     }
 
     public float GetAxis(string axis)
@@ -57,25 +58,36 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        var newPos = eventData.position;
-        direction = newPos - originalPoint;
-
-        if (direction.magnitude > radius)
+        if (originalPos == Vector3.zero)
         {
-            newPos = originalPoint + direction.normalized * radius;
+            originalPos = leverTr.position;
         }
 
-        point.rectTransform.position = newPos;
+        ControlJoyStickLever(eventData);
+
+        Debug.Log(eventData.position.x);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         direction = Vector2.zero;
-        point.rectTransform.position = originalPoint;
+        leverTr.position = originalPos;
     }
 
     public void DodgeButton()
     {
         player.Dodge();
+    }
+
+    private void ControlJoyStickLever(PointerEventData eventData)
+    {
+        var canvas = GetComponentInParent<Canvas>();
+        Vector3 screenPos = eventData.position;
+        screenPos.z = Mathf.Abs(canvas.worldCamera.transform.position.z - leverTr.position.z);
+        var worldPos = canvas.worldCamera.ScreenToWorldPoint(screenPos);
+        // direction 방향 수정해야 함
+        direction = screenPos - originalPos;
+
+        leverTr.position = worldPos;
     }
 }

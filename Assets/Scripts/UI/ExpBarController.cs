@@ -4,28 +4,23 @@ using UnityEngine.UI;
 public class ExpBarController : MonoBehaviour
 {
     public Slider ExpSlider;
-    // Start is called before the first frame update
-    
-    private Player player;
+    public Player player;
 
     void Start()
     {
         ExpSlider = GetComponent<Slider>();
-        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ExpSlider.value += Time.deltaTime;
+        player.GetStat().CurrentEXP += Time.deltaTime * 10;
+        ExpSlider.value = player.GetStat().CurrentEXP / player.GetStat().EXP;
 
-        if (ExpSlider.value >= 100)
+        if (ExpSlider.value >= 1)
         {
-            Debug.Log("Level UP");
-
-            player.player_Lv++;
+            player.LevelUp();
             ExpSlider.value = 0;
-            ExpSlider.maxValue += 100;
         }
     }
 }

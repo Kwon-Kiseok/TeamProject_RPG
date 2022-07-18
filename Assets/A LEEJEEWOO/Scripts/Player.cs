@@ -14,6 +14,7 @@ public class Player : Character
 {
     public Joystick joy;
     PlayerStat stat;
+    PlayerStat baseStat;
 
     public WeaponItem weaponPrefab;
     private EquipmentSystem equipmentSystem;
@@ -32,12 +33,10 @@ public class Player : Character
     //public GameObject comboPTC;
     //public GameObject hillPTC;
 
-    public SkillBtn roading;
-    public SkillBtn dashing;
-    public SkillBtn comboing;
-    public SkillBtn healing;
-
-    public float player_Lv = 1f;
+    public SkillBtn magicSkill;
+    public SkillBtn dodgeSkill;
+    public SkillBtn combatSkill;
+    public SkillBtn buffSkill;
 
     private void Awake()
     {
@@ -45,6 +44,8 @@ public class Player : Character
         //comboPTC.gameObject.SetActive(false);
         //hillPTC.gameObject.SetActive(false);
         stat = GetComponent<PlayerStat>();
+        baseStat = new(stat);
+
         equipmentSystem = GetComponent<EquipmentSystem>();
     }
 
@@ -60,6 +61,19 @@ public class Player : Character
         transform.position += stat.Speed * deltaTime * moveDir;
     }
 
+    public PlayerStat GetStat()
+    {
+        return stat;
+    }
+
+    public void LevelUp()
+    {
+        Debug.Log("Player Level UP" + stat.Level);
+        stat.Level += 1;
+        stat.CurrentEXP = 0;
+        stat.EXP += 100;
+    }
+
     void GetInput()
     {
         if (!isSkill)
@@ -71,7 +85,6 @@ public class Player : Character
         {
             moveDir = new Vector3(0, 0, 0);
         }
-        InputWeaponKey();
     }
 
     void Turn()
@@ -81,7 +94,7 @@ public class Player : Character
 
     public void Dodge()
     {    
-        if (dashing.dash && moveDir != Vector3.zero)
+        if (dodgeSkill.dash && moveDir != Vector3.zero)
         {
             stat.Speed *= 2f;
             animator.SetTrigger("doDodge");
@@ -99,7 +112,7 @@ public class Player : Character
         isSkill = true;
         //comboPTC.gameObject.SetActive(true);
         
-        if (comboing.combo && isSkill)
+        if (combatSkill.combo && isSkill)
         {
             animator.SetTrigger("doAttack");
             //comboPTC.gameObject.SetActive(true);
@@ -110,7 +123,7 @@ public class Player : Character
     {
         isSkill = true;
         
-        if (roading.cool && isSkill)
+        if (magicSkill.cool && isSkill)
         {
             animator.SetTrigger("doMasic");
 
@@ -126,7 +139,7 @@ public class Player : Character
         isSkill = true;
         //hillPTC.gameObject.SetActive(true);
         
-        if (healing.heal && isSkill)
+        if (buffSkill.heal && isSkill)
         {            
             animator.SetTrigger("doHeal");
             //hillPTC.gameObject.SetActive(true);
@@ -165,9 +178,9 @@ public class Player : Character
     {
     }
 
-    private void InputWeaponKey()
+    public void TestEquip()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (equipmentSystem.equipWeapon == null)
         {
             var weapon = ScriptableObject.CreateInstance<WeaponItem>();
             weapon.CopyValue(weaponPrefab);
@@ -175,8 +188,7 @@ public class Player : Character
 
             UpdateStat();
         }
-        // 무기 해제 테스트
-        else if (Input.GetKeyDown(KeyCode.U))
+        else
         {
             equipmentSystem.DoUnequip(EquipPart.WEAPON);
 
@@ -186,21 +198,19 @@ public class Player : Character
 
     private void UpdateStat()
     {
-        //// 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
-        //if (equipmentSystem.equipWeapon == null)
-        //{
-        //    resMinDamage = stat.MinDamage;
-        //    resMaxDamage = stat.MaxDamage;
-        //    resAttackSpeed = stat.AttackSpeed;
-        //}
-        //// 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
-        //else
-        //{
-        //    resMinDamage = stat.MinDamage + equipmentSystem.equipWeapon.minDamage;
-        //    resMaxDamage = stat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
-        //    resAttackSpeed = stat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
-        //}
-        //resDefense = stat.Defense + equipedDefense;
-        //resDodgeChance = stat.DodgeChance + equipedDodgeChance;
+        // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
+        if (equipmentSystem.equipWeapon == null)
+        {
+            stat.MinDamage = baseStat.MinDamage;
+            stat.MaxDamage = baseStat.MaxDamage;
+            stat.AttackSpeed = baseStat.AttackSpeed;
+        }
+        // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
+        else
+        {
+            stat.MinDamage = baseStat.MinDamage + equipmentSystem.equipWeapon.minDamage;
+            stat.MaxDamage = baseStat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
+            stat.AttackSpeed = baseStat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+        }
     }
 }

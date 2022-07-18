@@ -105,11 +105,11 @@ public class Tester : Character
 
             UpdateStat();
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            stat.PrintDebugStat();
-            Debug.Log(resMinDamage + ", " + resMaxDamage);
-        }
+        //else if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    stat.PrintDebugStat();
+        //    Debug.Log(resMinDamage + ", " + resMaxDamage);
+        //}
     }
 
     private void UpdateStat()

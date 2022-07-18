@@ -7,11 +7,8 @@ using TMPro;
 public class UIMinimap : MonoBehaviour
 {
     [SerializeField]
-    private Camera minimapCamera;
-
-    [SerializeField]
     private TextMeshProUGUI MapName;
-    private void Awake()
+    private void Start()
     {
         MapName.text = SceneManager.GetActiveScene().name;
     }
