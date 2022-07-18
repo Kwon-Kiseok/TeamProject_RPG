@@ -18,18 +18,7 @@ public class SkillQuickSlotMgr : MonoBehaviour
 
     public void OnClick_AvoidSkill()
     {
-        //if (player.player_Lv >= 2)
-        //{
-        //    skillQuickSlots[0].skillRock = false;
-        //    skillQuickSlots[0].rockImage.enabled = false;
-        //}
-
-        if (playerLv.Lv >= 2f)
-        {
-            skillQuickSlots[0].skillRock = false;
-            skillQuickSlots[0].rockImage.enabled = false;
-            skillQuickSlots[0].rock_Text.enabled = false;
-        }
+        Debug.Log("AvoidSkill");
     }
 
     public void OnClick_TripleSkill()
@@ -39,10 +28,11 @@ public class SkillQuickSlotMgr : MonoBehaviour
         //    skillQuickSlots[1].skillRock = false;
         //    skillQuickSlots[1].rockImage.enabled = false;
         //}
-        if (playerLv.Lv >= 3)
+        if (playerLv.Lv >= 2)
         {
-            skillQuickSlots[1].skillRock = false;
-            skillQuickSlots[1].rockImage.enabled = false;
+            skillQuickSlots[1].skillLock = false;
+            skillQuickSlots[1].lockImage.enabled = false;
+            skillQuickSlots[1].lock_Text.enabled = false;
         }
     }
 
@@ -53,10 +43,11 @@ public class SkillQuickSlotMgr : MonoBehaviour
         //    skillQuickSlots[2].skillRock = false;
         //    skillQuickSlots[2].rockImage.enabled = false;
         //}
-        if (playerLv.Lv >= 4)
+        if (playerLv.Lv >= 3)
         {
-            skillQuickSlots[2].skillRock = false;
-            skillQuickSlots[2].rockImage.enabled = false;
+            skillQuickSlots[2].skillLock = false;
+            skillQuickSlots[2].lockImage.enabled = false;
+            skillQuickSlots[2].lock_Text.enabled = false;
         }
     }
 
@@ -67,10 +58,11 @@ public class SkillQuickSlotMgr : MonoBehaviour
         //    skillQuickSlots[3].skillRock = false;
         //    skillQuickSlots[3].rockImage.enabled = false;
         //}
-        if (playerLv.Lv >= 5)
+        if (playerLv.Lv >= 4)
         {
-            skillQuickSlots[3].skillRock = false;
-            skillQuickSlots[3].rockImage.enabled = false;
+            skillQuickSlots[3].skillLock = false;
+            skillQuickSlots[3].lockImage.enabled = false;
+            skillQuickSlots[3].lock_Text.enabled = false;
         }
     }
 

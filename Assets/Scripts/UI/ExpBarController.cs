@@ -22,8 +22,6 @@ public class ExpBarController : MonoBehaviour
         if (ExpSlider.value >= 100)
         {
             Debug.Log("Level UP");
-
-            player.player_Lv++;
             ExpSlider.value = 0;
             ExpSlider.maxValue += 100;
         }

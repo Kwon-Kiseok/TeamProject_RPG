@@ -6,7 +6,7 @@ using TMPro;
 
 public class SkillQuickSlot : MonoBehaviour
 {
-    public Image rockImage;
-    public bool skillRock = true;
-    public TextMeshProUGUI rock_Text;
+    public Image lockImage;
+    public bool skillLock = true;
+    public TextMeshProUGUI lock_Text;
 }
