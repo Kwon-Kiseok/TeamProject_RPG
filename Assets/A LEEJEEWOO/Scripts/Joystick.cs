@@ -6,21 +6,19 @@ using UnityEngine.EventSystems;
 
 public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 {
-    public Image point;
-
-    public float radius;
+    private RectTransform leverBackTr;
+    public RectTransform leverTr;
+    private float radius;
 
     public Player player;
 
-    private Vector2 originalPoint = Vector2.zero;
-    private RectTransform rectTr;
-
+    [SerializeField]
     private Vector2 direction;
 
     private void Start()
     {
-        rectTr = GetComponent<RectTransform>();
-        originalPoint = rectTr.position;
+        leverBackTr = GetComponent<RectTransform>();
+        radius = leverBackTr.rect.width * 0.2f;
     }
 
     public float GetAxis(string axis)
@@ -57,25 +55,23 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        var newPos = eventData.position;
-        direction = newPos - originalPoint;
-
-        if (direction.magnitude > radius)
-        {
-            newPos = originalPoint + direction.normalized * radius;
-        }
-
-        point.rectTransform.position = newPos;
+        ControlJoyStickLever(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         direction = Vector2.zero;
-        point.rectTransform.position = originalPoint;
+        leverTr.anchoredPosition = Vector2.zero;
     }
 
     public void DodgeButton()
     {
         player.Dodge();
+    }
+
+    private void ControlJoyStickLever(PointerEventData eventData)
+    {
+        direction = eventData.position - leverBackTr.anchoredPosition;
+        leverTr.anchoredPosition = direction.magnitude < radius ? direction : direction.normalized * radius;
     }
 }

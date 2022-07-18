@@ -32,12 +32,10 @@ public class Player : Character
     //public GameObject comboPTC;
     //public GameObject hillPTC;
 
-    public SkillBtn roading;
-    public SkillBtn dashing;
-    public SkillBtn comboing;
-    public SkillBtn healing;
-
-    public float player_Lv = 1f;
+    public SkillBtn magicSkill;
+    public SkillBtn dodgeSkill;
+    public SkillBtn combatSkill;
+    public SkillBtn buffSkill;
 
     private void Awake()
     {
@@ -58,6 +56,19 @@ public class Player : Character
     public override void OnFixedUpdate(float deltaTime)
     {
         transform.position += stat.Speed * deltaTime * moveDir;
+    }
+
+    public PlayerStat GetStat()
+    {
+        return stat;
+    }
+
+    public void LevelUp()
+    {
+        Debug.Log("Player Level UP" + stat.Level);
+        stat.Level += 1;
+        stat.CurrentEXP = 0;
+        stat.EXP += 100;
     }
 
     void GetInput()
@@ -81,7 +92,7 @@ public class Player : Character
 
     public void Dodge()
     {    
-        if (dashing.dash && moveDir != Vector3.zero)
+        if (dodgeSkill.dash && moveDir != Vector3.zero)
         {
             stat.Speed *= 2f;
             animator.SetTrigger("doDodge");
@@ -99,7 +110,7 @@ public class Player : Character
         isSkill = true;
         //comboPTC.gameObject.SetActive(true);
         
-        if (comboing.combo && isSkill)
+        if (combatSkill.combo && isSkill)
         {
             animator.SetTrigger("doAttack");
             //comboPTC.gameObject.SetActive(true);
@@ -110,7 +121,7 @@ public class Player : Character
     {
         isSkill = true;
         
-        if (roading.cool && isSkill)
+        if (magicSkill.cool && isSkill)
         {
             animator.SetTrigger("doMasic");
 
@@ -126,7 +137,7 @@ public class Player : Character
         isSkill = true;
         //hillPTC.gameObject.SetActive(true);
         
-        if (healing.heal && isSkill)
+        if (buffSkill.heal && isSkill)
         {            
             animator.SetTrigger("doHeal");
             //hillPTC.gameObject.SetActive(true);
