@@ -444,7 +444,7 @@ ModelImporter:
       - time: 1
         functionName: ComboReset
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e8f188f3d70c9304b96ae69976825284, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: ee34d6cb3082fad498bfd6100290cc4a, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
