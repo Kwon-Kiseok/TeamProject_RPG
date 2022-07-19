@@ -441,6 +441,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.5835777
+        functionName: NewEvent
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e18d2d82c75de5949a431f80dfa703a7, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 1
         functionName: EndSkillAnim
         data: 
