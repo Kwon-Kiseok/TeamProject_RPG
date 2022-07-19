@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace HOGUS.Scripts.Data
 {
+    [CreateAssetMenu(fileName = "New PlayerStat", menuName = "Scriptable Stat/playerStat")]
     public class PlayerStat : Stat
     {
         #region Player Stat Value
@@ -40,20 +41,6 @@ namespace HOGUS.Scripts.Data
         public int Gold { get { return gold; } set { gold = value; } }
         public int StatPoint { get { return statPoint; } set { statPoint = value; } }
         #endregion
-
-        public PlayerStat(PlayerStat copy)
-        {
-            strength = copy.strength;
-            magic = copy.magic;
-            Dexterity = copy.dexterity;
-            Vitality = copy.vitality;
-            minDamage = copy.minDamage;
-            maxDamage = copy.maxDamage;
-            defense = copy.defense;
-            dodgeChance = copy.dodgeChance;
-            speed = copy.speed;
-            attackSpeed = copy.attackSpeed;
-        }
 
 #if UNITY_EDITOR
         public void PrintDebugStat()

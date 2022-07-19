@@ -14,7 +14,7 @@ namespace HOGUS.Scripts.UI
         {
             Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-            var player_stat = player.GetStat();
+            var player_stat = player.GetCurrentStatus();
 
             informationList[0].text = player_stat.CharacterClass;
             informationList[1].text = player_stat.Level.ToString();

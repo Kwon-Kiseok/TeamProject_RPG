@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace HOGUS.Scripts.Data
 {
+    [CreateAssetMenu(fileName = "New Stat", menuName = "Scriptable Stat/baseStat")]
     [System.Serializable]
-    public class Stat : MonoBehaviour
+    public class Stat : ScriptableObject
     {
         #region Base Stat value
         [Header("캐릭터 기본 스탯")]
