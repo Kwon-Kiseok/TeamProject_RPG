@@ -1843,9 +1843,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3693544643648799266}
   - component: {fileID: 3693544643639624952}
+  - component: {fileID: 3778569966943559411}
   - component: {fileID: 3693544643576691787}
   - component: {fileID: 3693544643576691786}
-  - component: {fileID: 3693544643576691828}
   - component: {fileID: 3693544643576691829}
   m_Layer: 6
   m_Name: HandMonster
@@ -1891,6 +1891,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3778569966943559411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693544643649040712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10b0eba0e3b5b34491f7339151bdc00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  player: {fileID: 0}
+  monster: {fileID: 0}
+  isLooking: 0
 --- !u!54 &3693544643576691787
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1920,36 +1936,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.7314773, z: 1}
   m_Center: {x: -0, y: 1.0162808, z: -0}
---- !u!114 &3693544643576691828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3693544643649040712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e378b1e2219c7d41965108eef94dfb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3693544643639624952}
-  monsterSpeed: 5
-  moveVec: {x: 0, y: 0, z: 0}
-  player: {fileID: 0}
-  attackInterval: 0.5
-  attackDamage: 10
-  hAxis: 0
-  vAxis: 0
-  monster: {fileID: 3693544643576691829}
-  attackDistance: 2
-  findDistance: 20
-  moveSpeed: 5
-  attackDelay: 2
-  currentTime: 0
-  attackPower: 3
-  moveDistance: 8
-  hp: 20
-  isLooking: 0
 --- !u!195 &3693544643576691829
 NavMeshAgent:
   m_ObjectHideFlags: 0

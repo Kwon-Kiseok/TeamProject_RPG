@@ -6,64 +6,25 @@ using HOGUS.Scripts.Enums;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 namespace HOGUS.Scripts.Character
 {
     public class MonsterController : MonoBehaviour, IUpdatableObject
     {
-        public Status CurrentStats
-        {
-            get
-            {
-                return currentStatus;
-            }
-            set
-            {
-                currentStatus = value;
-                switch (currentStatus)
-                {
-                    case Status.Idle:
-                        timer = idleWaitTime;
-                        monster.isStopped = true;
-                        break;
-
-                    case Status.Trace:
-                        monster.destination = target.transform.position;
-                        monster.speed = monsterSpeed;
-                        monster.isStopped = false;
-                        break;
-
-                    case Status.Attack:
-                        timer = 0f;
-                        monster.isStopped = true;
-                        break;
-                    case Status.GameOver:
-                        monster.isStopped = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
         public Animator animator;
-        private Status currentStatus;
         //public StateMachine stateMachine;
-        public GameObject target;
-        public float idleWaitTime = 5f;
-        private float timer;
-        private Transform player;
-        private float monsterSpeed;
-        public float targetDistance;
-        public int attackDamage = 10;
-        public float aggroRange;
+        public Transform player;
+        //public int attackDamage = 10;
+        //public float aggroRange;
         public NavMeshAgent monster;
-        public AttackDefinition weapon;
-        public int attackPower = 3;
-        public int hp = 20;
+        //public int attackPower = 3;
         public bool isLooking;
-        public bool isChasing;
-        //private Rigidbody rigid;
-
+        private Rigidbody rigid;
+        private BoxCollider boxCollider;
+        public bool isChase;
+        public bool isAttack;
+        public BoxCollider attackArea;
         //상태 보관
         //public Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
         //private void Start()
@@ -82,21 +43,25 @@ namespace HOGUS.Scripts.Character
         //    stateMachine = new StateMachine(idle);
         //}
 
-        void Awake()
+        //void Awake()
+        //{
+        //    animator = GetComponent<Animator>();
+        //    monster = GetComponent<NavMeshAgent>();
+        //    if (monster != null)
+        //    {
+        //        monsterSpeed = monster.speed;
+        //    }
+        //    player = GameObject.FindWithTag("Player").transform;
+        //}
+
+
+        private void Awake()
         {
-            animator = GetComponent<Animator>();
             monster = GetComponent<NavMeshAgent>();
-            if (monster != null)
-            {
-                monsterSpeed = monster.speed;
-            }
-            player = GameObject.FindWithTag("Player").transform;
-        }
+            rigid = GetComponent<Rigidbody>();
+            boxCollider = GetComponent<BoxCollider>();
 
-
-        private void Start()
-        {
-            CurrentStats = Status.Idle;
+            Invoke("ChaseStart", 2);
         }
         public void OnEnable()
         {
@@ -111,99 +76,77 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        public void OnFixedUpdate()
+        public void OnFixedUpdate(float deltaTime)
         {
-
-        }
-
-        public void OnUpdate()
-        {
-            ChasePlayer();
-            switch (currentStatus)
-            {
-                case Status.Idle:
-                    UpdateIdle();
-                    break;
-
-                case Status.Trace:
-                    UpdateTrace();
-                    break;
-                case Status.Attack:
-                    UpdateAttack();
-                    break;
-            }
+            LookTarget();
+            Targeting();
+            FreezeVelocity();
         }
 
         public void OnUpdate(float deltaTime)
         {
-
+            ChasePlayer();
         }
 
         public void LookTarget()
         {
             isLooking = true;
             Quaternion lookAt = Quaternion.identity;
-            Vector3 lookAtVec = (target.transform.position - transform.position).normalized;
+            Vector3 lookAtVec = (player.transform.position - transform.position).normalized;
             lookAt.SetLookRotation(lookAtVec);
             transform.rotation = lookAt;
         }
+        private void ChaseStart()
+        {
+            isChase = true;
+            animator.SetBool("IsRunning", true);
+        }
 
         public void ChasePlayer()
-        {
-            animator.SetFloat("Speed", monster.velocity.magnitude);
-
-            if (target != null)
+        { 
+            if (monster.enabled)
             {
-                targetDistance = Vector3.Distance(transform.position, target.transform.position);
-            }
-            switch (currentStatus)
-            {
-                case Status.Idle:
-                    UpdateIdle();
-                    break;
-                case Status.Trace:
-                    UpdateTrace();
-                    break;
-                case Status.Attack:
-                    UpdateAttack();
-                    break;
-            }
-        }
-        private void UpdateAttack()
-        {
-            if (targetDistance > weapon.range)
-            {
-                CurrentStats = Status.Trace;
-                return;
-            }
-
-            //쿨다운 주기에 맞춰서 공격 애니메이션 재생
-            var pos = player.position;
-            pos.y = transform.position.y;
-            transform.LookAt(pos);
-
-            timer -= Time.deltaTime;
-            if (timer < 0f)
-            {
-                timer = weapon.cooldown;
-                animator.SetTrigger("Attack");
+                monster.SetDestination(player.position);
+                monster.isStopped = !isChase;
             }
         }
 
-        private void UpdateIdle()
+        private void FreezeVelocity()
         {
-
+            if (isChase)
+            {
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+            }
         }
-        private void UpdateTrace()
+
+        private void Targeting()
         {
-            if (targetDistance < weapon.range)
+            float targetRadius = 1.5f;
+            float targetRange = 2f;
+
+            RaycastHit[] rayHits =
+                Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
+
+            if (rayHits.Length > 0 && !isAttack)
             {
-                CurrentStats = Status.Attack;
+                StartCoroutine(Attack());
             }
-            else if (targetDistance > aggroRange)
-            {
-                CurrentStats = Status.Idle;
-            }
+        }
+        IEnumerator Attack()
+        {
+            isChase = false;
+            isAttack = true;
+            animator.SetBool("IsAttack", true);
+
+            yield return new WaitForSeconds(0.3f);
+            attackArea.enabled = true;
+            yield return new WaitForSeconds(0.5f);
+            attackArea.enabled = false;
+
+            isChase = true;
+            isAttack = false;
+            animator.SetBool("IsAttack", false);
         }
     }
 }

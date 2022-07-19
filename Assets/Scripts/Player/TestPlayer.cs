@@ -16,7 +16,6 @@ namespace HOGUS.Scripts.Character
         public float vAxis;
         public Vector3 moveVec;
 
-
         public StateMachine stateMachine;
 
         //상태 보관
@@ -47,7 +46,7 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        public void OnFixedUpdate()
+        public void OnFixedUpdate(float deltaTime)
         {
             transform.position += moveVec * runSpeed * Time.deltaTime;
             animator.SetBool("isRunning", moveVec != Vector3.zero);
@@ -55,7 +54,7 @@ namespace HOGUS.Scripts.Character
             transform.LookAt(transform.position + moveVec);
         }
 
-        public void OnUpdate()
+        public void OnUpdate(float deltaTime)
         {
             if (stateMachine.CurrentState == dicState[PlayerState.Idle])
             {
@@ -73,11 +72,6 @@ namespace HOGUS.Scripts.Character
             }
             Movement();
             stateMachine.DoStateUpdate();
-        }
-
-        public void OnUpdate(float deltaTime)
-        {
-
         }
 
         public void Movement()

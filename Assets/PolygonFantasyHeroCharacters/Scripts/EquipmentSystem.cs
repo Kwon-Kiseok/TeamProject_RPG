@@ -14,7 +14,7 @@ namespace HOGUS.Scripts.CustomSystem
     /// </summary>
     public class EquipmentSystem : MonoBehaviour
     {
-        public Tester tester;
+        public Player player;
         private GameObject weaponGO;
 
         public WeaponItem equipWeapon;
@@ -34,7 +34,7 @@ namespace HOGUS.Scripts.CustomSystem
             }
             else
             {
-                tester.equipedDefense += armorItem.defense;
+                //player.equipedDefense += armorItem.defense;
             }
             dictEquipmets.Add(part, armorItem);
         }
@@ -76,7 +76,7 @@ namespace HOGUS.Scripts.CustomSystem
             }
             else
             {
-                tester.equipedDefense -= dictEquipmets[part].defense;
+                //player.equipedDefense -= dictEquipmets[part].defense;
                 dictEquipmets.Remove(part);
             }
 
@@ -86,7 +86,8 @@ namespace HOGUS.Scripts.CustomSystem
         {
             if(handle.Status == AsyncOperationStatus.Succeeded)
             {
-                weaponGO = Instantiate(handle.Result, tester.weaponEquipPos);
+                weaponGO = Instantiate(handle.Result, player.weaponEquipPos);
+                weaponGO.AddComponent<BoxCollider>();
             }
         }
     }

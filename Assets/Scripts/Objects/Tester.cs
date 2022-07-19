@@ -4,18 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using HOGUS.Scripts.Data;
 using HOGUS.Scripts.Enums;
-using HOGUS.Scripts.Manager;
+using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Object.Item;
 using HOGUS.Scripts.CustomSystem;
 
-public class Tester : MonoBehaviour, IUpdatableObject
+public class Tester : Character
 {
     //
     public WeaponItem weaponPrefab;
     public JewelItem jewelPrefab;
 
     //
+    public Joystick joystick;
     private EquipmentSystem equipmentSystem;
     public Transform weaponEquipPos;
 
@@ -24,11 +26,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
 
     #region base stat
     // 캐릭터의 기본 스탯은 고유
-    public int minDamage = 0;
-    public int maxDamage = 0;
-    public int defense = 0;
-    public float dodgeChance = 0f;
-    public float attackSpeed = 0f;
+    PlayerStat stat;
     #endregion
 
     #region current equipments stat
@@ -50,23 +48,13 @@ public class Tester : MonoBehaviour, IUpdatableObject
     //
     public TextMeshProUGUI testerDataUI;
 
-    public void OnDisable()
-    {
-        if(UpdateManager.Instance != null)
-            UpdateManager.Instance.DeregisterUpdatableObject(this);
-    }
-
-    public void OnEnable()
-    {
-        UpdateManager.Instance.RegisterUpdatableObject(this);
-    }
-
     private void Awake()
     {
         equipmentSystem = GetComponent<EquipmentSystem>();
+        stat = GetComponent<PlayerStat>();
     }
 
-    public void OnFixedUpdate()
+    public override void OnFixedUpdate(float deltaTime)
     {
         if (equipmentSystem.equipWeapon != null)
         {
@@ -82,10 +70,12 @@ public class Tester : MonoBehaviour, IUpdatableObject
         }
     }
 
-    public void OnUpdate()
+    public override void OnUpdate(float deltaTime)
     {
+        Move(deltaTime);
+
         // 무기 장착 테스트
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             var weapon = ScriptableObject.CreateInstance<WeaponItem>();
             weapon.CopyValue(weaponPrefab);
@@ -94,7 +84,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
             UpdateStat();
         }
         // 무기 해제 테스트
-        else if(Input.GetKeyDown(KeyCode.U))
+        else if (Input.GetKeyDown(KeyCode.U))
         {
             equipmentSystem.DoUnequip(EquipPart.WEAPON);
             testerDataUI.text = null;
@@ -102,7 +92,7 @@ public class Tester : MonoBehaviour, IUpdatableObject
             UpdateStat();
         }
         // 보석 삽입 테스트 
-        else if(Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             if (hasJewel == null)
             {
@@ -115,15 +105,11 @@ public class Tester : MonoBehaviour, IUpdatableObject
 
             UpdateStat();
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {            
-            // 로그 재확인
-            Debug.Log(resMinDamage+", "+ resMaxDamage);
-        }
-    }
-
-    public void OnUpdate(float deltaTime)
-    {
+        //else if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    stat.PrintDebugStat();
+        //    Debug.Log(resMinDamage + ", " + resMaxDamage);
+        //}
     }
 
     private void UpdateStat()
@@ -131,18 +117,35 @@ public class Tester : MonoBehaviour, IUpdatableObject
         // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
         if (equipmentSystem.equipWeapon == null)
         {
-            resMinDamage = minDamage;
-            resMaxDamage = maxDamage;
-            resAttackSpeed = attackSpeed;
+            resMinDamage = stat.MinDamage;
+            resMaxDamage = stat.MaxDamage;
+            resAttackSpeed = stat.AttackSpeed;
         }
         // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
         else
         {
-            resMinDamage = minDamage + equipmentSystem.equipWeapon.minDamage;
-            resMaxDamage = maxDamage + equipmentSystem.equipWeapon.maxDamage;
-            resAttackSpeed = attackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+            resMinDamage = stat.MinDamage + equipmentSystem.equipWeapon.minDamage;
+            resMaxDamage = stat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
+            resAttackSpeed = stat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
         }
-        resDefense = defense + equipedDefense;
-        resDodgeChance = dodgeChance + equipedDodgeChance;
+        resDefense = stat.Defense + equipedDefense;
+        resDodgeChance = stat.DodgeChance + equipedDodgeChance;
+    }
+
+    public override void Move(float deltaTime)
+    {
+        transform.position += stat.Speed * deltaTime * moveDir;
+    }
+
+    public override void Attack(float deltaTime)
+    {
+    }
+
+    public override void Die()
+    {
+    }
+
+    public override void Hit(int damage)
+    {
     }
 }

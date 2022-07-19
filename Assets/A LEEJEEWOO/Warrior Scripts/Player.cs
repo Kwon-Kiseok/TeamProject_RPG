@@ -2,52 +2,102 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class Player : MonoBehaviour
+using HOGUS.Scripts.DP;
+using HOGUS.Scripts.Data;
+using HOGUS.Scripts.Enums;
+using HOGUS.Scripts.State;
+using HOGUS.Scripts.Character;
+using HOGUS.Scripts.Object.Item;
+using HOGUS.Scripts.CustomSystem;
+using HOGUS.Scripts.Interface;
+
+public class Player : Character
 {
     public Joystick joy;
-    public float speed;
+    public PlayerStat baseStat;        // 기초 베이스 스탯
+    PlayerStat currentStat;     // 현재 상태를 나타내는 사용될 스탯
+
+    public WeaponItem weaponPrefab;
+    private EquipmentSystem equipmentSystem;
+    public Transform weaponEquipPos;
+    
     float hAxis;
     float vAxis;
+
+    public float HorizontalAxis { get { return hAxis; } set { hAxis = value; } }
+    public float VerticalAxis { get { return vAxis; } set { vAxis = value; } }
+
+    public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
+
 
     bool isDodge;
     bool isSkill;
 
-    Animator animator;
-    Rigidbody rb;
-    Vector3 moveVec;
+    public bool IsSkill { get { return isSkill; } set { isSkill = value; } }
 
     public GameObject skillPosition;
     public GameObject IceFactory;
     public float throwPower = 15f;
 
-    public GameObject comboPTC;
-    public GameObject hillPTC;
+    //public GameObject comboPTC;
+    //public GameObject hillPTC;
 
-    public SkillBtn roading;
-    public SkillBtn dashing;
-    public SkillBtn comboing;
-    public SkillBtn healing;
+    public SkillBtn magicSkill;
+    public SkillBtn dodgeSkill;
+    public SkillBtn combatSkill;
+    public SkillBtn buffSkill;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
         isSkill = false;
-        comboPTC.gameObject.SetActive(false);
-        hillPTC.gameObject.SetActive(false);
+        //comboPTC.gameObject.SetActive(false);
+        //hillPTC.gameObject.SetActive(false);
+
+        equipmentSystem = GetComponent<EquipmentSystem>();
     }
 
-    void Update()
+    private void Start()
+    {
+        var state_idle = new IdleState(this);
+        var state_move = new MoveState(this);
+        var state_attack = new AttackState(this);
+
+        dicState.Add(PlayerState.Idle, state_idle);
+        dicState.Add(PlayerState.Move, state_move);
+        dicState.Add(PlayerState.Attack, state_attack);
+
+        stateMachine = new StateMachine(state_idle);
+        // base Player Stat deep copy
+        currentStat = Instantiate(baseStat);
+    }
+
+    public override void OnUpdate(float deltaTime)
     {
         GetInput();
-        Move();
-        Turn();        
+        Move(deltaTime);
+        Turn();
+        
+        stateMachine.DoStateUpdate();
     }
 
-    void FixedUpdate()
+    public override void OnFixedUpdate(float deltaTime)
     {
-        transform.position += moveVec * speed * Time.deltaTime;
+        transform.position += currentStat.Speed * deltaTime * moveDir;
+    }
+
+    public PlayerStat GetCurrentStatus()
+    {
+        return currentStat;
+    }
+
+    public void LevelUp()
+    {
+        Debug.Log("Player Level UP" + currentStat.Level);
+        currentStat.Level += 1;
+        currentStat.CurrentEXP = 0;
+        currentStat.EXP += 100;
     }
 
     void GetInput()
@@ -59,38 +109,20 @@ public class Player : MonoBehaviour
         }
         else
         {
-            moveVec = new Vector3(0, 0, 0);
+            moveDir = new Vector3(0, 0, 0);
         }
-    }
-
-    void Move()
-    {
-        if (!isSkill)
-        {            
-            if (hAxis != 0 || vAxis != 0)
-            {
-                animator.SetBool("isMove", true);
-            }
-            else
-            {
-                animator.SetBool("isMove", false);
-            }
-
-            moveVec = new Vector3(hAxis, 0, vAxis).normalized;            
-        }
-
     }
 
     void Turn()
     {
-        transform.LookAt(transform.position + moveVec);
+        transform.LookAt(transform.position + moveDir);
     }
 
     public void Dodge()
     {    
-        if (dashing.dash && moveVec != Vector3.zero)
+        if (dodgeSkill.dash && moveDir != Vector3.zero)
         {
-            speed *= 2f;
+            currentStat.Speed *= 2f;
             animator.SetTrigger("doDodge");
             Invoke("DodgeOut", 0.4f);
         }
@@ -98,7 +130,7 @@ public class Player : MonoBehaviour
 
     void DodgeOut()
     {
-        speed *= 0.5f;
+        currentStat.Speed *= 0.5f;
     }
 
     public void ComboAttack()
@@ -106,10 +138,10 @@ public class Player : MonoBehaviour
         isSkill = true;
         //comboPTC.gameObject.SetActive(true);
         
-        if (comboing.combo && isSkill)
+        if (combatSkill.combo && isSkill)
         {
             animator.SetTrigger("doAttack");
-            comboPTC.gameObject.SetActive(true);
+            //comboPTC.gameObject.SetActive(true);
         }
     }
 
@@ -117,7 +149,7 @@ public class Player : MonoBehaviour
     {
         isSkill = true;
         
-        if (roading.cool && isSkill)
+        if (magicSkill.cool && isSkill)
         {
             animator.SetTrigger("doMasic");
 
@@ -133,17 +165,87 @@ public class Player : MonoBehaviour
         isSkill = true;
         //hillPTC.gameObject.SetActive(true);
         
-        if (healing.heal && isSkill)
+        if (buffSkill.heal && isSkill)
         {            
             animator.SetTrigger("doHeal");
-            hillPTC.gameObject.SetActive(true);
+            //hillPTC.gameObject.SetActive(true);
         }
     }
 
     public void EndSkillAnim()
     {
         isSkill = false;
-        comboPTC.gameObject.SetActive(false);
-        hillPTC.gameObject.SetActive(false);
+        //comboPTC.gameObject.SetActive(false);
+        //hillPTC.gameObject.SetActive(false);
+    }
+
+    public override void Move(float deltaTime)
+    {
+        if (!isSkill)
+        {
+            if (hAxis != 0 || vAxis != 0)
+            {
+                animator.SetBool("isMove", true);
+            }
+            else
+            {
+                animator.SetBool("isMove", false);
+            }
+
+            moveDir = new Vector3(hAxis, 0, vAxis).normalized;
+        }
+    }
+
+    public override void Attack(float deltaTime)
+    {
+    }
+
+    public override void Hit(int damage)
+    {
+        currentStat.CurHP -= damage;
+        if (currentStat.CurHP < 0)
+        {
+            currentStat.CurHP = 0;
+        }
+    }
+
+    public override void Die()
+    {
+    }
+
+    public void TestEquip()
+    {
+        if (equipmentSystem.equipWeapon == null)
+        {
+            var weapon = ScriptableObject.CreateInstance<WeaponItem>();
+            weapon.CopyValue(weaponPrefab);
+            equipmentSystem.DoEquip(EquipPart.WEAPON, weapon);
+
+            UpdateStat();
+        }
+        else
+        {
+            equipmentSystem.DoUnequip(EquipPart.WEAPON);
+
+            UpdateStat();
+        }
+    }
+
+    private void UpdateStat()
+    {
+        // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
+        if (equipmentSystem.equipWeapon == null)
+        {
+            currentStat.MinDamage = baseStat.MinDamage;
+            currentStat.MaxDamage = baseStat.MaxDamage;
+            currentStat.AttackSpeed = baseStat.AttackSpeed;
+        }
+        // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
+        else
+        {
+            currentStat.MinDamage = baseStat.MinDamage + equipmentSystem.equipWeapon.minDamage;
+            currentStat.MaxDamage = baseStat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
+            currentStat.AttackSpeed = baseStat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+        }
     }
 }
