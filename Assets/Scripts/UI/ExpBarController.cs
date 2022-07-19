@@ -14,8 +14,8 @@ public class ExpBarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player.GetStat().CurrentEXP += Time.deltaTime * 10;
-        ExpSlider.value = player.GetStat().CurrentEXP / player.GetStat().EXP;
+        //player.GetStat().CurrentEXP += Time.deltaTime * 10;
+        //ExpSlider.value = player.GetStat().CurrentEXP / player.GetStat().EXP;
 
         if (ExpSlider.value >= 1)
         {
