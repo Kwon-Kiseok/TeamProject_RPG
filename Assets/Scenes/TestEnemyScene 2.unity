@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 3693544643576691828, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1776499327}
+      objectReference: {fileID: 1378565075}
     - target: {fileID: 3693544643576691828, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
       propertyPath: target
       value: 
@@ -214,7 +214,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandMonster
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3693544643576691828, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
 --- !u!1 &663006394
 GameObject:
@@ -567,6 +568,32 @@ MonoBehaviour:
   maxHp: 20
   damage: 0
   armor: 0
+--- !u!195 &1762135691 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 3693544643576691829, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
+  m_PrefabInstance: {fileID: 74669538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1762135695 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3693544643639624952, guid: 2efc0288c5bd7a447bbb6b19feb26fa6, type: 3}
+  m_PrefabInstance: {fileID: 74669538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1762135696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762135683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10b0eba0e3b5b34491f7339151bdc00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1762135695}
+  player: {fileID: 1378565075}
+  monster: {fileID: 1762135691}
+  isLooking: 0
 --- !u!1001 &1776499326
 PrefabInstance:
   m_ObjectHideFlags: 0
