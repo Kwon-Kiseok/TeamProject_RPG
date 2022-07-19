@@ -87,6 +87,7 @@ namespace HOGUS.Scripts.CustomSystem
             if(handle.Status == AsyncOperationStatus.Succeeded)
             {
                 weaponGO = Instantiate(handle.Result, player.weaponEquipPos);
+                weaponGO.AddComponent<BoxCollider>();
             }
         }
     }

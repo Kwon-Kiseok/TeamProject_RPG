@@ -144,4 +144,8 @@ public class Tester : Character
     public override void Die()
     {
     }
+
+    public override void Hit(int damage)
+    {
+    }
 }
