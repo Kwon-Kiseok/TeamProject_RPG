@@ -17,6 +17,8 @@ namespace HOGUS.Scripts.CustomSystem
         public Player player;
         private GameObject weaponGO;
 
+        public CombatWeapon combatWeapon;
+
         public WeaponItem equipWeapon;
         public ShieldItem equipShield;
         // 장비 아이템 장착 상태를 나타내는 딕셔너리
@@ -87,7 +89,9 @@ namespace HOGUS.Scripts.CustomSystem
             if(handle.Status == AsyncOperationStatus.Succeeded)
             {
                 weaponGO = Instantiate(handle.Result, player.weaponEquipPos);
-                weaponGO.AddComponent<BoxCollider>();
+
+                if(equipWeapon.attackType == AttackType.MELEE)
+                    combatWeapon = weaponGO.GetComponent<CombatWeapon>();
             }
         }
     }

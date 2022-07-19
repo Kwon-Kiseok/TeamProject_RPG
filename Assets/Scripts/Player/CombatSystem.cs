@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using HOGUS.Scripts.Character;
+using HOGUS.Scripts.Object.Item;
 
 namespace HOGUS.Scripts.CustomSystem
 {
@@ -11,20 +12,54 @@ namespace HOGUS.Scripts.CustomSystem
     /// </summary>
     public class CombatSystem : MonoBehaviour
     {
-        public Transform attackPoint;
-        public float attackRange = 0.5f;
-        public LayerMask targetLayer;
+        private Animator animator;
+        bool normalComboPossible;
+        int normalComboStep;
+
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
 
         public void Attack()
         {
-            // Detect specific LayerMask target in attackRange
-            var hitTargets = Physics.OverlapSphere(attackPoint.position, attackRange, targetLayer);
-
-            foreach (var target in hitTargets)
+            if(0 == normalComboStep)
             {
-                // 공유하려면 Character나 공통된 특성을 가져와서 해야 하지 않을까?
-                
+                animator.Play("Attack_02");
+                normalComboStep = 1;
+                return;
             }
+            if(0 != normalComboStep)
+            {
+                if(normalComboPossible)
+                {
+                    normalComboPossible = false;
+                    normalComboStep += 1;
+                }
+            }
+        }
+
+        public void ComboPossible()
+        {
+            normalComboPossible = true;
+        }
+
+        public void Combo()
+        {
+            if(2 == normalComboStep)
+            {
+                animator.Play("Attack_03");
+            }
+            if(3 == normalComboStep)
+            {
+                animator.Play("Attack_17");
+            }
+        }
+
+        public void ComboReset()
+        {
+            normalComboPossible = false;
+            normalComboStep = 0;
         }
     }
 }

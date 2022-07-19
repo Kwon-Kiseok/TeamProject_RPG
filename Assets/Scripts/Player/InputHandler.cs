@@ -21,5 +21,10 @@ namespace HOGUS.Scripts.CustomSystem
             hAxis = joystick.GetAxisRaw("Horizontal");
             vAxis = joystick.GetAxisRaw("Vertical");
         }
+
+        public void NormalAttack()
+        {
+
+        }
     }
 }

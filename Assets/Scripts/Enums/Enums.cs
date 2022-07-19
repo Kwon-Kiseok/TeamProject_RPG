@@ -102,4 +102,12 @@ namespace HOGUS.Scripts.Enums
         Skill2
     }
     #endregion
+
+#region System
+    public enum AttackType
+    {
+        MELEE,
+        RANGE
+    }
+#endregion
 }

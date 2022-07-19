@@ -21,6 +21,7 @@ public class Player : Character
 
     public WeaponItem weaponPrefab;
     private EquipmentSystem equipmentSystem;
+    private CombatSystem combatSystem;
     public Transform weaponEquipPos;
     
     float hAxis;
@@ -41,9 +42,6 @@ public class Player : Character
     public GameObject IceFactory;
     public float throwPower = 15f;
 
-    //public GameObject comboPTC;
-    //public GameObject hillPTC;
-
     public SkillBtn magicSkill;
     public SkillBtn dodgeSkill;
     public SkillBtn combatSkill;
@@ -52,10 +50,8 @@ public class Player : Character
     private void Awake()
     {
         isSkill = false;
-        //comboPTC.gameObject.SetActive(false);
-        //hillPTC.gameObject.SetActive(false);
-
         equipmentSystem = GetComponent<EquipmentSystem>();
+        combatSystem = GetComponent<CombatSystem>();
     }
 
     private void Start()
@@ -136,12 +132,9 @@ public class Player : Character
     public void ComboAttack()
     {
         isSkill = true;
-        //comboPTC.gameObject.SetActive(true);
-        
         if (combatSkill.combo && isSkill)
         {
             animator.SetTrigger("doAttack");
-            //comboPTC.gameObject.SetActive(true);
         }
     }
 
@@ -163,20 +156,16 @@ public class Player : Character
     public void SkilHeal()
     {
         isSkill = true;
-        //hillPTC.gameObject.SetActive(true);
         
         if (buffSkill.heal && isSkill)
         {            
             animator.SetTrigger("doHeal");
-            //hillPTC.gameObject.SetActive(true);
         }
     }
 
     public void EndSkillAnim()
     {
         isSkill = false;
-        //comboPTC.gameObject.SetActive(false);
-        //hillPTC.gameObject.SetActive(false);
     }
 
     public override void Move(float deltaTime)
@@ -198,6 +187,17 @@ public class Player : Character
 
     public override void Attack(float deltaTime)
     {
+        if(equipmentSystem.equipWeapon == null)
+        {
+            return;
+        }
+
+        if (equipmentSystem.equipWeapon.attackType == AttackType.MELEE)
+        {
+            combatSystem.Attack();
+            // 좀 그런데; 연타하면 
+            equipmentSystem.combatWeapon.Use();
+        }
     }
 
     public override void Hit(int damage)
@@ -220,13 +220,11 @@ public class Player : Character
             var weapon = ScriptableObject.CreateInstance<WeaponItem>();
             weapon.CopyValue(weaponPrefab);
             equipmentSystem.DoEquip(EquipPart.WEAPON, weapon);
-
             UpdateStat();
         }
         else
         {
             equipmentSystem.DoUnequip(EquipPart.WEAPON);
-
             UpdateStat();
         }
     }
