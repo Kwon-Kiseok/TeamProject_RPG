@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
+using HOGUS.Scripts.Character;
 
 public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 {
@@ -12,9 +15,11 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public Player player;
 
+    public delegate void Func();
+    public Dictionary<string, Func> events = new();
+
     [SerializeField]
     private Vector3 direction;
-
     private Vector3 originalPos;
 
     private void Start()
@@ -22,6 +27,8 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
         leverBackTr = GetComponent<RectTransform>();
         radius = leverBackTr.rect.width * 0.5f;
 
+        events.Add("NormalAttack", new Func(NormalAttackButton));
+        events.Add("Dodge", new Func(DodgeButton));
     }
 
     public float GetAxis(string axis)
@@ -75,6 +82,11 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
     public void DodgeButton()
     {
         player.Dodge();
+    }
+
+    public void NormalAttackButton()
+    {
+        player.Attack();
     }
 
     private void ControlJoyStickLever(PointerEventData eventData)

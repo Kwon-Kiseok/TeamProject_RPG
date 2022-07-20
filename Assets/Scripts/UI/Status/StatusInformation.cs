@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using HOGUS.Scripts.Character;
+
 namespace HOGUS.Scripts.UI
 {
     public class StatusInformation : MonoBehaviour

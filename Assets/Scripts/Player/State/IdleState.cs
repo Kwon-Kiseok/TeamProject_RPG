@@ -1,3 +1,4 @@
+using UnityEngine;
 using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Interface;
 using HOGUS.Scripts.Enums;
@@ -28,7 +29,7 @@ namespace HOGUS.Scripts.State
 
         public void StateUpdate()
         {
-            if((player.HorizontalAxis != 0 || player.VerticalAxis != 0) && !player.IsSkill)
+            if((player.moveDir != Vector3.zero) && !player.IsSkill)
             {
                 player.stateMachine.SetState(player.dicState[PlayerState.Move]);
             }
