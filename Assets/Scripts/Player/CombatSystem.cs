@@ -22,11 +22,12 @@ namespace HOGUS.Scripts.CustomSystem
         }
 
         public void Attack()
-        {
+        {            
             if(0 == normalComboStep)
             {
                 animator.Play("Attack_02");
                 normalComboStep = 1;
+                Debug.Log("일반 공격");
                 return;
             }
             if(0 != normalComboStep)
@@ -36,7 +37,7 @@ namespace HOGUS.Scripts.CustomSystem
                     normalComboPossible = false;
                     normalComboStep += 1;
                 }
-            }
+            }           
         }
 
         public void ComboPossible()

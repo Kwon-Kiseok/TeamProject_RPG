@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using HOGUS.Scripts.Character;
+
 public class SkillQuickSlotMgr : MonoBehaviour
 {
     public SkillQuickSlot[] skillQuickSlots = new SkillQuickSlot[4];

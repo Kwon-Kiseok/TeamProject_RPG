@@ -137,7 +137,7 @@ public class Tester : Character
         transform.position += stat.Speed * deltaTime * moveDir;
     }
 
-    public override void Attack(float deltaTime)
+    public override void Attack()
     {
     }
 
