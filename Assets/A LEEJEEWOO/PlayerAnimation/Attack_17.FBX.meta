@@ -441,10 +441,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: ComboReset
+      - time: 0.37777779
+        functionName: OnAttackCollision
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: ee34d6cb3082fad498bfd6100290cc4a, type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
