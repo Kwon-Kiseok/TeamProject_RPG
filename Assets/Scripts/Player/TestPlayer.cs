@@ -49,7 +49,7 @@ namespace HOGUS.Scripts.Character
         public void OnFixedUpdate(float deltaTime)
         {
             transform.position += moveVec * runSpeed * Time.deltaTime;
-            animator.SetBool("isRunning", moveVec != Vector3.zero);
+            animator.SetBool("isMove", moveVec != Vector3.zero);
 
             transform.LookAt(transform.position + moveVec);
         }
