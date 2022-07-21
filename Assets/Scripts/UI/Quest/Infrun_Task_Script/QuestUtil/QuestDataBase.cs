@@ -8,7 +8,7 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu(menuName = "Quest/QuestDataBase")]
-public class QuestDataBase : ScriptableObject
+public class QuestDatabase : ScriptableObject
 {
     [SerializeField]
     private List<Quest> quests;

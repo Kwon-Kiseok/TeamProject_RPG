@@ -51,6 +51,8 @@ public class Quest : ScriptableObject
     private bool useAutoComplete;
     [SerializeField]
     private bool isCancelable;
+    [SerializeField]
+    private bool isSavable;     // save할 퀘인지 체크
 
     [Header("퀘스트 조건")]
     [SerializeField]
@@ -71,7 +73,14 @@ public class Quest : ScriptableObject
     // 레드 슬라임을 10마리 잡아라
     // 블루 슬라임을 10마리 잡아라 -> 그린 슬라임을 10마리 잡아라
 
-    public TaskGroup CurrentTaskGroup => taskGroups[currentTaskGroupIndex];
+    public TaskGroup CurrentTaskGroup //=> taskGroups[currentTaskGroupIndex];
+    {
+        get 
+        {
+            return taskGroups[currentTaskGroupIndex]; 
+        }
+    }
+
     public IReadOnlyList<TaskGroup> TaskGroups => taskGroups;
     public IReadOnlyList<Reward> Rewards => rewards;
     public bool IsRegistered => State != QuestState.Inactive;
@@ -80,6 +89,7 @@ public class Quest : ScriptableObject
     public bool IsCancel => State == QuestState.Cancel;
     public virtual bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
+    public virtual bool IsSavable => isSavable;     // 업적은 세이브 되야 하니 가상으로 구현
 
     public event TaskSuccessChangeHandler onTaskSuccessChanged;
     public event CompletedHandler onCompleted;
@@ -106,12 +116,11 @@ public class Quest : ScriptableObject
 
     public void ReceiveReport(string _category, object _target, int _successCount)
     {
-        Debug.Assert(!IsRegistered, "This quest has already been registered.");
+        Debug.Assert(IsRegistered, "This quest has already been registered.");
         Debug.Assert(!IsCancel, "This quest has been canceled");
 
         if (IsComplete)
             return;
-
         CurrentTaskGroup.ReceiveReport(_category, _target, _successCount);   
 
         if(CurrentTaskGroup.IsAllTaskComplete)
@@ -174,13 +183,52 @@ public class Quest : ScriptableObject
         onCanceled?.Invoke(this);
     }
 
+    // 클로닝 구현
+    public Quest Clone()
+    {
+        var clone = Instantiate(this);
+        clone.taskGroups = taskGroups.Select(x => new TaskGroup(x)).ToArray();
+
+        return clone;
+    }
+
+    public QuestSaveData ToSaveData()
+    {
+        return new QuestSaveData
+        {
+            codeName = codeName,
+            state = State,
+            taskGroupIndex = currentTaskGroupIndex,
+            taskSuccessCounts = CurrentTaskGroup.Tasks.Select(x => x.CurrentSuccess).ToArray()
+        };
+    }
+
+    public void LoadFrom(QuestSaveData saveData)
+    {
+        State = saveData.state;
+        currentTaskGroupIndex = saveData.taskGroupIndex;
+
+        for (int i = 0; i < currentTaskGroupIndex; i++)
+        {
+            var taskGroup = taskGroups[i];
+            taskGroup.Start();
+            taskGroup.Complete();
+        }
+
+        for (int i = 0; i < saveData.taskSuccessCounts.Length; i++)
+        {
+            CurrentTaskGroup.Start();
+            CurrentTaskGroup.Tasks[i].CurrentSuccess = saveData.taskSuccessCounts[i];
+        }
+    }
+
     private void OnSuccessChanged(Task task, int currentSuccess, int prevSuccess)
         => onTaskSuccessChanged?.Invoke(this, task, currentSuccess, prevSuccess);
 
     [Conditional("UNITY_EDITOR")] // 인자로 전달한 Simbol 값이 선언되어 있으면 함수 실행
     private void CheckIsRunning()
     {
-        Debug.Assert(!IsRegistered, "This quest has already been registered.");
+        Debug.Assert(IsRegistered, "This quest has already been registered.");
         Debug.Assert(!IsCancel, "This quest has been canceled");
         Debug.Assert(!IsComplete, "This quest has already been Completed");
     }
