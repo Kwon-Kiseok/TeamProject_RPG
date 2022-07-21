@@ -11,6 +11,7 @@ namespace HOGUS.Scripts.Character
     /// <summary>
     /// 캐릭터의 베이스 클래스
     /// </summary>
+    [RequireComponent(typeof(Animator))]
     public abstract class Character : MonoBehaviour, IUpdatableObject
     {
         public string Name;         // 캐릭터의 이름
@@ -18,7 +19,8 @@ namespace HOGUS.Scripts.Character
 
         // 기본 붙어 있을 컴포넌트
         #region Base Component
-        protected Animator animator;  // 캐릭터의 애니메이터
+        [HideInInspector]
+        public Animator animator;  // 캐릭터의 애니메이터
         protected Rigidbody rigid;    // 캐릭터의 rigidbody
         #endregion
 

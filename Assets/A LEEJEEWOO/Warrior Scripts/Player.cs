@@ -16,14 +16,13 @@ namespace HOGUS.Scripts.Character
 {
     public class Player : Character
     {
-        public Joystick joy;
+        public Joystick joystick;
         public PlayerStat baseStat;        // 기초 베이스 스탯
         PlayerStat currentStat;     // 현재 상태를 나타내는 사용될 스탯
 
         public WeaponItem weaponPrefab;
         private EquipmentSystem equipmentSystem;
         private CombatSystem combatSystem;
-        public InputHandler inputHandler;
         public Transform weaponEquipPos;
 
         public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
@@ -47,7 +46,6 @@ namespace HOGUS.Scripts.Character
             isSkill = false;
             equipmentSystem = GetComponent<EquipmentSystem>();
             combatSystem = GetComponent<CombatSystem>();
-            inputHandler = GetComponent<InputHandler>();
         }
 
         private void Start()
@@ -67,7 +65,7 @@ namespace HOGUS.Scripts.Character
 
         public override void OnUpdate(float deltaTime)
         {
-            inputHandler.GetMove();
+            joystick.GetMove();
             Move(deltaTime);
             Turn();
             stateMachine.DoStateUpdate();
@@ -154,16 +152,7 @@ namespace HOGUS.Scripts.Character
         {
             if (!isSkill)
             {
-                if (inputHandler.HorizontalAxis != 0 || inputHandler.VerticalAxis != 0)
-                {
-                    animator.SetBool("isMove", true);
-                }
-                else
-                {
-                    animator.SetBool("isMove", false);
-                }
-
-                moveDir = new Vector3(inputHandler.HorizontalAxis, 0, inputHandler.VerticalAxis).normalized;
+                moveDir = new Vector3(joystick.HorizontalAxis, 0, joystick.VerticalAxis).normalized;
             }
         }
 
@@ -176,8 +165,7 @@ namespace HOGUS.Scripts.Character
 
             if (equipmentSystem.equipWeapon.attackType == AttackType.MELEE)
             {
-                combatSystem.Attack();
-                equipmentSystem.combatWeapon.Use();
+                stateMachine.SetState(dicState[PlayerState.Attack]);
             }
         }
 
