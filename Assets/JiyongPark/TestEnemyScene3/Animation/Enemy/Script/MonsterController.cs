@@ -12,15 +12,21 @@ namespace HOGUS.Scripts.Character
 {
     public class MonsterController : MonoBehaviour, IUpdatableObject
     {
+        
         public Animator animator;
         public Transform player;
         public NavMeshAgent monster;
         public bool isLooking;
-        private Rigidbody rigid;
-        private BoxCollider boxCollider;
+        public Rigidbody rigid;
+        public BoxCollider boxCollider;
+        public MeshRenderer[] meshes;
         public bool isChase;
         public bool isAttack;
         public BoxCollider attackArea;
+        public GameObject weapon;
+        public GameObject fireball;
+        public EnemyType enemyType;
+
         //상태 보관
         //public Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
         //private void Start()
@@ -53,11 +59,13 @@ namespace HOGUS.Scripts.Character
 
         private void Awake()
         {
-            monster = GetComponent<NavMeshAgent>();
             rigid = GetComponent<Rigidbody>();
             boxCollider = GetComponent<BoxCollider>();
-
-            Invoke("ChaseStart", 2);
+            meshes = GetComponentsInChildren<MeshRenderer>();
+            if (enemyType != EnemyType.WarChief)
+            {
+                Invoke("ChaseStart", 2);
+            }
         }
         public void OnEnable()
         {
@@ -71,6 +79,7 @@ namespace HOGUS.Scripts.Character
                 UpdateManager.Instance.DeregisterUpdatableObject(this);
             }
         }
+
 
         public void OnFixedUpdate(float deltaTime)
         {
@@ -94,13 +103,21 @@ namespace HOGUS.Scripts.Character
         }
         private void ChaseStart()
         {
-            isChase = true;
-            animator.SetBool("IsRunning", true);
+            if (enemyType == EnemyType.MagicMonster)
+            {
+                isChase = true;
+                animator.SetBool("IsWalking", true);
+            }
+            else
+            {
+                isChase = true;
+                animator.SetBool("IsRunning", true);
+            }
         }
 
         public void ChasePlayer()
         { 
-            if (monster.enabled)
+            if (monster.enabled && enemyType != EnemyType.WarChief)
             {
                 monster.SetDestination(player.position);
                 monster.isStopped = !isChase;
@@ -118,8 +135,31 @@ namespace HOGUS.Scripts.Character
 
         private void Targeting()
         {
-            float targetRadius = 1.5f;
-            float targetRange = 2f;
+            float targetRadius = 0;
+            float targetRange = 0;
+
+            switch (enemyType)
+            {
+                case EnemyType.PunchMonster:
+                    targetRadius = 1.2f;
+                    targetRange = 1.5f;
+                    break;
+                case EnemyType.SwordMonster:
+                    targetRadius = 1f;
+                    targetRange = 2f;
+                    break;
+                case EnemyType.MagicMonster:
+                    targetRadius = 0.3f;
+                    targetRange = 25f;
+                    break;
+                case EnemyType.WarChief:
+                    targetRadius = 2f;
+                    targetRange = 100f;
+                    break;
+                default:
+                    break;
+
+            }
 
             RaycastHit[] rayHits =
                 Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
@@ -135,14 +175,64 @@ namespace HOGUS.Scripts.Character
             isAttack = true;
             animator.SetBool("IsAttack", true);
 
-            yield return new WaitForSeconds(0.3f);
-            attackArea.enabled = true;
-            yield return new WaitForSeconds(0.5f);
-            attackArea.enabled = false;
+            switch (enemyType)
+            {
+                case EnemyType.PunchMonster:
+                    yield return new WaitForSeconds(0.3f);
+                    attackArea.enabled = true;
+                    yield return new WaitForSeconds(0.5f);
+                    attackArea.enabled = false;
+                    yield return new WaitForSeconds(0.5f);
+                    break;
+                case EnemyType.SwordMonster:
+                    yield return new WaitForSeconds(0.3f);
+                    attackArea.enabled = true;
+                    yield return new WaitForSeconds(0.5f);
+                    attackArea.enabled = false;
+                    yield return new WaitForSeconds(0.5f);
+                    break;
+                case EnemyType.MagicMonster:
+                    yield return new WaitForSeconds(0.3f);
+                    GameObject InstantSpell = Instantiate(fireball, weapon.transform.position, weapon.transform.rotation);
+                    Rigidbody rigidSpell = InstantSpell.GetComponent<Rigidbody>();
+                    rigidSpell.velocity = transform.forward * 40;
+                    yield return new WaitForSeconds(2f);
+                    break;
+                case EnemyType.WarChief:
+                    break;
+                default:
+                    break;
+
+            }
 
             isChase = true;
             isAttack = false;
             animator.SetBool("IsAttack", false);
+        }
+
+
+        void OnTriggerEnter(Collider other)
+        {
+            
+        }
+
+        public void HitByPlayer(Vector3 explosionPos)
+        {
+            Vector3 reactVector = transform.position - explosionPos;
+            StartCoroutine(OnDamage(reactVector, true));
+        }
+
+        IEnumerator OnDamage(Vector3 reactVector, bool isPlayerAttack)
+        {
+            foreach(MeshRenderer mesh in meshes)
+            {
+                mesh.material.color = Color.red;
+            }
+            yield return new WaitForSeconds(0.1f);
+
+            //현재 체력이 0보다 큰 경우에는 고대로
+
+            // 그 외에는 죽는거 표현.
         }
     }
 }
