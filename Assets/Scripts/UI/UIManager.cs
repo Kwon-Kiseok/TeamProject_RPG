@@ -14,10 +14,10 @@ public class UIManager : MonoBehaviour
     public bool isAction;
     public int talkIndex;
 
-    private void Start()
-    {
-        Debug.Log(questManager.CheckQuest());
-    }
+    //private void Start()
+    //{
+    //    Debug.Log(questManager.CheckQuest());
+    //}
 
     // player가 바라보는 raycast에서 layer object를 만나는 부분에서 이 함수 호출
     public void Action(GameObject _scanObj)

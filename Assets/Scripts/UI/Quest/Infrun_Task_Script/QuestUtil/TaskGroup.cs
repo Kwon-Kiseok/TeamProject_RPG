@@ -22,6 +22,14 @@ public class TaskGroup
     public bool IsComplete => State == TaskGroupState.Complete;
 
     public TaskGroupState State { get; private set; }
+    
+    // 클로닝 구현
+    // 다른 TaskGroup을 카피하는 생성자
+    public TaskGroup(TaskGroup _CopyTarget)
+    {
+        tasks = _CopyTarget.tasks.Select(x => Object.Instantiate(x)).ToArray();
+    }
+
     public void SetUp(Quest _owner)
     {
         Owner = _owner;

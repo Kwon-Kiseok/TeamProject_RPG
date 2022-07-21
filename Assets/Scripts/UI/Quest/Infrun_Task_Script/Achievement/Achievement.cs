@@ -7,6 +7,7 @@ public class Achievement : Quest
 {
     // 업적 시스템
     public override bool IsCancelable => false;
+    public override bool IsSavable => true;
 
     public override void Cancel()
     {

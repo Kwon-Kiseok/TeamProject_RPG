@@ -17,9 +17,12 @@ MonoBehaviour:
   codeName: 
   displayName: 
   description: 
-  taskGroups: []
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: fde105dbe55c58642a48f22420493313, type: 2}
   rewards: []
-  useAutoComplete: 0
+  useAutoComplete: 1
   isCancelable: 0
+  isSavable: 0
   acceptionConditions: []
   cancelConditions: []
