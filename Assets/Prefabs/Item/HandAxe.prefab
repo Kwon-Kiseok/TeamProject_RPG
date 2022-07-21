@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2328550583219694557}
   - component: {fileID: 2328550583218652845}
   - component: {fileID: 2317433804604015769}
-  - component: {fileID: -5984282746756891990}
   m_Layer: 0
   m_Name: HandAxe
   m_TagString: Untagged
@@ -98,16 +97,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1435585, y: 0.49482748, z: 0.3866713}
   m_Center: {x: -0.000060796738, y: 0.37925595, z: 0.12376487}
---- !u!114 &-5984282746756891990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2328550583220759009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ebcde8cbe13d1e4ea3f286ef6a9b620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeAreaCollider: {fileID: 2317433804604015769}

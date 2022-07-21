@@ -16,6 +16,9 @@ namespace HOGUS.Scripts.Character
     {
         public string Name;         // 캐릭터의 이름
         public Vector3 moveDir;     // 캐릭터의 이동 방향
+        private bool immune;        // 캐릭터의 무적 여부
+
+        public bool Immune { get { return immune; } set { immune = value; } }
 
         // 기본 붙어 있을 컴포넌트
         #region Base Component
@@ -25,6 +28,7 @@ namespace HOGUS.Scripts.Character
         #endregion
 
         public StateMachine stateMachine;  // 상태 머신
+        protected CapsuleCollider characterCollider;
 
         #region IUpdatableObject Interface
         public void OnEnable()
@@ -47,6 +51,7 @@ namespace HOGUS.Scripts.Character
         {
             animator = GetComponent<Animator>();
             rigid = GetComponent<Rigidbody>();
+            characterCollider = GetComponent<CapsuleCollider>();
         }
 
         #region Base Function
@@ -54,6 +59,22 @@ namespace HOGUS.Scripts.Character
         public abstract void Attack();  // 공격 함수
         public abstract void Hit(int damage);        // 피격 함수
         public abstract void Die();                    // 사망 함수
+
+        // 무적시간 코루틴
+        protected IEnumerator coImmune(float immuneTime)
+        {
+            Immune = true;
+            float timer = 0f;
+
+            while (timer < immuneTime)
+            {
+                yield return null;
+                timer += Time.deltaTime;
+            }
+
+            Immune = false;
+        }
+
         #endregion
     }
 }

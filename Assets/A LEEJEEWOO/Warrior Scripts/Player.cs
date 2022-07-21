@@ -27,7 +27,6 @@ namespace HOGUS.Scripts.Character
 
         public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
-        bool isDodge;
         bool isSkill;
 
         public bool IsSkill { get { return isSkill; } set { isSkill = value; } }
@@ -53,10 +52,12 @@ namespace HOGUS.Scripts.Character
             var state_idle = new IdleState(this);
             var state_move = new MoveState(this);
             var state_attack = new AttackState(this);
+            var state_Damaged = new DamagedState(this);
 
             dicState.Add(PlayerState.Idle, state_idle);
             dicState.Add(PlayerState.Move, state_move);
             dicState.Add(PlayerState.Attack, state_attack);
+            dicState.Add(PlayerState.Damaged, state_Damaged);
 
             stateMachine = new StateMachine(state_idle);
             // base Player Stat deep copy
@@ -66,14 +67,13 @@ namespace HOGUS.Scripts.Character
         public override void OnUpdate(float deltaTime)
         {
             joystick.GetMove();
-            Move(deltaTime);
             Turn();
             stateMachine.DoStateUpdate();
         }
 
         public override void OnFixedUpdate(float deltaTime)
         {
-            transform.position += currentStat.Speed * deltaTime * moveDir;
+            Move(deltaTime);
         }
 
         public PlayerStat GetCurrentStatus()
@@ -81,26 +81,31 @@ namespace HOGUS.Scripts.Character
             return currentStat;
         }
 
+        readonly float nextLevelNeedEXP = 100f;
         public void LevelUp()
         {
             Debug.Log("Player Level UP" + currentStat.Level);
-            currentStat.Level += 1;
+            currentStat.Level++;
             currentStat.CurrentEXP = 0;
-            currentStat.EXP += 100;
+            currentStat.EXP += nextLevelNeedEXP;
         }
 
         void Turn()
         {
+            moveDir = new Vector3(joystick.HorizontalAxis, 0, joystick.VerticalAxis).normalized;
             transform.LookAt(transform.position + moveDir);
         }
 
         public void Dodge()
         {
+            StopCoroutine(coImmune(0));
+            StartCoroutine(coImmune(1));
+
             if (dodgeSkill.dash && moveDir != Vector3.zero)
             {
                 currentStat.Speed *= 2f;
                 animator.SetTrigger("doDodge");
-                Invoke("DodgeOut", 0.4f);
+                Invoke(nameof(DodgeOut), 0.4f);
             }
         }
 
@@ -150,9 +155,9 @@ namespace HOGUS.Scripts.Character
 
         public override void Move(float deltaTime)
         {
-            if (!isSkill)
+            if (stateMachine.CurrentState != dicState[PlayerState.Attack])
             {
-                moveDir = new Vector3(joystick.HorizontalAxis, 0, joystick.VerticalAxis).normalized;
+                transform.position += currentStat.Speed * deltaTime * moveDir;
             }
         }
 
@@ -165,17 +170,45 @@ namespace HOGUS.Scripts.Character
 
             if (equipmentSystem.equipWeapon.attackType == AttackType.MELEE)
             {
-                stateMachine.SetState(dicState[PlayerState.Attack]);
+                // 처음 다른 상태에서 어택으로 들어올 경우
+                if (stateMachine.CurrentState != dicState[PlayerState.Attack])
+                {
+                    stateMachine.SetState(dicState[PlayerState.Attack]);
+                    return;
+                }
+                else if (stateMachine.CurrentState == dicState[PlayerState.Attack])
+                {
+                    animator.SetTrigger("doWeaponAttack");
+                }
             }
         }
 
+        private void OnCollisionStay(Collision collision)
+        {
+            if(collision.gameObject.CompareTag("Enemy"))
+            {
+                Hit(10);
+            }
+        }
+
+        readonly float PlayerHitImmuneTime = 2f;
         public override void Hit(int damage)
         {
+            if (Immune)
+            {
+                return;
+            }
+
+            stateMachine.SetState(dicState[PlayerState.Damaged]);
+            StopCoroutine(nameof(coImmune));
+            StartCoroutine(coImmune(PlayerHitImmuneTime));
+
             currentStat.CurHP -= damage;
             if (currentStat.CurHP < 0)
             {
                 currentStat.CurHP = 0;
             }
+            Debug.Log("CurrentHP " + currentStat.CurHP);
         }
 
         public override void Die()
