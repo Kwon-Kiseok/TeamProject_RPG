@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 5620326386164575221}
   - component: {fileID: 5620326386164575220}
   - component: {fileID: 5620326386164575179}
-  - component: {fileID: 5620326387741998803}
+  - component: {fileID: 4120830334545410935}
   m_Layer: 6
   m_Name: MagicMonster
   m_TagString: Enemy
@@ -403,7 +403,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5620326387741998803
+--- !u!114 &4120830334545410935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -412,18 +412,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5620326386243217142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd04b4b56e1302d4eb5c50692688bdde, type: 3}
+  m_Script: {fileID: 11500000, guid: d10b0eba0e3b5b34491f7339151bdc00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5620326386235904838}
   player: {fileID: 0}
   monster: {fileID: 5620326386164575179}
-  weapon: {fileID: 5620326386795494839}
-  fireball: {fileID: 3243917971495590046, guid: 4783d3f37a2fd4d4ab809c92671ada88, type: 3}
   isLooking: 0
   isChase: 0
   isAttack: 0
   attackArea: {fileID: 0}
+  weapon: {fileID: 5620326386795494839}
+  fireball: {fileID: 3243917971495590046, guid: 4783d3f37a2fd4d4ab809c92671ada88, type: 3}
+  enemyType: 2
 --- !u!1 &5620326386243219808
 GameObject:
   m_ObjectHideFlags: 0
