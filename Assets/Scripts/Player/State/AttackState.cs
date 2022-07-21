@@ -8,6 +8,7 @@ namespace HOGUS.Scripts.State
     public class AttackState : IState
     {
         private readonly Player player;
+
         public AttackState(Player player)
         {
             this.player = player;
@@ -30,10 +31,16 @@ namespace HOGUS.Scripts.State
 
         public void StateUpdate()
         {
-            if(player.animator.GetCurrentAnimatorStateInfo(0).fullPathHash != Animator.StringToHash("Sword-Combo-Attack"))
+            // ¸¾¿¡ ¾Èµê
+            if(player.animator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.Sword-Combo-Attack.Attack_02")
+                || player.animator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.Sword-Combo-Attack.Attack_03")
+                || player.animator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.Sword-Combo-Attack.Attack_05")
+                || player.animator.GetCurrentAnimatorStateInfo(0).fullPathHash == Animator.StringToHash("Base Layer.Sword-Combo-Attack.Attack_17"))
             {
-                player.stateMachine.SetState(player.dicState[PlayerState.Idle]);
+                return;
             }
+            else
+                player.stateMachine.SetState(player.dicState[PlayerState.Idle]);
         }
     }
 }
