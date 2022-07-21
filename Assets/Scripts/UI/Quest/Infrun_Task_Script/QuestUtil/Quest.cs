@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using UnityEngine;
+
+//using Debug = UnityEngine.Debug;
 
 public enum QuestState
 {
@@ -39,9 +42,21 @@ public class Quest : ScriptableObject
     [SerializeField]
     private TaskGroup[] taskGroups;
 
+    [Header("퀘스트 보상")]
+    [SerializeField]
+    private Reward[] rewards;
+
     [Header("옵션")]
     [SerializeField]
     private bool useAutoComplete;
+    [SerializeField]
+    private bool isCancelable;
+
+    [Header("퀘스트 조건")]
+    [SerializeField]
+    private Condition[] acceptionConditions;
+    [SerializeField]
+    private Condition[] cancelConditions;
 
     private int currentTaskGroupIndex;
 
@@ -58,10 +73,13 @@ public class Quest : ScriptableObject
 
     public TaskGroup CurrentTaskGroup => taskGroups[currentTaskGroupIndex];
     public IReadOnlyList<TaskGroup> TaskGroups => taskGroups;
+    public IReadOnlyList<Reward> Rewards => rewards;
     public bool IsRegistered => State != QuestState.Inactive;
     public bool IsCompletable => State == QuestState.WaitForCompletion;
     public bool IsComplete => State == QuestState.Complete;
     public bool IsCancel => State == QuestState.Cancel;
+    public virtual bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
+    public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
 
     public event TaskSuccessChangeHandler onTaskSuccessChanged;
     public event CompletedHandler onCompleted;
@@ -89,19 +107,82 @@ public class Quest : ScriptableObject
     public void ReceiveReport(string _category, object _target, int _successCount)
     {
         Debug.Assert(!IsRegistered, "This quest has already been registered.");
+        Debug.Assert(!IsCancel, "This quest has been canceled");
+
+        if (IsComplete)
+            return;
+
+        CurrentTaskGroup.ReceiveReport(_category, _target, _successCount);   
+
+        if(CurrentTaskGroup.IsAllTaskComplete)
+        {
+            if(currentTaskGroupIndex + 1 == taskGroups.Length) // 다음 TaskGroup이 없다면
+            {
+                State = QuestState.WaitForCompletion;
+                if(useAutoComplete) // 자동으로 퀘스트가 깨지는 useAutoComplete가 활성화 되있다면
+                {
+                    Complete();
+                }
+                else // // 다음 TaskGroup이 있다면
+                {
+                    var prevTaskGroup = taskGroups[currentTaskGroupIndex++]; // 다음 taskGroup을 가져오면서 인덱스 증가시키고
+                    prevTaskGroup.End(); // 이전 taskGroup은 끝내고
+                    CurrentTaskGroup.Start(); // 현재 taskGroup은 시작
+                    onNewTaskGroup?.Invoke(this, CurrentTaskGroup, prevTaskGroup); // 새로운 taskGroup이 시작됐다는 것을 이벤트를 통해 알려준다.
+                }
+            }
+        }
+        else
+        {
+            // 다시 task가 안 깨진 상태가 될 수 있기 때문
+            State = QuestState.Running;
+        }
     }
 
     public void Complete()
     {
+        // 퀘스트 즉시 완료해주는 아이템이나 시스템에 의해서 퀘스트의 task가 완료되지 않았지만 Complete하는 경우
 
+        CheckIsRunning();
+
+        foreach (var taskGroup in taskGroups)
+        {
+            taskGroup.Complete();
+        }
+
+        State = QuestState.Complete;
+
+        foreach(var reward in rewards)
+        {
+            reward.Give(this);
+        }
+
+        onCompleted?.Invoke(this);
+
+        onTaskSuccessChanged = null;
+        onCompleted = null;
+        onCanceled = null;
+        onNewTaskGroup = null;
     }
 
-    public void Cancel()
+    public virtual void Cancel()
     {
+        CheckIsRunning();
+        Debug.Assert(IsCancelable, "this quest can't be canceled");
 
+        State = QuestState.Cancel;
+        onCanceled?.Invoke(this);
     }
 
     private void OnSuccessChanged(Task task, int currentSuccess, int prevSuccess)
         => onTaskSuccessChanged?.Invoke(this, task, currentSuccess, prevSuccess);
+
+    [Conditional("UNITY_EDITOR")] // 인자로 전달한 Simbol 값이 선언되어 있으면 함수 실행
+    private void CheckIsRunning()
+    {
+        Debug.Assert(!IsRegistered, "This quest has already been registered.");
+        Debug.Assert(!IsCancel, "This quest has been canceled");
+        Debug.Assert(!IsComplete, "This quest has already been Completed");
+    }
 }
 
