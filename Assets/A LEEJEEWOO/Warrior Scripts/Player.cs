@@ -153,7 +153,7 @@ namespace HOGUS.Scripts.Character
             isSkill = false;
         }
 
-        public override void Move(float deltaTime)
+        public void Move(float deltaTime)
         {
             if (stateMachine.CurrentState != dicState[PlayerState.Attack])
             {
@@ -161,7 +161,7 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        public override void Attack()
+        public override void Attack(Stat targetStat)
         {
             if (equipmentSystem.equipWeapon == null)
             {
@@ -182,19 +182,11 @@ namespace HOGUS.Scripts.Character
                 }
             }
         }
-
-        private void OnCollisionStay(Collision collision)
-        {
-            if(collision.gameObject.CompareTag("Enemy"))
-            {
-                Hit(10);
-            }
-        }
-
+        
         readonly float PlayerHitImmuneTime = 2f;
-        public override void Hit(int damage)
+        public override void Damaged()
         {
-            if (Immune)
+            if (Immune || IsDead)
             {
                 return;
             }
@@ -203,16 +195,23 @@ namespace HOGUS.Scripts.Character
             StopCoroutine(nameof(coImmune));
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
-            currentStat.CurHP -= damage;
+            //currentStat.CurHP -= damage;
             if (currentStat.CurHP < 0)
             {
                 currentStat.CurHP = 0;
+                Die();
             }
             Debug.Log("CurrentHP " + currentStat.CurHP);
         }
 
         public override void Die()
         {
+            IsDead = true;
+
+            // 죽은 다음 수행 될...
+            // DeadCheck와는 구분되야 하긴 할듯
+
+            Debug.Log("Player Dead");
         }
 
         public void TestEquip()

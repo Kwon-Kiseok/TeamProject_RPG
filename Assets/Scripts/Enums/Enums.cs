@@ -77,6 +77,7 @@ namespace HOGUS.Scripts.Enums
     {
         Idle,
         Move,
+        Chase,
         Attack,
         Damaged,
         Die

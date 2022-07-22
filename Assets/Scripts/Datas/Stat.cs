@@ -41,5 +41,15 @@ namespace HOGUS.Scripts.Data
         public float Speed { get { return speed; } set { speed = value; } }
         public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
         #endregion
+
+        #region Base Func
+        public virtual void TakeDamage(Stat targetState)
+        {
+            if (targetState == null)
+                return;
+
+            targetState.CurHP -= Random.Range(this.MinDamage, this.MaxDamage);
+        }
+        #endregion
     }
 }
