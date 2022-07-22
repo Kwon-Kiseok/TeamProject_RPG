@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HOGUS.Scripts.Manager;
 
-public class BossArrow : MonoBehaviour
+namespace HOGUS.Scripts.Character
 {
-    Rigidbody rigid;
-    public int damage;
-    private void OnCollisionEnter(Collision collision)
+    public class BossArrow : MonoBehaviour
     {
-        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
+        Rigidbody rigid;
+        public int damage;
+
+        private void Awake()
         {
-            Destroy(gameObject);
+            rigid = GetComponent<Rigidbody>();
+            Physics.gravity = new Vector3(0, -20f, 0);
+        }
+
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

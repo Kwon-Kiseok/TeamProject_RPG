@@ -164,7 +164,7 @@ namespace HOGUS.Scripts.Character
             RaycastHit[] rayHits =
                 Physics.SphereCastAll(transform.position, targetRadius, transform.forward, targetRange, LayerMask.GetMask("Player"));
 
-            if (rayHits.Length > 0 && !isAttack)
+            if (rayHits.Length > 0 && !isAttack && enemyType != EnemyType.WarChief)
             {
                 StartCoroutine(Attack());
             }
@@ -197,8 +197,6 @@ namespace HOGUS.Scripts.Character
                     Rigidbody rigidSpell = InstantSpell.GetComponent<Rigidbody>();
                     rigidSpell.velocity = transform.forward * 40;
                     yield return new WaitForSeconds(2f);
-                    break;
-                case EnemyType.WarChief:
                     break;
                 default:
                     break;
