@@ -21,6 +21,8 @@ namespace HOGUS.Scripts.Character
         public float targetRange = 0f;
         public float targetDistance = 0f;
 
+        public float attackCooltime = 2f;
+
         public readonly Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
 
         public EnemyType enemyType;
@@ -60,6 +62,14 @@ namespace HOGUS.Scripts.Character
 
         public override void Attack()
         {
+            StopCoroutine(nameof(coAttack));
+            StartCoroutine(coAttack(attackCooltime));
+            Debug.Log("Monster Attack");
+        }
+
+        IEnumerator coAttack(float cooltime)
+        {
+            yield return new WaitForSeconds(cooltime);
         }
 
         public override void Die()

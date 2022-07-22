@@ -18,21 +18,25 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            Debug.Log("몬스터 공격 수행");
+            monster.animator.SetBool("IsAttack", true);
+            monster.Attack();
         }
 
         public void StateExit()
         {
-            Debug.Log("몬스터 공격 수행 종료");
+            monster.animator.SetBool("IsAttack", false);
         }
 
         public void StateFixedUpdate()
-        {            
+        {
         }
 
         public void StateUpdate()
         {
-            
+            if (monster.targetDistance > monster.monsterAgent.stoppingDistance)
+            {
+                monster.stateMachine.SetState(monster.dicState[EnemyState.Idle]);
+            }
         }
     }
 }
