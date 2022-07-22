@@ -13,6 +13,7 @@ namespace HOGUS.Scripts.Character
     public class Boss : MonsterController
     {
         public GameObject spell;
+        public GameObject secondSpell;
         public Transform spellPort;
         public Transform spellPort2;
         public Transform arrowSpawnPort;
@@ -68,8 +69,11 @@ namespace HOGUS.Scripts.Character
         IEnumerator electricArrow()
         {
             animator.SetTrigger("Pattern_2");
-            yield return new WaitForSeconds(3.0f);
-
+            yield return new WaitForSeconds(1.0f);
+            GameObject instantSpell3 = Instantiate(secondSpell, arrowSpawnPort.transform.position
+                , arrowSpawnPort.transform.rotation);
+            BossArrow bossSkill = instantSpell3.GetComponent<BossArrow>();
+            yield return new WaitForSeconds(2.0f);
             StartCoroutine(Think());
         }
     }
