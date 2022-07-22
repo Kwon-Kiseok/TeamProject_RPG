@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 587a8850a45d2324183a8d9939f417f9
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       1: 100000
@@ -449,7 +449,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.33579338
+        functionName: OnAttackCollision
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -1595,7 +1602,8 @@ ModelImporter:
     - name: IndexFinger3_L
       parentName: IndexFinger2_L
       position: {x: 0.04207957, y: 0, z: -1.4210854e-15}
-      rotation: {x: -9.3132235e-10, y: 0.0000000037252894, z: -0.0000000016880217, w: 1}
+      rotation: {x: -9.3132235e-10, y: 0.0000000037252894, z: -0.0000000016880217,
+        w: 1}
       scale: {x: 1.0000571, y: 1.000028, z: 1.0000197}
     - name: RingFinger1_L
       parentName: Wrist_L
@@ -1664,13 +1672,13 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: a4a3ba617ed9c5946bb76844ec1ef299, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: a4a3ba617ed9c5946bb76844ec1ef299,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
-  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
