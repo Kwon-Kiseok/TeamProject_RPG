@@ -16,13 +16,11 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            Debug.Log("플레이어 공격 시전");
             player.animator.SetTrigger("doWeaponAttack");
         }
 
         public void StateExit()
         {
-            Debug.Log("플레이어 공격 종료");
         }
 
         public void StateFixedUpdate()

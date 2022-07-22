@@ -508,6 +508,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1672393861363113820}
     - target: {fileID: 901271335, guid: 5a669f783d11caa4bb8a0e58362b085d, type: 3}
+      propertyPath: secondSpell
+      value: 
+      objectReference: {fileID: 5840530982581572981, guid: cd6cbd517ffdc1f488fc950bba5d7bf7, type: 3}
+    - target: {fileID: 901271335, guid: 5a669f783d11caa4bb8a0e58362b085d, type: 3}
       propertyPath: arrowSpawnPort
       value: 
       objectReference: {fileID: 946488600}

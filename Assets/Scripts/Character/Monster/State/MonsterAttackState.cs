@@ -18,22 +18,25 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            throw new System.NotImplementedException();
+            monster.animator.SetBool("IsAttack", true);
+            monster.Attack();
         }
 
         public void StateExit()
         {
-            throw new System.NotImplementedException();
+            monster.animator.SetBool("IsAttack", false);
         }
 
         public void StateFixedUpdate()
         {
-            throw new System.NotImplementedException();
         }
 
         public void StateUpdate()
         {
-            throw new System.NotImplementedException();
+            if (monster.targetDistance > monster.monsterAgent.stoppingDistance)
+            {
+                monster.stateMachine.SetState(monster.dicState[EnemyState.Idle]);
+            }
         }
     }
 }

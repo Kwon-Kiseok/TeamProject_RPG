@@ -23,10 +23,13 @@ namespace HOGUS.Scripts.Character
         public float targetRange = 0f;
         public float targetDistance = 0f;
 
+        public float attackCooltime = 2f;
+
         public readonly Dictionary<EnemyState, IState> dicState = new Dictionary<EnemyState, IState>();
 
         public EnemyType enemyType;
-        public Stat stat;
+        public Stat baseStat;
+        Stat currentStat;
         public Transform targetTr;
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
@@ -47,25 +50,52 @@ namespace HOGUS.Scripts.Character
 
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             monsterAgent = GetComponent<NavMeshAgent>();
-            monsterAgent.speed = stat.Speed;
             meshes = GetComponentsInChildren<MeshRenderer>();
+
+            currentStat = Instantiate(baseStat);
+
+            monsterAgent.speed = currentStat.Speed;
         }
 
-        public override void Attack(Stat targetStat)
+        public Stat GetCurrentStat()
         {
+            return currentStat;
+        }
+
+        public override void Attack()
+        {
+            StopCoroutine(nameof(coAttack));
+            StartCoroutine(coAttack(attackCooltime));
+            Debug.Log("Monster Attack");
+        }
+
+        IEnumerator coAttack(float cooltime)
+        {
+            yield return new WaitForSeconds(cooltime);
         }
 
         public override void Die()
         {
             IsDead = true;
+<<<<<<< HEAD
 
             onDead.Invoke();
+=======
+            Destroy(gameObject);
+>>>>>>> master
         }
 
-        public override void Damaged()
+        public override void Damaged(int damage)
         {
-            StartCoroutine(OnDamage());
-            
+            StartCoroutine(OnDamageFlickering());
+
+            currentStat.CurHP -= damage;
+            if(currentStat.CurHP < 0)
+            {
+                currentStat.CurHP = 0;
+                Die();
+            }
+            Debug.Log(currentStat.CurHP);
         }
 
         public override void OnFixedUpdate(float deltaTime)
@@ -108,7 +138,7 @@ namespace HOGUS.Scripts.Character
                 IsLooking = false;
         }
 
-        IEnumerator OnDamage()
+        IEnumerator OnDamageFlickering()
         {
             foreach (MeshRenderer mesh in meshes)
             {

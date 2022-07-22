@@ -15,12 +15,10 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            Debug.Log("플레이어 유휴상태 시작");
         }
 
         public void StateExit()
         {
-            Debug.Log("플레이어 유휴상태 종료");
         }
 
         public void StateFixedUpdate()

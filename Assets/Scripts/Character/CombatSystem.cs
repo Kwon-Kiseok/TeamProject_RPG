@@ -20,13 +20,5 @@ namespace HOGUS.Scripts.CustomSystem
         {
             attackCollider.SetActive(true);
         }
-
-        public bool CheckTargetHit(Stat targetStat)
-        {
-            if (targetStat == null)
-                return false;
-
-            return true;
-        }
     }
 }

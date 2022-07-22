@@ -93,7 +93,12 @@ namespace HOGUS.Scripts.Character
         void Turn()
         {
             moveDir = new Vector3(joystick.HorizontalAxis, 0, joystick.VerticalAxis).normalized;
-            transform.LookAt(transform.position + moveDir);
+
+            if (joystick.HorizontalAxis != 0 && joystick.VerticalAxis != 0)
+            {
+                Quaternion lookAt = Quaternion.LookRotation(moveDir);
+                transform.rotation = lookAt;
+            }
         }
 
         public void Dodge()
@@ -161,7 +166,7 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        public override void Attack(Stat targetStat)
+        public override void Attack()
         {
             if (equipmentSystem.equipWeapon == null)
             {
@@ -184,10 +189,17 @@ namespace HOGUS.Scripts.Character
         }
         
         readonly float PlayerHitImmuneTime = 2f;
-        public override void Damaged()
+        public override void Damaged(int damage)
         {
+            // 무적상태 이거나 이미 죽었다면 데미지를 받지 않음
             if (Immune || IsDead)
             {
+                return;
+            }
+            // 현재 회피율에 따라 확률적으로 피할 수 있음
+            else if(Random.Range(1, 100) <= currentStat.DodgeChance)
+            {
+                Debug.Log("Guard");
                 return;
             }
 
@@ -195,7 +207,7 @@ namespace HOGUS.Scripts.Character
             StopCoroutine(nameof(coImmune));
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
-            //currentStat.CurHP -= damage;
+            currentStat.CurHP -= damage;
             if (currentStat.CurHP < 0)
             {
                 currentStat.CurHP = 0;
