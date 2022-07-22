@@ -4,6 +4,7 @@ using UnityEngine;
 
 using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Object.Item;
+using HOGUS.Scripts.Data;
 
 namespace HOGUS.Scripts.CustomSystem
 {
@@ -18,6 +19,14 @@ namespace HOGUS.Scripts.CustomSystem
         public void OnAttackCollision()
         {
             attackCollider.SetActive(true);
+        }
+
+        public bool CheckTargetHit(Stat targetStat)
+        {
+            if (targetStat == null)
+                return false;
+
+            return true;
         }
     }
 }

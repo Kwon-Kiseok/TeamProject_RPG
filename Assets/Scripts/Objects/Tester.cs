@@ -145,7 +145,7 @@ public class Tester : Character
     {
     }
 
-    public override void Hit(int damage)
+    public override void Damaged()
     {
     }
 }

@@ -49,20 +49,19 @@ namespace HOGUS.Scripts.Character
             meshes = GetComponentsInChildren<MeshRenderer>();
         }
 
-        public override void Attack()
+        public override void Attack(Stat targetStat)
         {
         }
 
         public override void Die()
         {
+            IsDead = true;
         }
 
-        public override void Hit(int damage)
+        public override void Damaged()
         {
-        }
-
-        public override void Move(float deltaTime)
-        {
+            StartCoroutine(OnDamage());
+            
         }
 
         public override void OnFixedUpdate(float deltaTime)
@@ -105,29 +104,21 @@ namespace HOGUS.Scripts.Character
                 IsLooking = false;
         }
 
-        public void HitByPlayer(Vector3 explosionPos)
-        {
-            Vector3 reactVector = transform.position - explosionPos;
-            StartCoroutine(OnDamage(reactVector, true));
-        }
-
-        IEnumerator OnDamage(Vector3 reactVector, bool isPlayerAttack)
+        IEnumerator OnDamage()
         {
             foreach (MeshRenderer mesh in meshes)
             {
                 mesh.material.color = Color.red;
             }
             yield return new WaitForSeconds(0.1f);
-
-            //현재 체력이 0보다 큰 경우에는 고대로
-
-            // 그 외에는 죽는거 표현.
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, targetRadius);
         }
     }
+#endif
 }
