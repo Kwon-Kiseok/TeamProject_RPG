@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2c23338b55a4741a3e4b18b39e59b4, type: 3}
+  m_Script: {fileID: 11500000, guid: d1f0b7a89e6bffa4b9a4f3b5231b998e, type: 3}
   m_Name: Category_Kill
   m_EditorClassIdentifier: 
   codeName: KILL
