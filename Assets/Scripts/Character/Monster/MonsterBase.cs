@@ -15,6 +15,8 @@ namespace HOGUS.Scripts.Character
     {
         private bool isLooking = false;
 
+        public UnityEngine.Events.UnityEvent onDead;
+
         public bool IsLooking { get { return isLooking; } set { isLooking = value; } }
 
         public float targetRadius = 0f;
@@ -56,6 +58,8 @@ namespace HOGUS.Scripts.Character
         public override void Die()
         {
             IsDead = true;
+
+            onDead.Invoke();
         }
 
         public override void Damaged()

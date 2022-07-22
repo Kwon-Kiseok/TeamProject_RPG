@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e682fcf613e608048a0cd7060765e4cf, type: 3}
+  m_Name: Quest_SaveTheVillage
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 80575f1e441305644a38078a75fb5af8, type: 2}
+  icon: {fileID: 0}
+  codeName: SAVE_THE_VILLAGE
+  displayName: Save The Village
+  description: You need to rescue the villagers
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: 2c7e4d79d5af1e349984d5d449ede440, type: 2}
+  - tasks:
+    - {fileID: 11400000, guid: d57705483e9e7874c945a883117b214a, type: 2}
+  - tasks:
+    - {fileID: 11400000, guid: 5d8c7e1372e87f54ea3496cef3d31a6c, type: 2}
+  rewards: []
+  useAutoComplete: 0
+  isCancelable: 0
+  isSavable: 0
+  acceptionConditions: []
+  cancelConditions: []

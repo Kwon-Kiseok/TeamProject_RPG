@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public bool isAction;
     public int talkIndex;
 
+    public UnityEngine.Events.UnityEvent onTalk;
+
     //private void Start()
     //{
     //    Debug.Log(questManager.CheckQuest());
@@ -38,6 +40,7 @@ public class UIManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             Debug.Log(questManager.CheckQuest(_id));
+            onTalk.Invoke();
             return;
         }
         if(_isNpc)

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e682fcf613e608048a0cd7060765e4cf, type: 3}
+  m_Name: Quest_KillTheMonster
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
+  icon: {fileID: 0}
+  codeName: KILL_THE_MONSTER
+  displayName: Kill the monster
+  description: You have Kill the Monster
+  taskGroups:
+  - tasks:
+    - {fileID: 11400000, guid: d57705483e9e7874c945a883117b214a, type: 2}
+  rewards: []
+  useAutoComplete: 0
+  isCancelable: 0
+  isSavable: 0
+  acceptionConditions: []
+  cancelConditions: []

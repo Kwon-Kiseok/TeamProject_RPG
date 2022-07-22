@@ -77,7 +77,6 @@ public class QuestManager : MonoBehaviour
         if (_id == questList[questId].npcId[questActionIndex])
         {
             questActionIndex++;
-            Debug.Log("아니 왜 안 타?" + questActionIndex);
         }
 
         // 퀘스트에 저장해놓은 npc들과 대화를 다 나눴는지
