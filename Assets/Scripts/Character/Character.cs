@@ -57,8 +57,8 @@ namespace HOGUS.Scripts.Character
         }
 
         #region Base Function
-        public abstract void Attack(Stat targetStat);  // 공격 함수
-        public abstract void Damaged();        // 피격 함수
+        public abstract void Attack();  // 공격 함수
+        public abstract void Damaged(int damage);        // 피격 함수
         public abstract void Die();                    // 사망 함수
 
         // 무적시간 코루틴

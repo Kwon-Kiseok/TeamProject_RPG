@@ -15,13 +15,11 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            Debug.Log("플레이어 움직임 시작");
             player.animator.SetBool("isMove", true);
         }
 
         public void StateExit()
         {
-            Debug.Log("플레이어 멈춤");
             player.animator.SetBool("isMove", false);
         }
 

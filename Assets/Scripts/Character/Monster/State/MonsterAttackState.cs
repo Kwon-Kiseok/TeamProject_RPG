@@ -18,22 +18,21 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("몬스터 공격 수행");
         }
 
         public void StateExit()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("몬스터 공격 수행 종료");
         }
 
         public void StateFixedUpdate()
-        {
-            throw new System.NotImplementedException();
+        {            
         }
 
         public void StateUpdate()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }
