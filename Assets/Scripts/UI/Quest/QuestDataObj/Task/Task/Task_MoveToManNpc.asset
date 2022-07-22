@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2b5e1cd16129143b5d2e89cd97ca17, type: 3}
+  m_Name: Task_MoveToManNpc
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 0c99a416ebcf5244f8d75ac7af8cc349, type: 2}
+  codeName: MOVE_TO_MAN_NPC
+  description: You move to Man Npc
+  action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
+  targets:
+  - {fileID: 11400000, guid: 5c32e6d6c38352e469359462a6d0a994, type: 2}
+  initialSuccessValue: {fileID: 0}
+  needSuccessToComplete: 1
+  canReceiveReportsDuringCompletion: 0
