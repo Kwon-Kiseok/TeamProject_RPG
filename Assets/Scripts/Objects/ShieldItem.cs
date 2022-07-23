@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HOGUS.Scripts.Enums;
 
 namespace HOGUS.Scripts.Object.Item
 {
@@ -12,6 +13,9 @@ namespace HOGUS.Scripts.Object.Item
 
         [Header("막기 확률")]
         public float blockChance;
+
+        [Header("무기 종류")]
+        public ShieldType type;
 
         public void CopyValue(ShieldItem item)
         {

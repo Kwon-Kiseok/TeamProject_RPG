@@ -1,5 +1,6 @@
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.DP;
+using HOGUS.Scripts.Object.Item;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -20,14 +21,15 @@ namespace HOGUS.Scripts.Manager
     {
         // Temp Example Dict
         // 필요한 데이터의 딕셔너리가 존재할 경우 Data.Contents에서 추가 후 Dictionary 생성해서 사용
-        public Dictionary<int, Item> itemDict { get; private set; } = new();
+        public Dictionary<int, BaseItem> itemDict { get; private set; } = new();
 
         private TextAsset jsAsset;
 
         public void Init()
         {
             Debug.Log("Load and Init Data");
-            itemDict = LoadJson<ItemData, int, Item>("ItemData").MakeDict();
+            itemDict = LoadJson<ItemData, int, BaseItem>("ItemData").MakeDict();
+            
         }
 
         public void Save()

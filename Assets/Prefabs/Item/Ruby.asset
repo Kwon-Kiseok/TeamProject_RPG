@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342bfeacfb3c03468718f247cb14790, type: 3}
   m_Name: Ruby
   m_EditorClassIdentifier: 
+  id: 300
+  sprite: {fileID: 0}
   quality: 1
   rarity: 2
   itemName: Ruby

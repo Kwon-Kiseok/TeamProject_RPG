@@ -2,6 +2,22 @@ namespace HOGUS.Scripts.Enums
 {
     #region ItemEnum
     /// <summary>
+    /// 아이템 종류
+    /// </summary>
+    public enum ItemType
+    {
+        Equipment,
+        Consumables,
+        Etc,
+        // 0~99 소모 아이템
+        // 100~199 무기 아이템
+        // 200~299 방어구 아이템
+        Cons = 0,
+        weapon = 100,
+        armor = 200,
+        None = 300
+    }
+    /// <summary>
     /// 아이템 희귀도등급
     /// </summary>
     public enum ItemRarity
@@ -44,6 +60,15 @@ namespace HOGUS.Scripts.Enums
         BOOTS
     }
     #endregion
+
+    /// <summary>
+    /// 방패종류
+    /// </summary>
+    
+    public enum ShieldType
+    {
+        Shield
+    }
 
     // ...
     public enum TestEventEnum

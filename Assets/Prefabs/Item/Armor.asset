@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc6e09c8e5554e46bbd1028fd2124d4, type: 3}
   m_Name: Armor
   m_EditorClassIdentifier: 
+  id: 200
+  sprite: {fileID: 0}
   quality: 0
   rarity: 0
   itemName: 

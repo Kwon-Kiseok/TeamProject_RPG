@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc6e09c8e5554e46bbd1028fd2124d4, type: 3}
+  m_Name: NomalBoots
+  m_EditorClassIdentifier: 
+  id: 221
+  sprite: {fileID: 21300000, guid: 2fc70e7bacd889f43951280478a43eae, type: 3}
+  quality: 0
+  rarity: 0
+  itemName: Arctic boots
+  itemDescription: 
+  itemWidth: 0
+  itemHeight: 0
+  durability: 11
+  socket: 0
+  requireLevel: 1
+  requireStrength: 0
+  requireAgility: 0
+  type: 4
+  defense: 5

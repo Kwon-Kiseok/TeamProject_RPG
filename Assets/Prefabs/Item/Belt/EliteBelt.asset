@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc6e09c8e5554e46bbd1028fd2124d4, type: 3}
+  m_Name: EliteBelt
+  m_EditorClassIdentifier: 
+  id: 213
+  sprite: {fileID: 21300000, guid: 1a744ec97caf9f8428b252d5a1822a46, type: 3}
+  quality: 2
+  rarity: 6
+  itemName: "\uD0C8\uB77C\uC0E4\uC758 \uBCA8\uD2B8"
+  itemDescription: Even if you wear this belt, your pants will go down.
+  itemWidth: 0
+  itemHeight: 0
+  durability: 30
+  socket: 0
+  requireLevel: 10
+  requireStrength: 30
+  requireAgility: 30
+  type: 3
+  defense: 120

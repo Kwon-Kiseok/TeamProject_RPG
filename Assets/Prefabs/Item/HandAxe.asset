@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193c198d21bb7a94993a5098ac223396, type: 3}
   m_Name: HandAxe
   m_EditorClassIdentifier: 
+  id: 1000
+  sprite: {fileID: 0}
   quality: 0
   rarity: 0
   itemName: HandAxe
