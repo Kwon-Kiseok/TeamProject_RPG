@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using HOGUS.Scripts.Character;
+
 public class ExpBarController : MonoBehaviour
 {
     public Slider ExpSlider;

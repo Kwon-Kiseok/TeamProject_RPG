@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: ff13e6551ae28014f8c77a74e1093fd7
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       1: 100000
@@ -441,10 +441,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: EndSkillAnim
+      - time: 0.2777778
+        functionName: OnAttackCollision
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e18d2d82c75de5949a431f80dfa703a7, type: 3}
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -1361,7 +1361,6 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
-  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

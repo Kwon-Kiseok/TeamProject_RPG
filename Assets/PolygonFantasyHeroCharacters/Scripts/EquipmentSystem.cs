@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 using HOGUS.Scripts.Enums;
+using HOGUS.Scripts.Character;
 using HOGUS.Scripts.Object.Item;
 
 namespace HOGUS.Scripts.CustomSystem
@@ -87,7 +88,6 @@ namespace HOGUS.Scripts.CustomSystem
             if(handle.Status == AsyncOperationStatus.Succeeded)
             {
                 weaponGO = Instantiate(handle.Result, player.weaponEquipPos);
-                weaponGO.AddComponent<BoxCollider>();
             }
         }
     }

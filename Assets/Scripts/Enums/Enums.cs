@@ -102,6 +102,7 @@ namespace HOGUS.Scripts.Enums
     {
         Idle,
         Move,
+        Chase,
         Attack,
         Damaged,
         Die
@@ -113,18 +114,23 @@ namespace HOGUS.Scripts.Enums
         Attack,
         GameOver,
     }
-    #endregion
-    #region Boss
-    public enum BossState
+
+    public enum EnemyType
     {
-        Idle,
-        Move,
-        Attack,
-        Damaged,
-        Die,
-        Skill,
-        Skill1,
-        Skill2
+        PunchMonster,
+        SwordMonster,
+        MagicMonster,
+        WarChief,
     }
+
     #endregion
+
+
+    #region System
+    public enum AttackType
+    {
+        MELEE,
+        RANGE
+    }
+#endregion
 }

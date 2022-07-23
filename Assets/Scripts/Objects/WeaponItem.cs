@@ -15,6 +15,9 @@ namespace HOGUS.Scripts.Object.Item
         [Header("무기 종류")]
         public WeaponType type;
 
+        [Header("공격 타입")]
+        public AttackType attackType;
+
         [Header("최소-최대 데미지")]
         public int minDamage;
         public int maxDamage;
@@ -28,6 +31,7 @@ namespace HOGUS.Scripts.Object.Item
 
             refAddress = item.refAddress;
             type = item.type;
+            attackType = item.attackType;
             minDamage = item.minDamage;
             maxDamage = item.maxDamage;
             attackSpeed = item.attackSpeed;

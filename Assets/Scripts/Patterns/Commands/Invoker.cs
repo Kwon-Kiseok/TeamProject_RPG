@@ -11,7 +11,6 @@ namespace HOGUS.Scripts.DP
         public void ExecuteCommand(Command command)
         {
             command.Execute();
-            commands.Add("Example Key", command);
         }
     }
 }
