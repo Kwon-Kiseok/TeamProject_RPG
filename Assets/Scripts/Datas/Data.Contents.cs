@@ -1,6 +1,10 @@
 using HOGUS.Scripts.Manager;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+
+using HOGUS.Scripts.Enums;
+using HOGUS.Scripts.Object.Item;
 
 // Reference by : https://velog.io/@starkshn/Data-Manager
 
@@ -37,25 +41,31 @@ namespace HOGUS.Scripts.Data
 
     #region ItemData
     [Serializable]
-    public class Item
+    public class Item : ScriptableObject
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Sprite_path { get; set; }
-        public string Desc { get; set; }
+        public int id;
+        public ItemType type;
+        //public string name;
+        public Sprite sprite;
+        public string desc;
+
+        public bool Use()
+        {
+            return false;
+        }
     }
 
     [Serializable]
-    public class ItemData : ILoader<int, Item>
+    public class ItemData : ILoader<int, BaseItem>
     {
-        public List<Item> items = new();            // json 파일에서 담길 리스트
+        public List<BaseItem> items = new();            // json 파일에서 담길 리스트
 
-        public Dictionary<int, Item> MakeDict()
+        public Dictionary<int, BaseItem> MakeDict()
         {
-            Dictionary<int, Item> dict = new();
-            foreach (Item item in items)           // 리스트에서 Dictionary로 옮김
+            Dictionary<int, BaseItem> dict = new();
+            foreach (BaseItem item in items)           // 리스트에서 Dictionary로 옮김
             {
-                dict.Add(item.Id, item);           // ID를 Key로 사용
+                dict.Add(item.id, item);           // ID를 Key로 사용
             }
             return dict;
         }

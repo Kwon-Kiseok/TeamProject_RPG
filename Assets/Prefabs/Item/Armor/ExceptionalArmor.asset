@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc6e09c8e5554e46bbd1028fd2124d4, type: 3}
+  m_Name: ExceptionalArmor
+  m_EditorClassIdentifier: 
+  id: 202
+  sprite: {fileID: 21300000, guid: e0b762af065170b40897d151c7f30039, type: 3}
+  quality: 1
+  rarity: 3
+  itemName: "\uD2B8\uC54C\uC6B8\uC2A4\uCF00\uC77C"
+  itemDescription: "\uBB54\uAC00 \uC2EC\uC624\uD574 \uBCF4\uC774\uB294 \uC774\uB984\uC774\uC9C0\uB9CC
+    \uBCC4\uB73B\uC740 \uC5C6\uB294\uB4EF\uD55C \uAC11\uC637."
+  itemWidth: 0
+  itemHeight: 0
+  durability: 70
+  socket: 4
+  requireLevel: 5
+  requireStrength: 60
+  requireAgility: 10
+  type: 1
+  defense: 150

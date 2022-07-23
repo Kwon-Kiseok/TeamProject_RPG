@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193c198d21bb7a94993a5098ac223396, type: 3}
   m_Name: Rapier
   m_EditorClassIdentifier: 
+  id: 100
+  sprite: {fileID: 0}
   quality: 1
   rarity: 2
   itemName: Rapier
