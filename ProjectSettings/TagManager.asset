@@ -9,6 +9,7 @@ TagManager:
   - EnemyAttack
   - Skill
   - UICamera
+  - Obstacle
   layers:
   - Default
   - TransparentFX

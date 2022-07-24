@@ -12,9 +12,6 @@ public class SkillBtn : MonoBehaviour
     private bool canUseSkill = true;
 
     public bool cool;
-    public bool heal;
-    public bool combo;
-    public bool dash;
 
     public GameObject timeGO;
     public GameObject buttonGO;
@@ -23,9 +20,6 @@ public class SkillBtn : MonoBehaviour
     {
         skillFilter.fillAmount = 0;
         cool = true;
-        heal = true;
-        combo = true;
-        dash = true;
 
         timeGO.SetActive(false);
         buttonGO.GetComponent<Button>().enabled = true;
@@ -51,70 +45,7 @@ public class SkillBtn : MonoBehaviour
             Debug.Log("스킬사용불가");
         }
     }
-
-    public void UseHeal()
-    {
-        if (canUseSkill)
-        {
-            timeGO.SetActive(true);
-            buttonGO.GetComponent<Button>().enabled = false;
-
-            skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime");
-
-            currentCoolTime = coolTime;
-            coolTimeCounter.text = "" + currentCoolTime;
-
-            StartCoroutine("CoolTimeCounter");
-        }
-        else
-        {
-            Debug.Log("스킬사용불가");
-        }
-    }
-
-    public void UseCombo()
-    {
-        if (canUseSkill)
-        {
-            timeGO.SetActive(true);
-            buttonGO.GetComponent<Button>().enabled = false;
-
-            skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime");
-
-            currentCoolTime = coolTime;
-            coolTimeCounter.text = "" + currentCoolTime;
-
-            StartCoroutine("CoolTimeCounter");
-        }
-        else
-        {
-            Debug.Log("스킬사용불가");
-        }
-    }
-
-    public void UseDash()
-    {
-        if (canUseSkill)
-        {
-            timeGO.SetActive(true);
-            buttonGO.GetComponent<Button>().enabled = false;
-
-            skillFilter.fillAmount = 1;
-            StartCoroutine("Cooltime");
-
-            currentCoolTime = coolTime;
-            coolTimeCounter.text = "" + currentCoolTime;
-
-            StartCoroutine("CoolTimeCounter");
-        }
-        else
-        {
-            Debug.Log("스킬사용불가");
-        }
-    }
-
+   
     IEnumerator Cooltime()
     {
         while(skillFilter.fillAmount > 0)
@@ -135,7 +66,7 @@ public class SkillBtn : MonoBehaviour
     {
         while(currentCoolTime > 0)
         {
-            yield return new WaitForSeconds(coolTime);
+            yield return new WaitForSeconds(1.0f);
 
             currentCoolTime -= 1.0f;
             coolTimeCounter.text = "" + currentCoolTime;
