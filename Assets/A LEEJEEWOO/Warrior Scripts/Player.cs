@@ -62,18 +62,23 @@ namespace HOGUS.Scripts.Character
             stateMachine = new StateMachine(state_idle);
             // base Player Stat deep copy
             currentStat = Instantiate(baseStat);
+            UpdateStat();
+            InitialSetStatus();
         }
 
         public override void OnUpdate(float deltaTime)
         {
             joystick.GetMove();
             Turn();
+            Recover(deltaTime);
+            UpdateStat();
             stateMachine.DoStateUpdate();
         }
 
         public override void OnFixedUpdate(float deltaTime)
         {
             Move(deltaTime);
+            LevelUp();
         }
 
         public PlayerStat GetCurrentStatus()
@@ -82,12 +87,16 @@ namespace HOGUS.Scripts.Character
         }
 
         readonly float nextLevelNeedEXP = 100f;
+        readonly int levelUpPoint = 5;
         public void LevelUp()
         {
-            Debug.Log("Player Level UP" + currentStat.Level);
-            currentStat.Level++;
-            currentStat.CurrentEXP = 0;
-            currentStat.EXP += nextLevelNeedEXP;
+            if (currentStat.CurrentEXP >= currentStat.EXP)
+            {
+                currentStat.Level++;
+                currentStat.StatPoint += levelUpPoint;
+                currentStat.CurrentEXP = 0;
+                currentStat.EXP += nextLevelNeedEXP;
+            }
         }
 
         void Turn()
@@ -101,22 +110,26 @@ namespace HOGUS.Scripts.Character
             }
         }
 
+        readonly float dodgeImmuneTime = 1f;
+        readonly float dodgeSpeed = 2f;
+        readonly float returnToOriginSpeedVal = 0.5f;
+        readonly float InvokeDodgeOutTime = 0.4f;
         public void Dodge()
         {
             StopCoroutine(coImmune(0));
-            StartCoroutine(coImmune(1));
+            StartCoroutine(coImmune(dodgeImmuneTime));
 
             if (dodgeSkill.dash && moveDir != Vector3.zero)
             {
-                currentStat.Speed *= 2f;
+                currentStat.Speed *= dodgeSpeed;
                 animator.SetTrigger("doDodge");
-                Invoke(nameof(DodgeOut), 0.4f);
+                Invoke(nameof(DodgeOut), InvokeDodgeOutTime);
             }
         }
 
         void DodgeOut()
         {
-            currentStat.Speed *= 0.5f;
+            currentStat.Speed *= returnToOriginSpeedVal;
         }
 
         public void ComboAttack()
@@ -207,13 +220,11 @@ namespace HOGUS.Scripts.Character
             StopCoroutine(nameof(coImmune));
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
-            currentStat.CurHP -= damage;
-            if (currentStat.CurHP < 0)
+            currentStat.CurHP = Mathf.Clamp(currentStat.CurHP - damage, 0, currentStat.MaxHP);
+            if (currentStat.CurHP == 0)
             {
-                currentStat.CurHP = 0;
                 Die();
             }
-            Debug.Log("CurrentHP " + currentStat.CurHP);
         }
 
         public override void Die()
@@ -233,30 +244,57 @@ namespace HOGUS.Scripts.Character
                 var weapon = ScriptableObject.CreateInstance<WeaponItem>();
                 weapon.CopyValue(weaponPrefab);
                 equipmentSystem.DoEquip(EquipPart.WEAPON, weapon);
-                UpdateStat();
             }
             else
             {
                 equipmentSystem.DoUnequip(EquipPart.WEAPON);
-                UpdateStat();
             }
         }
 
-        private void UpdateStat()
+        public void UpdateStat()
         {
             // 현재 장착한 무기가 없다면 캐릭터의 기본 베이스 스탯으로 설정해줌
             if (equipmentSystem.equipWeapon == null)
             {
-                currentStat.MinDamage = baseStat.MinDamage;
-                currentStat.MaxDamage = baseStat.MaxDamage;
+                currentStat.MinDamage = baseStat.MinDamage + currentStat.Strength / currentStat.DamagePerStrength;
+                currentStat.MaxDamage = baseStat.MaxDamage + currentStat.Strength / currentStat.DamagePerStrength;
                 currentStat.AttackSpeed = baseStat.AttackSpeed;
             }
             // 장착된 무기가 있다면 캐릭터의 베이스 스탯 + 현재 장착된 장비의 능력치로 설정
             else
             {
-                currentStat.MinDamage = baseStat.MinDamage + equipmentSystem.equipWeapon.minDamage;
-                currentStat.MaxDamage = baseStat.MaxDamage + equipmentSystem.equipWeapon.maxDamage;
+                currentStat.MinDamage = baseStat.MinDamage + equipmentSystem.equipWeapon.minDamage + currentStat.Strength / currentStat.DamagePerStrength;
+                currentStat.MaxDamage = baseStat.MaxDamage + equipmentSystem.equipWeapon.maxDamage + currentStat.Strength / currentStat.DamagePerStrength;
                 currentStat.AttackSpeed = baseStat.AttackSpeed + equipmentSystem.equipWeapon.attackSpeed;
+            }
+            
+            currentStat.DodgeChance = baseStat.DodgeChance + currentStat.Dexterity / currentStat.DodgePerDex;
+            currentStat.MaxHP = baseStat.MaxHP + currentStat.Vitality / currentStat.HPPerVital;
+            currentStat.MaxMP = baseStat.MaxMP + currentStat.Magic / currentStat.DamagePerMagic;
+        }
+
+        private void InitialSetStatus()
+        {
+            currentStat.CurHP = currentStat.MaxHP;
+            currentStat.CurMP = currentStat.MaxMP;
+        }
+
+
+        private float time_current = 0f;
+        private float time_recover = 3f;
+        private readonly int recoverDiff = 1;
+        private void Recover(float deltaTime)
+        {
+            if (currentStat.CurHP == currentStat.MaxHP && currentStat.CurMP == currentStat.MaxMP)
+                return;
+
+            time_current += deltaTime;
+            if (time_current >= time_recover)
+            {
+                currentStat.CurMP = Mathf.Clamp(currentStat.CurMP + recoverDiff, 0, currentStat.MaxMP);
+                currentStat.CurHP = Mathf.Clamp(currentStat.CurHP + recoverDiff, 0, currentStat.MaxHP);
+                Debug.Log("회복");
+                time_current = 0f;
             }
         }
     }

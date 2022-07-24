@@ -28,6 +28,7 @@ namespace HOGUS.Scripts.Character
         public EnemyType enemyType;
         public Stat baseStat;
         Stat currentStat;
+        public Player player;
         public Transform targetTr;
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
@@ -45,7 +46,7 @@ namespace HOGUS.Scripts.Character
             dicState.Add(EnemyState.Attack, state_Attack);
 
             stateMachine = new StateMachine(state_Idle);
-
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             monsterAgent = GetComponent<NavMeshAgent>();
             meshes = GetComponentsInChildren<MeshRenderer>();
@@ -75,6 +76,8 @@ namespace HOGUS.Scripts.Character
         public override void Die()
         {
             IsDead = true;
+            player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
+
             Destroy(gameObject);
         }
 

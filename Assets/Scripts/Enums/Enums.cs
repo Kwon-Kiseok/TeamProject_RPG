@@ -86,6 +86,15 @@ namespace HOGUS.Scripts.Enums
         Die
     }
 
+    [UnityEngine.SerializeField]
+    public static class PlayerStatEnumClass
+    {
+        public const int STR = 0;
+        public const int MAGIC = 1;
+        public const int DEX = 2;
+        public const int VITAL = 3;
+    }
+
     public enum EquipPart
     {
         HELM,
