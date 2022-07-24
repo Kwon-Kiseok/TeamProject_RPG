@@ -14,19 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   maxHP: 100
-  currHP: 100
+  curHP: 0
   minDamage: 5
   maxDamage: 10
   defense: 3
   dodgeChance: 5
   speed: 5
   attackSpeed: 1.2
+  killexp: 0
   characterClass: "\uC804\uC0AC"
   strength: 20
-  magic: 5
+  magic: 0
   dexterity: 10
   vitality: 20
   exp: 100
   currExp: 0
   gold: 20
   statPoint: 5
+  curMP: 50
+  maxMP: 50

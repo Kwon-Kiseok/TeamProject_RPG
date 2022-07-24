@@ -220,7 +220,7 @@ namespace HOGUS.Scripts.Character
             StopCoroutine(nameof(coImmune));
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
-            currentStat.CurHP = Mathf.Clamp(currentStat.CurHP - damage, 0, currentStat.MaxHP);
+            currentStat.TakeDamage(damage);
             if (currentStat.CurHP == 0)
             {
                 Die();

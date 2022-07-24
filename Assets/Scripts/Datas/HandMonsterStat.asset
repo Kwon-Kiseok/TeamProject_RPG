@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   maxHP: 50
-  curHP: 0
+  curHP: 50
   minDamage: 3
   maxDamage: 5
   defense: 0

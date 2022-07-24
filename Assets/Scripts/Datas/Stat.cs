@@ -46,12 +46,10 @@ namespace HOGUS.Scripts.Data
         #endregion
 
         #region Base Func
-        public virtual void TakeDamage(Stat targetStat)
+        public void TakeDamage(int damage)
         {
-            if (targetStat == null)
-                return;
-
-            CurHP = Mathf.Clamp(CurHP - Random.Range(targetStat.MinDamage, targetStat.MaxDamage), 0, MaxHP);
+            int resultDamage = damage - (int)(Defense * 0.5f);
+            CurHP = Mathf.Clamp(CurHP - resultDamage, 0, MaxHP);
         }
         #endregion
     }

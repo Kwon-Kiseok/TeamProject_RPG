@@ -85,10 +85,9 @@ namespace HOGUS.Scripts.Character
         {
             StartCoroutine(OnDamageFlickering());
 
-            currentStat.CurHP -= damage;
-            if(currentStat.CurHP < 0)
+            currentStat.TakeDamage(damage);
+            if(currentStat.CurHP == 0)
             {
-                currentStat.CurHP = 0;
                 Die();
             }
             Debug.Log(currentStat.CurHP);
