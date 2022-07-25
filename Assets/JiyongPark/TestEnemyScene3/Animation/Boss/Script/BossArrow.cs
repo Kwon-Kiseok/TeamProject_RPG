@@ -13,7 +13,7 @@ namespace HOGUS.Scripts.Character
         private void Awake()
         {
             rigid = GetComponent<Rigidbody>();
-            Physics.gravity = new Vector3(0, -20f, 0);
+            Physics.gravity = new Vector3(0, -15f, 0);
         }
 
 
@@ -21,6 +21,7 @@ namespace HOGUS.Scripts.Character
         {
             if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
             {
+                Debug.Log("Player Hit");
                 Destroy(gameObject);
             }
         }

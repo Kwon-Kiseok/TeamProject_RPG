@@ -17,7 +17,7 @@ namespace HOGUS.Scripts.Character
         public Transform spellPort;
         public Transform spellPort2;
         public Transform arrowSpawnPort;
-
+        public float bossHP;
         void Awake()
         {
             StartCoroutine(Think());
@@ -31,7 +31,7 @@ namespace HOGUS.Scripts.Character
         {
             yield return new WaitForSeconds(0.1f);
 
-            int randomAction = Random.Range(0, 5);
+            int randomAction = Random.Range(0, 4);
             switch (randomAction)
             {
                 case 0:
@@ -41,9 +41,6 @@ namespace HOGUS.Scripts.Character
                 case 2:
                 case 3:
                     StartCoroutine(electricArrow());
-                    break;
-                case 4:
-                    //
                     break;
             }
         }
@@ -56,11 +53,11 @@ namespace HOGUS.Scripts.Character
             animator.SetTrigger("Pattern_1");
             yield return new WaitForSeconds(0.5f);
             GameObject instantSpell = Instantiate(spell, spellPort.transform.position, spellPort.transform.rotation);
-            BossShot bossSpell = instantSpell.GetComponent<BossShot>();
+            BossProjectTile bossSpell = instantSpell.GetComponent<BossProjectTile>();
             bossSpell.target = player;
             yield return new WaitForSeconds(0.6f);
             GameObject instantSpell2 = Instantiate(spell, spellPort2.transform.position, spellPort2.transform.rotation);
-            BossShot bossSpell2 = instantSpell2.GetComponent<BossShot>();
+            BossProjectTile bossSpell2 = instantSpell2.GetComponent<BossProjectTile>();
             bossSpell2.target = player;
             yield return new WaitForSeconds(2.0f);
             StartCoroutine(Think());
