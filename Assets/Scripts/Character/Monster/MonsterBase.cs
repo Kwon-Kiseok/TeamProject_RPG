@@ -60,6 +60,7 @@ namespace HOGUS.Scripts.Character
 
             stateMachine = new StateMachine(state_Idle);
             player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            //targetTr = player.gameObject.GetComponent<Transform>();
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             monsterAgent = GetComponent<NavMeshAgent>();
             meshes = GetComponentsInChildren<MeshRenderer>();
@@ -90,9 +91,12 @@ namespace HOGUS.Scripts.Character
 
         public override void Attack()
         {
-            StopCoroutine(nameof(coAttack));
-            StartCoroutine(coAttack(attackCooltime));
-            Debug.Log("Monster Attack");
+            if(enemyType == EnemyType.MagicMonster)
+            {
+                // fireballGO º“»Ø
+                GameObject InstantSpell = Instantiate(fireballGO, weaponGO.transform.position, weaponGO.transform.rotation);
+                InstantSpell.GetComponent<ProjectileObject>().dir = (targetTr.position - transform.position).normalized;
+            }
         }
 
         IEnumerator coAttack(float cooltime)
