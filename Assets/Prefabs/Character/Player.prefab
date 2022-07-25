@@ -31745,6 +31745,8 @@ MonoBehaviour:
   joystick: {fileID: 0}
   baseStat: {fileID: 11400000, guid: 1360b76575ad39f4e9fe5f6a7cb9cefd, type: 2}
   weaponPrefab: {fileID: 11400000, guid: a2f7ee6a42a9e494d92392b66037b599, type: 2}
+  equipmentSystem: {fileID: 0}
+  startTr: {fileID: 0}
   weaponEquipPos: {fileID: 3098308600786968880}
   floatingDamageTr: {fileID: 1099101875}
   damageText: {fileID: 7480548549689167644, guid: 93ab6ad1b1f05ad46b9c7ef118604a79,

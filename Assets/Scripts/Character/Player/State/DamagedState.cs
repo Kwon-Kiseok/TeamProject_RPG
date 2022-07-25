@@ -16,12 +16,10 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            Debug.Log("피격 상태");
         }
 
         public void StateExit()
         {
-            Debug.Log("피격 상태 종료");
         }
 
         public void StateFixedUpdate()

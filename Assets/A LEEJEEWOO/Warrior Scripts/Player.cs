@@ -21,8 +21,9 @@ namespace HOGUS.Scripts.Character
         PlayerStat currentStat;     // 현재 상태를 나타내는 사용될 스탯
 
         public WeaponItem weaponPrefab;
-        private EquipmentSystem equipmentSystem;
+        public EquipmentSystem equipmentSystem;
         private CombatSystem combatSystem;
+        public Transform startTr;
         public Transform weaponEquipPos;
         public Transform floatingDamageTr;
 
@@ -36,6 +37,7 @@ namespace HOGUS.Scripts.Character
         public GameObject skillPosition;
         public GameObject IceFactory;
         public float throwPower = 15f;
+        private float restartTimer = 3f;
 
         public SkillBtn magicSkill;
         public SkillBtn dodgeSkill;
@@ -81,7 +83,10 @@ namespace HOGUS.Scripts.Character
         public override void OnFixedUpdate(float deltaTime)
         {
             if (IsDead)
+            {
+                Restart(deltaTime);
                 return;
+            }
 
             joystick.GetMove();
             Turn();
@@ -277,8 +282,40 @@ namespace HOGUS.Scripts.Character
             Debug.Log("Player Dead");
         }
 
-        public void TestEquip()
+        public void Restart(float deltaTime)
         {
+            if (IsDead)
+            {
+                while (restartTimer > 0)
+                {
+                    restartTimer -= deltaTime;
+                    return;
+                }
+
+                animator.SetTrigger("DoRevive");
+                stateMachine.SetState(dicState[PlayerState.Idle]);
+                transform.position = startTr.position;
+                GetCurrentStatus().CurrentEXP *= 0.5f;
+                GetCurrentStatus().CurHP = GetCurrentStatus().MaxHP / 2;
+                IsDead = false;
+                restartTimer = 3f;
+            }
+        }
+
+        public void Equip()
+        {
+            var currentEquipItem = (EquipmentItem)HOGUS.Scripts.Inventory.Inventory.Instance.BaseItem;
+            if (!equipmentSystem.SatisfyRequirementStats(currentEquipItem))
+            {
+                return;
+            }
+
+            HOGUS.Scripts.Inventory.Inventory.Instance.Wear();
+            if (currentEquipItem is WeaponItem)
+            {
+                weaponPrefab = (WeaponItem)currentEquipItem;
+            }
+
             if (equipmentSystem.equipWeapon == null)
             {
                 var weapon = ScriptableObject.CreateInstance<WeaponItem>();
@@ -287,6 +324,7 @@ namespace HOGUS.Scripts.Character
             }
             else
             {
+                HOGUS.Scripts.Inventory.Inventory.Instance.TakeOff();
                 equipmentSystem.DoUnequip(EquipPart.WEAPON);
             }
         }

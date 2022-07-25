@@ -21,6 +21,14 @@ MonoBehaviour:
     m_Address: Data/ItemData
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 48610ef49478fca47a49e4e3c55f8c8a
+    m_Address: WingedAxe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 28ee7d66c5b18a64b93436da8089e0ca
+    m_Address: OrnateGreatAxe.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4b8d2741162489b428c3f2fb2766c6ea, type: 2}
   m_SchemaSet:

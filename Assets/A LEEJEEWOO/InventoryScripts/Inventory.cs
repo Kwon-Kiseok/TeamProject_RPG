@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using HOGUS.Scripts.Data;
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Object.Item;
-using HOGUS.Scripts.Enums;
 
 using TMPro;
 using UnityEngine.UI;
@@ -31,40 +29,60 @@ namespace HOGUS.Scripts.Inventory
         [SerializeField] TextMeshProUGUI _maxpower;
 
         public List<Image> _images = new List<Image>();
-        public List<Image> _Wimages = new List<Image>();
-        public List<Image> _Simages = new List<Image> ();
+        private List<Sprite> _originImages = new List<Sprite>();
+
+        public Image _Wimage;
+        private Sprite _originWimage;
+        public Image _Simage;
+        private Sprite _originSimage;
 
         public void Wear()
         {
-            Debug.Log(gameObject.name, gameObject);
             if (_baseItem is ArmorItem)
             {
                 var arm = (ArmorItem)_baseItem;
-                //Debug.Log((int)arm.type + " " + _images[0].name);
                 _images[(int)arm.type].sprite = _baseItem.sprite;                
             }
 
             if (_baseItem is WeaponItem)
             {
                 var wea = (WeaponItem)_baseItem;
-                _Wimages[0].sprite = _baseItem.sprite;                
+                _Wimage.sprite = _baseItem.sprite;                
             }
 
             if (_baseItem is ShieldItem)
             {
                 var shi = (ShieldItem)_baseItem;
-                _Simages[0].sprite = _baseItem.sprite;
+                _Simage.sprite = _baseItem.sprite;
             }
         }
 
+        public void TakeOff()
+        {
+            if (_baseItem is ArmorItem)
+            {
+                var arm = (ArmorItem)_baseItem;
+                _images[(int)arm.type].sprite = _originImages[(int)arm.type];
+            }
 
+            if (_baseItem is WeaponItem)
+            {
+                var wea = (WeaponItem)_baseItem;
+                _Wimage.sprite = _originWimage;
+            }
+
+            if (_baseItem is ShieldItem)
+            {
+                var shi = (ShieldItem)_baseItem;
+                _Simage.sprite = _originSimage;
+            }
+        }
         
         public BaseItem BaseItem
         {
             get { return _baseItem; }
             set
             {
-                Debug.Log(gameObject.name, gameObject);
                 _baseItem = value;
                 if (_baseItem != null /*&& _baseItem is EquipmentItem && _baseItem is ArmorItem*/)
                 {                    
@@ -129,7 +147,7 @@ namespace HOGUS.Scripts.Inventory
         {
             slots = slotParent.GetComponentsInChildren<Slot>();
         }
-        private void Awake()
+        private void Start()
         {            
             FreshSlot();
         }
@@ -145,6 +163,13 @@ namespace HOGUS.Scripts.Inventory
             {
                 slots[i].BaseItem = null;
             }
+
+            foreach(var image in _images)
+            {
+                _originImages.Add(image.sprite);
+            }
+            _originWimage = _Wimage.sprite;
+            _originSimage = _Simage.sprite;
         }
 
         public void AddItem(BaseItem _baseItem)
@@ -158,16 +183,6 @@ namespace HOGUS.Scripts.Inventory
             {
                 print("ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ.");
             }
-        }
-
-        public void ItemInformation()
-        {
-            itemstatus.gameObject.SetActive(true);
-        }
-
-        public void ItemStatus()
-        {
-            
         }
     }
 }
