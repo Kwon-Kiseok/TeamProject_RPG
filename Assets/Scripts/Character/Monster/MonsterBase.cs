@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.State;
@@ -35,6 +36,12 @@ namespace HOGUS.Scripts.Character
         public GameObject weaponGO;
         public GameObject fireballGO;
 
+        public GameObject HPBarPrefab;
+        public Vector3 HPBarOffset = new Vector3(-0.5f, 2.5f, 0);
+
+        public Canvas enemyHPBarCanvas;
+        public Slider enemyHPBarSlider;
+
         private void Start()
         {
             var state_Idle = new MonsterIdleState(this);
@@ -54,11 +61,24 @@ namespace HOGUS.Scripts.Character
             currentStat = Instantiate(baseStat);
 
             monsterAgent.speed = currentStat.Speed;
+
+            SetHPBar();
         }
 
         public Stat GetCurrentStat()
         {
             return currentStat;
+        }
+
+        private void SetHPBar()
+        {
+            GameObject hpBar = Instantiate<GameObject>(HPBarPrefab, enemyHPBarCanvas.transform);
+            var bar = hpBar.GetComponent<EnemyHP_Bar>();
+            bar.enemyTr = this.gameObject.transform;
+            bar.offset = HPBarOffset;
+
+            enemyHPBarSlider.maxValue = currentStat.MaxHP;
+            enemyHPBarSlider.value = currentStat.CurHP;
         }
 
         public override void Attack()
@@ -85,12 +105,13 @@ namespace HOGUS.Scripts.Character
         {
             StartCoroutine(OnDamageFlickering());
 
-            currentStat.CurHP -= damage;
-            if(currentStat.CurHP < 0)
+            currentStat.TakeDamage(damage);
+            enemyHPBarSlider.value = currentStat.CurHP;
+            if(currentStat.CurHP == 0)
             {
-                currentStat.CurHP = 0;
                 Die();
             }
+
             Debug.Log(currentStat.CurHP);
         }
 

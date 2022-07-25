@@ -57,6 +57,8 @@ namespace HOGUS.Scripts.UI
             informationList[12].text = player_stat.Defense.ToString();
             informationList[13].text = player_stat.DodgeChance.ToString();
             informationList[14].text = $"{player_stat.MinDamage} ~ {player_stat.MaxDamage}";
+            informationList[15].text = player_stat.CurMP.ToString();
+            informationList[16].text = player_stat.MaxMP.ToString();
         }
 
         public void OnClickUpgradeStat(int stat)

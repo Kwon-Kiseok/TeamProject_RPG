@@ -32,6 +32,8 @@ namespace HOGUS.Scripts.Data
         protected int curMP;
         [SerializeField]
         protected int maxMP;
+        [SerializeField]
+        protected int magicDamage; 
         #endregion
 
         #region Player Stat Property
@@ -46,6 +48,7 @@ namespace HOGUS.Scripts.Data
         public int StatPoint { get { return statPoint; } set { statPoint = value; } }
         public int CurMP { get { return curMP; } set { curMP = value; } }
         public int MaxMP { get { return maxMP; } set { maxMP = value; } }
+        public int MagicDamage { get { return magicDamage; } set { magicDamage = value; } }
         #endregion
 
         public void AddStat(int index)

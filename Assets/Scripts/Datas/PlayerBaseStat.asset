@@ -12,21 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f84dcb3da4ebe849b57031ce906cb2d, type: 3}
   m_Name: PlayerBaseStat
   m_EditorClassIdentifier: 
-  level: 1
-  maxHP: 100
-  currHP: 100
+  level: 5
+  maxHP: 4
+  curHP: 0
   minDamage: 5
   maxDamage: 10
   defense: 3
   dodgeChance: 5
   speed: 5
   attackSpeed: 1.2
+  killexp: 0
   characterClass: "\uC804\uC0AC"
   strength: 20
-  magic: 5
+  magic: 0
   dexterity: 10
   vitality: 20
   exp: 100
   currExp: 0
   gold: 20
   statPoint: 5
+  curMP: 50
+  maxMP: 50
+  magicDamage: 30
