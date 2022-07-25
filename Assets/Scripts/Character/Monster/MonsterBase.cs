@@ -16,6 +16,10 @@ namespace HOGUS.Scripts.Character
     {
         private bool isLooking = false;
 
+        public UnityEngine.Events.UnityEvent onDead;
+        public UIManager uIManager;
+        public QuestManager questManager;
+
         public bool IsLooking { get { return isLooking; } set { isLooking = value; } }
 
         public float targetRadius = 0f;
@@ -99,6 +103,9 @@ namespace HOGUS.Scripts.Character
         public override void Die()
         {
             IsDead = true;
+            onDead.Invoke();
+            uIManager.talkQuestIndex++;
+            questManager.questId += 10;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
             Destroy(hpBar);

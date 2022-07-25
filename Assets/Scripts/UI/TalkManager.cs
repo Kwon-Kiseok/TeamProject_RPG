@@ -50,7 +50,6 @@ public class TalkManager : MonoBehaviour
             {
                 // 해당 퀘스트 진행 순서 대사가 없을 때
                 // 퀘스트 맨 처음 대사를 가져온다.
-                Debug.Log("맨 처음 대사");
                 return GetTalk(_id - _id % 10, _talkIndex);
             }
         }

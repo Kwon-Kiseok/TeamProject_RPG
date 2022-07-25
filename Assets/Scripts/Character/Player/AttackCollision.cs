@@ -50,9 +50,6 @@ public class AttackCollision : MonoBehaviour
     private IEnumerator coDisable()
     {
         yield return new WaitForSeconds(0.1f);
-        if (monster.enemyType == EnemyType.PunchMonster)
-        {
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 }
