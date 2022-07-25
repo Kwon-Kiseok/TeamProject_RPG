@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 014ea7ad5c3ee274cb734471d3b9d130, type: 3}
-  m_Name: HandMonsterStat
+  m_Name: PunchMonsterStat
   m_EditorClassIdentifier: 
   level: 1
   maxHP: 50

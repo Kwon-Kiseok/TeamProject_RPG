@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.CustomSystem;
 using HOGUS.Scripts.Character;
@@ -13,7 +12,6 @@ using HOGUS.Scripts.Character;
 public class AttackCollision : MonoBehaviour
 {
     private Stat CharacterStat;
-    private readonly MonsterBase monster;
 
     private void Start()
     {
@@ -50,9 +48,6 @@ public class AttackCollision : MonoBehaviour
     private IEnumerator coDisable()
     {
         yield return new WaitForSeconds(0.1f);
-        if (monster.enemyType == EnemyType.PunchMonster)
-        {
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 }

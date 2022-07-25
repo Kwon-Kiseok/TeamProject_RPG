@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace HOGUS.Scripts.State
     public class MonsterAttackState : IState
     {
         private readonly MonsterBase monster;
+        private float timer;
+
         public MonsterAttackState(MonsterBase monster)
         {
             this.monster = monster;
@@ -18,13 +21,13 @@ namespace HOGUS.Scripts.State
 
         public void StateEnter()
         {
-            monster.animator.SetBool("IsAttack", true);
+            monster.animator.SetTrigger("DoAttack");
             monster.Attack();
         }
 
         public void StateExit()
         {
-            monster.animator.SetBool("IsAttack", false);
+
         }
 
         public void StateFixedUpdate()
@@ -36,6 +39,15 @@ namespace HOGUS.Scripts.State
             if (monster.targetDistance > monster.monsterAgent.stoppingDistance)
             {
                 monster.stateMachine.SetState(monster.dicState[EnemyState.Idle]);
+                return;
+            }
+
+            timer += Time.deltaTime;
+            if(monster.attackCooltime <= timer)
+            {
+                monster.animator.SetTrigger("DoAttack");
+                monster.Attack();
+                timer = 0f;
             }
         }
     }

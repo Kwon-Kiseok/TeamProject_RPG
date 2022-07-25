@@ -430,6 +430,8 @@ MonoBehaviour:
   meshes: []
   weaponGO: {fileID: 0}
   fireballGO: {fileID: 0}
+  HPBarPrefab: {fileID: 0}
+  HPBarOffset: {x: 0, y: 2.5, z: 0}
 --- !u!1 &5620326386243219808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,7 +2859,6 @@ GameObject:
   - component: {fileID: 5620326386795661235}
   - component: {fileID: 5620326386792167491}
   - component: {fileID: 5620326386793291489}
-  - component: {fileID: 5555550615453652757}
   m_Layer: 0
   m_Name: Staff
   m_TagString: Untagged
@@ -2930,17 +2931,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5555550615453652757
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5620326386795494839}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43621279668821596, guid: 5dbc42c9cf8b8274bbcbcf286d6c4549, type: 2}
