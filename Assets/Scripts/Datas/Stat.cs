@@ -15,7 +15,7 @@ namespace HOGUS.Scripts.Data
         [SerializeField]
         protected int maxHP;           // 캐릭터의 최대 체력
         [SerializeField]
-        protected int currHP;          // 캐릭터의 현재 체력
+        protected int curHP;          // 캐릭터의 현재 체력
         [SerializeField]
         protected int minDamage;       // 캐릭터의 최소 공격력
         [SerializeField]
@@ -28,27 +28,28 @@ namespace HOGUS.Scripts.Data
         protected float speed;         // 캐릭터의 이동 속도
         [SerializeField]
         protected float attackSpeed;   // 캐릭터의 공격 속도
+        [SerializeField]
+        protected float killexp;
         #endregion
 
         #region Base Stat Property
         public int Level { get { return level; } set { level = value; } }
         public int MaxHP { get { return maxHP; } set { maxHP = value; } }
-        public int CurHP { get { return currHP; } set { currHP = value; } }
+        public int CurHP { get { return curHP; } set { curHP = value; } }
         public int MinDamage { get { return minDamage; } set { minDamage = value; } }
         public int MaxDamage { get { return maxDamage; } set { maxDamage = value; } }
         public int Defense { get { return defense; } set { defense = value; } }
         public float DodgeChance { get { return dodgeChance; } set { dodgeChance = value; } }
         public float Speed { get { return speed; } set { speed = value; } }
         public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
+        public float KillEXP { get { return killexp; } set { killexp = value; } }
         #endregion
 
         #region Base Func
-        public virtual void TakeDamage(Stat targetState)
+        public void TakeDamage(int damage)
         {
-            if (targetState == null)
-                return;
-
-            targetState.CurHP -= Random.Range(this.MinDamage, this.MaxDamage);
+            int resultDamage = damage - (int)(Defense * 0.5f);
+            CurHP = Mathf.Clamp(CurHP - resultDamage, 0, MaxHP);
         }
         #endregion
     }

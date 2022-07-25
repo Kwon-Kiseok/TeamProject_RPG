@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Enemy
+  - EnemyAttack
+  - Skill
+  - UICamera
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -25,7 +31,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Obstacle
   - 
   - 
   - 

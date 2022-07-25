@@ -4,20 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.Character;
+using HOGUS.Scripts.Manager;
 
 namespace HOGUS.Scripts.UI
 {
-    public class StatusInformation : MonoBehaviour
+    public class StatusInformation : MonoBehaviour, IUpdatableObject
     {
         public List<TextMeshProUGUI> informationList = new();
+        private Player player;
+        
 
-        private void OnEnable()
+        public void OnDisable()
         {
-            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            if(UpdateManager.Instance != null)
+                UpdateManager.Instance.DeregisterUpdatableObject(this);
+        }
 
+        public void OnFixedUpdate(float deltaTime)
+        {
             var player_stat = player.GetCurrentStatus();
+            StatUpdate(player_stat);
+        }
 
+        public void OnUpdate(float deltaTime)
+        {
+        }
+
+        public void OnEnable()
+        {
+            UpdateManager.Instance.RegisterUpdatableObject(this);
+
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();            
+        }
+
+        private void StatUpdate(Data.PlayerStat player_stat)
+        {
             informationList[0].text = player_stat.CharacterClass;
             informationList[1].text = player_stat.Level.ToString();
             informationList[2].text = player_stat.Strength.ToString();
@@ -34,6 +57,19 @@ namespace HOGUS.Scripts.UI
             informationList[12].text = player_stat.Defense.ToString();
             informationList[13].text = player_stat.DodgeChance.ToString();
             informationList[14].text = $"{player_stat.MinDamage} ~ {player_stat.MaxDamage}";
+            informationList[15].text = player_stat.CurMP.ToString();
+            informationList[16].text = player_stat.MaxMP.ToString();
+        }
+
+        public void OnClickUpgradeStat(int stat)
+        {
+            if (player == null)
+                return;
+            if (player.GetCurrentStatus().StatPoint <= 0)
+                return;
+
+            player.GetCurrentStatus().StatPoint--;
+            player.GetCurrentStatus().AddStat(stat);
         }
     }
 }

@@ -43,7 +43,6 @@ public class QuestManager : MonoBehaviour
             if (monsterHuntCount == 5)
             {
                 NextQuest();
-                CheckQuest();
             }
         }
         if (questId == 40)
@@ -52,7 +51,6 @@ public class QuestManager : MonoBehaviour
             if (monsterHuntCount == 10)
             {
                 NextQuest();
-                CheckQuest();
             }
         }
         if (questId == 70)
@@ -61,7 +59,6 @@ public class QuestManager : MonoBehaviour
             if (monsterHuntCount == 1)
             {
                 NextQuest();
-                CheckQuest();
             }
         }
     }
@@ -77,7 +74,6 @@ public class QuestManager : MonoBehaviour
         if (_id == questList[questId].npcId[questActionIndex])
         {
             questActionIndex++;
-            Debug.Log("아니 왜 안 타?" + questActionIndex);
         }
 
         // 퀘스트에 저장해놓은 npc들과 대화를 다 나눴는지
@@ -102,12 +98,11 @@ public class QuestManager : MonoBehaviour
         return questList[questId].questName;
     }
 
-    private void NextQuest()
+    public void NextQuest()
     {
         questId += 10;
-        monsterHuntCount = 0;
         Debug.Log(questId);
-        Debug.Log("Next Quest");
+        monsterHuntCount = 0;
         questActionIndex = 0;
     }
 }

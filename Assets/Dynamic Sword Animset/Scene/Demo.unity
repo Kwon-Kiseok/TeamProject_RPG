@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 578414b71d7fcdc47b88c14c6c0d04de, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 578414b71d7fcdc47b88c14c6c0d04de,
+    type: 2}
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -246,7 +247,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.94
+  m_Intensity: 0.97314817
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -527,32 +528,38 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1033292673 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400026, guid: 9f9fac72b36530641b0b2d4029aeaa3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400026, guid: 9f9fac72b36530641b0b2d4029aeaa3b,
+    type: 3}
   m_PrefabInstance: {fileID: 137029589}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1223076278 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400068, guid: 9f9fac72b36530641b0b2d4029aeaa3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400068, guid: 9f9fac72b36530641b0b2d4029aeaa3b,
+    type: 3}
   m_PrefabInstance: {fileID: 137029589}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1586471341 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400120, guid: 9f9fac72b36530641b0b2d4029aeaa3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400120, guid: 9f9fac72b36530641b0b2d4029aeaa3b,
+    type: 3}
   m_PrefabInstance: {fileID: 137029589}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1924358873 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: e2a8910a6aa20294e8b83f835925bb54, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400000, guid: e2a8910a6aa20294e8b83f835925bb54,
+    type: 3}
   m_PrefabInstance: {fileID: 604357876}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2058270355 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 851ef1e3b3356ce4fbafc5bf8e819636, type: 3}
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 851ef1e3b3356ce4fbafc5bf8e819636,
+    type: 3}
   m_PrefabInstance: {fileID: 445055246}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060294623 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 100002, guid: 9f9fac72b36530641b0b2d4029aeaa3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 9f9fac72b36530641b0b2d4029aeaa3b,
+    type: 3}
   m_PrefabInstance: {fileID: 137029589}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2060294626

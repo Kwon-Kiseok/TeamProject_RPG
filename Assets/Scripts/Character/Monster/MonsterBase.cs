@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.State;
@@ -28,11 +29,20 @@ namespace HOGUS.Scripts.Character
         public EnemyType enemyType;
         public Stat baseStat;
         Stat currentStat;
+        public Player player;
         public Transform targetTr;
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
         public GameObject weaponGO;
         public GameObject fireballGO;
+
+        public GameObject HPBarPrefab;
+        private GameObject hpBar;
+        public Vector3 HPBarOffset = new Vector3(0f, 2.5f, 0f);
+
+        private Canvas enemyHPBarCanvas;
+        private Slider enemyHPBarSlider;
+        private EnemyHP_Bar bar;
 
         private void Start()
         {
@@ -45,7 +55,7 @@ namespace HOGUS.Scripts.Character
             dicState.Add(EnemyState.Attack, state_Attack);
 
             stateMachine = new StateMachine(state_Idle);
-
+            player = GameObject.FindWithTag("Player").GetComponent<Player>();
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             monsterAgent = GetComponent<NavMeshAgent>();
             meshes = GetComponentsInChildren<MeshRenderer>();
@@ -53,11 +63,25 @@ namespace HOGUS.Scripts.Character
             currentStat = Instantiate(baseStat);
 
             monsterAgent.speed = currentStat.Speed;
+
+            SetHPBar();
         }
 
         public Stat GetCurrentStat()
         {
             return currentStat;
+        }
+
+        private void SetHPBar()
+        {
+            enemyHPBarCanvas = GameObject.Find("HPCanvas").GetComponent<Canvas>();
+            if(hpBar == null)
+                hpBar = Instantiate<GameObject>(HPBarPrefab, enemyHPBarCanvas.transform);
+            enemyHPBarSlider = hpBar.GetComponentInChildren<Slider>();
+
+            bar = hpBar.GetComponent<EnemyHP_Bar>();
+            bar.enemyTr = this.gameObject.transform;
+            bar.offset = HPBarOffset;  
         }
 
         public override void Attack()
@@ -75,6 +99,9 @@ namespace HOGUS.Scripts.Character
         public override void Die()
         {
             IsDead = true;
+            player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
+            bar.enabled = false;
+            Destroy(hpBar);
             Destroy(gameObject);
         }
 
@@ -82,12 +109,13 @@ namespace HOGUS.Scripts.Character
         {
             StartCoroutine(OnDamageFlickering());
 
-            currentStat.CurHP -= damage;
-            if(currentStat.CurHP < 0)
-            {
-                currentStat.CurHP = 0;
+            currentStat.TakeDamage(damage);
+            enemyHPBarSlider.value = bar.UpdateGage(currentStat.CurHP, currentStat.MaxHP);
+            if (currentStat.CurHP == 0)
+            {                
                 Die();
             }
+
             Debug.Log(currentStat.CurHP);
         }
 

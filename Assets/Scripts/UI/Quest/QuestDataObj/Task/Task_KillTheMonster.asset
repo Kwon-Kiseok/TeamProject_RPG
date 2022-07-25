@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2b5e1cd16129143b5d2e89cd97ca17, type: 3}
-  m_Name: Task_Test
+  m_Name: Task_KillTheMonster
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
-  codeName: Kill_The_Slime
-  description: You have tp kill the slime
+  codeName: KILL_THE_MONSTER_5
+  description: You have the Kill monster
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
-  - {fileID: 11400000, guid: 5c32e6d6c38352e469359462a6d0a994, type: 2}
+  - {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
   initialSuccessValue: {fileID: 0}
   needSuccessToComplete: 5
   canReceiveReportsDuringCompletion: 0

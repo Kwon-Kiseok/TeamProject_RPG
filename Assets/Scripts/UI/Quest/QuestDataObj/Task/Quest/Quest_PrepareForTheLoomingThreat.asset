@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e682fcf613e608048a0cd7060765e4cf, type: 3}
-  m_Name: Quest_Test
+  m_Name: Quest_PrepareForTheLoomingThreat
   m_EditorClassIdentifier: 
-  category: {fileID: 0}
+  category: {fileID: 11400000, guid: 432b39b55d52a0947affe3ab375d53c6, type: 2}
   icon: {fileID: 0}
-  codeName: TEST
-  displayName: Test
-  description: Test Quest
+  codeName: PREPARE_FOR_DANGER
+  displayName: Prepare for danger
+  description: You need to be prepared for the looming threat
   taskGroups:
   - tasks:
-    - {fileID: 11400000, guid: fde105dbe55c58642a48f22420493313, type: 2}
+    - {fileID: 11400000, guid: edf9aa8c4e5de444db49b696f7551527, type: 2}
   rewards: []
-  useAutoComplete: 1
+  useAutoComplete: 0
   isCancelable: 0
-  isSavable: 1
+  isSavable: 0
   acceptionConditions: []
   cancelConditions: []
