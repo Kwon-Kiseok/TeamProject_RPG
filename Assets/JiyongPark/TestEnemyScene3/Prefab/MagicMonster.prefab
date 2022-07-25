@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 5620326386164575221}
   - component: {fileID: 5620326386164575220}
   - component: {fileID: 5620326386164575179}
-  - component: {fileID: 4120830334545410935}
+  - component: {fileID: 63724957}
   m_Layer: 6
   m_Name: MagicMonster
   m_TagString: Enemy
@@ -324,7 +324,7 @@ Transform:
   m_GameObject: {fileID: 5620326386243217142}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -32.55, y: 0.79, z: -51.85}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5620326386243481234}
@@ -395,7 +395,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 20
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -403,7 +403,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4120830334545410935
+--- !u!114 &63724957
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -412,19 +412,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 5620326386243217142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d10b0eba0e3b5b34491f7339151bdc00, type: 3}
+  m_Script: {fileID: 11500000, guid: 3469e0baefdbd7245b8d8ab8996f82bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5620326386235904838}
-  player: {fileID: 0}
-  monster: {fileID: 5620326386164575179}
-  isLooking: 0
-  isChase: 0
-  isAttack: 0
-  attackArea: {fileID: 0}
-  weapon: {fileID: 5620326386795494839}
-  fireball: {fileID: 3243917971495590046, guid: 4783d3f37a2fd4d4ab809c92671ada88, type: 3}
+  Name: 
+  moveDir: {x: 0, y: 0, z: 0}
+  animator: {fileID: 0}
+  targetRadius: 20
+  targetRange: 0
+  targetDistance: 0
+  attackCooltime: 2
   enemyType: 2
+  baseStat: {fileID: 11400000, guid: aa369fddebedd9b4aa7f5721a3a0d278, type: 2}
+  player: {fileID: 0}
+  targetTr: {fileID: 0}
+  monsterAgent: {fileID: 5620326386164575179}
+  meshes: []
+  weaponGO: {fileID: 0}
+  fireballGO: {fileID: 0}
 --- !u!1 &5620326386243219808
 GameObject:
   m_ObjectHideFlags: 0

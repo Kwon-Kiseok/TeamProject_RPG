@@ -14,7 +14,6 @@ namespace HOGUS.Scripts.Character
             {
                 Destroy(gameObject);
             }
-
         }
     }
 }
