@@ -2104,7 +2104,7 @@ Transform:
   m_GameObject: {fileID: 753390922589195974}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.050000012, y: 0.3, z: -0.41}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 753390922588932548}
@@ -2208,11 +2208,13 @@ MonoBehaviour:
   weapon: {fileID: 0}
   fireball: {fileID: 0}
   enemyType: 3
-  spell: {fileID: 3964715535888830941, guid: dc18f40f49dbf3c40b2443c194e5d551, type: 3}
-  secondSpell: {fileID: 0}
+  spell: {fileID: 0}
+  secondSpell: {fileID: 1572964750273488311, guid: cd6cbd517ffdc1f488fc950bba5d7bf7,
+    type: 3}
   spellPort: {fileID: 7241475311374384412}
   spellPort2: {fileID: 7241475310616647332}
   arrowSpawnPort: {fileID: 0}
+  bossHP: 300
 --- !u!1 &753390922589196646
 GameObject:
   m_ObjectHideFlags: 0
