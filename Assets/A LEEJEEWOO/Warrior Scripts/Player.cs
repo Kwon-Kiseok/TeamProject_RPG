@@ -360,7 +360,7 @@ namespace HOGUS.Scripts.Character
 
 
         private float time_current = 0f;
-        private float time_recover = 3f;
+        private float time_recover = 5f;
         private readonly int recoverDiff = 1;
         private void Recover(float deltaTime)
         {            
@@ -374,6 +374,34 @@ namespace HOGUS.Scripts.Character
                 currentStat.CurHP = Mathf.Clamp(currentStat.CurHP + recoverDiff, 0, currentStat.MaxHP);
                 time_current = 0f;
             }
+        }
+
+        private DropItem tempItem;
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.CompareTag("DropItem"))
+            {
+                tempItem = other.gameObject.GetComponent<DropItem>();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag("DropItem"))
+            {
+                tempItem = null;
+            }
+        }
+
+        public void TakeItem()
+        {
+            if (tempItem == null) return;
+
+            HOGUS.Scripts.Inventory.Inventory.Instance.AddItem(tempItem.item);
+            tempItem.IsTaken = true;
+            
+            if(joystick.takeButtonGO.activeSelf)
+                joystick.takeButtonGO.SetActive(false);
         }
     }
 }

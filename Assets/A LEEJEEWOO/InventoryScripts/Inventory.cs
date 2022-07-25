@@ -36,6 +36,8 @@ namespace HOGUS.Scripts.Inventory
         public Image _Simage;
         private Sprite _originSimage;
 
+        protected Inventory() { }
+
         public void Wear()
         {
             if (_baseItem is ArmorItem)
@@ -148,7 +150,14 @@ namespace HOGUS.Scripts.Inventory
             slots = slotParent.GetComponentsInChildren<Slot>();
         }
         private void Start()
-        {            
+        {
+            foreach (var image in _images)
+            {
+                _originImages.Add(image.sprite);
+            }
+            _originWimage = _Wimage.sprite;
+            _originSimage = _Simage.sprite;
+
             FreshSlot();
         }
 
@@ -163,13 +172,7 @@ namespace HOGUS.Scripts.Inventory
             {
                 slots[i].BaseItem = null;
             }
-
-            foreach(var image in _images)
-            {
-                _originImages.Add(image.sprite);
-            }
-            _originWimage = _Wimage.sprite;
-            _originSimage = _Simage.sprite;
+            Debug.Log(baseitems.Count);
         }
 
         public void AddItem(BaseItem _baseItem)

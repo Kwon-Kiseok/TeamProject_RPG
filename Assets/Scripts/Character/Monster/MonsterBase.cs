@@ -39,6 +39,7 @@ namespace HOGUS.Scripts.Character
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
         public GameObject damageText;
+        public GameObject dropItem;
         public GameObject weaponGO;
         public GameObject fireballGO;
 
@@ -114,6 +115,10 @@ namespace HOGUS.Scripts.Character
             questManager.questId += 10;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
+
+            var dropItemGO = Instantiate<GameObject>(dropItem);
+            dropItemGO.transform.position = transform.position;
+
             Destroy(hpBar);
             Destroy(gameObject);
         }
