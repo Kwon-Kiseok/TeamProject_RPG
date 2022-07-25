@@ -20,7 +20,6 @@ public class Female_Npc : MonoBehaviour
     private void Update()
     {
         QuestIconController();
-        QuestHuntMonster();
         TestOnTalk();
     }
 
@@ -30,18 +29,6 @@ public class Female_Npc : MonoBehaviour
         {
             questStartIcon.SetActive(false);
             questGoingIcon.SetActive(true);
-        }
-    }
-
-    public void QuestHuntMonster()
-    {
-        if (questManager.monsterHuntCount >= 1)
-        {
-            questGoingIcon.SetActive(false);
-        }
-        else if (questManager.questId >= 80)
-        {
-            return;
         }
     }
 
