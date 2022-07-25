@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     {
         scanObject = _scanObj;
         ObjData objData = scanObject.GetComponent<ObjData>();
+        Debug.Log(objData);
         Talk(objData.id, objData.isNpc);
 
         talkPanel.SetActive(isAction);
