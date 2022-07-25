@@ -37,10 +37,12 @@ namespace HOGUS.Scripts.Character
         public GameObject fireballGO;
 
         public GameObject HPBarPrefab;
-        public Vector3 HPBarOffset = new Vector3(-0.5f, 2.5f, 0);
+        private GameObject hpBar;
+        public Vector3 HPBarOffset = new Vector3(0f, 2.5f, 0f);
 
-        public Canvas enemyHPBarCanvas;
-        public Slider enemyHPBarSlider;
+        private Canvas enemyHPBarCanvas;
+        private Slider enemyHPBarSlider;
+        private EnemyHP_Bar bar;
 
         private void Start()
         {
@@ -72,13 +74,14 @@ namespace HOGUS.Scripts.Character
 
         private void SetHPBar()
         {
-            GameObject hpBar = Instantiate<GameObject>(HPBarPrefab, enemyHPBarCanvas.transform);
-            var bar = hpBar.GetComponent<EnemyHP_Bar>();
-            bar.enemyTr = this.gameObject.transform;
-            bar.offset = HPBarOffset;
+            enemyHPBarCanvas = GameObject.Find("HPCanvas").GetComponent<Canvas>();
+            if(hpBar == null)
+                hpBar = Instantiate<GameObject>(HPBarPrefab, enemyHPBarCanvas.transform);
+            enemyHPBarSlider = hpBar.GetComponentInChildren<Slider>();
 
-            enemyHPBarSlider.maxValue = currentStat.MaxHP;
-            enemyHPBarSlider.value = currentStat.CurHP;
+            bar = hpBar.GetComponent<EnemyHP_Bar>();
+            bar.enemyTr = this.gameObject.transform;
+            bar.offset = HPBarOffset;  
         }
 
         public override void Attack()
@@ -97,7 +100,8 @@ namespace HOGUS.Scripts.Character
         {
             IsDead = true;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
-
+            bar.enabled = false;
+            Destroy(hpBar);
             Destroy(gameObject);
         }
 
@@ -106,9 +110,9 @@ namespace HOGUS.Scripts.Character
             StartCoroutine(OnDamageFlickering());
 
             currentStat.TakeDamage(damage);
-            enemyHPBarSlider.value = currentStat.CurHP;
-            if(currentStat.CurHP == 0)
-            {
+            enemyHPBarSlider.value = bar.UpdateGage(currentStat.CurHP, currentStat.MaxHP);
+            if (currentStat.CurHP == 0)
+            {                
                 Die();
             }
 

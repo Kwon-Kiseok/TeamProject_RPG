@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHP_Bar : MonoBehaviour
 {
@@ -22,13 +23,21 @@ public class EnemyHP_Bar : MonoBehaviour
 
     private void LateUpdate()
     {
-        // ¼öÁ¤
-        if(enemyTr == null)
-            Destroy(gameObject);
-
         var screenPos = Camera.main.WorldToScreenPoint(enemyTr.position + offset);
+     
+        if(screenPos.z < 0.0f)
+        {
+            screenPos *= -1.0f;
+        }
+
         var localPos = Vector2.zero;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectParent, screenPos, UICamera, out localPos);
+        
         rectHP.localPosition = localPos;
+    }
+
+    public float UpdateGage(float currentHP, float maxHP)
+    {
+        return currentHP/ maxHP;
     }
 }

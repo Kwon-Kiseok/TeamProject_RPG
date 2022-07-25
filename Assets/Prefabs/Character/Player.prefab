@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1342198014371135243}
   m_Layer: 8
   m_Name: AttackCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31678,7 +31678,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &8488820551578273423
 CapsuleCollider:
@@ -31714,7 +31714,8 @@ MonoBehaviour:
   weaponPrefab: {fileID: 11400000, guid: a2f7ee6a42a9e494d92392b66037b599, type: 2}
   weaponEquipPos: {fileID: 3098308600786968880}
   skillPosition: {fileID: 1342198015067426410}
-  IceFactory: {fileID: 3793904978824336715, guid: ee3fc4d009d97b54b914b507642bcfd4, type: 3}
+  IceFactory: {fileID: 3793904978824336715, guid: ee3fc4d009d97b54b914b507642bcfd4,
+    type: 3}
   throwPower: 30
   magicSkill: {fileID: 0}
   dodgeSkill: {fileID: 0}
