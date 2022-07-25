@@ -9,12 +9,12 @@ public class TitleManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("게임시작");
-        LoadingSceneController.LoadScene("EnddingScene");
+        LoadingSceneController.LoadScene("GameClearScene1");
     }
 
     public void LoadGame()
     {
-        Debug.Log("블러오기");        
+        Debug.Log("블러오기");
         SceneManager.LoadScene(3);
     }
 
