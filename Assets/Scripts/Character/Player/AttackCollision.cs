@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.CustomSystem;
 using HOGUS.Scripts.Character;
@@ -12,6 +13,7 @@ using HOGUS.Scripts.Character;
 public class AttackCollision : MonoBehaviour
 {
     private Stat CharacterStat;
+    private readonly MonsterBase monster;
 
     private void Start()
     {
@@ -34,11 +36,13 @@ public class AttackCollision : MonoBehaviour
         if(other.CompareTag("Enemy"))
         {
             var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
+            Debug.Log(other.name + " " + damage);
             other.GetComponent<MonsterBase>().Damaged(damage);
         }
         else if (other.CompareTag("Player"))
         {
             var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
+            Debug.Log(other.name + " " + damage);
             other.GetComponent<Player>().Damaged(damage);
         }
     }
@@ -46,6 +50,9 @@ public class AttackCollision : MonoBehaviour
     private IEnumerator coDisable()
     {
         yield return new WaitForSeconds(0.1f);
-        gameObject.SetActive(false);
+        if (monster.enemyType == EnemyType.PunchMonster)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
