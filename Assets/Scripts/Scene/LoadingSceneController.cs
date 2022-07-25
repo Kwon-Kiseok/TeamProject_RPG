@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LoadingSceneController : MonoBehaviour
 {
-    static string nextScene;
+    static string nextScene;    
 
     [SerializeField]
     Image loadingBar;
@@ -24,7 +24,7 @@ public class LoadingSceneController : MonoBehaviour
     IEnumerator LoadSceneProcess()
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
+        op.allowSceneActivation = false;        
 
         float timer = 0f;
         while (!op.isDone)
@@ -41,7 +41,10 @@ public class LoadingSceneController : MonoBehaviour
                 loadingBar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
                 if (loadingBar.fillAmount >= 1f)
                 {
+                    yield return new WaitForSeconds(3.0f);
+
                     op.allowSceneActivation = true;
+                    
                     yield break;
                 }
             }
