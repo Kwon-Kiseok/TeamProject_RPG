@@ -10,6 +10,8 @@ public class Female_Npc : MonoBehaviour
 
     public QuestManager questManager;
 
+    public UnityEngine.Events.UnityEvent onTalk;
+    public UIManager uiManager;
     private void Start()
     {
         questStartIcon.SetActive(true);
@@ -19,6 +21,7 @@ public class Female_Npc : MonoBehaviour
     {
         QuestIconController();
         QuestHuntMonster();
+        TestOnTalk();
     }
 
     public void QuestIconController()
@@ -39,6 +42,15 @@ public class Female_Npc : MonoBehaviour
         else if (questManager.questId >= 80)
         {
             return;
+        }
+    }
+
+    public void TestOnTalk()
+    {
+        if (uiManager.talkQuestIndex == 6)
+        {
+            onTalk.Invoke();
+            questManager.questId = 70;
         }
     }
 }

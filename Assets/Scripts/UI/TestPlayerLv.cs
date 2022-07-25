@@ -7,6 +7,8 @@ public class TestPlayerLv : MonoBehaviour
 {
     public float Lv = 1f;
 
+    public UnityEngine.Events.UnityEvent onDead;
+
     // 스피드 조정 변수
     [SerializeField]
     private float walkSpeed;
@@ -28,9 +30,10 @@ public class TestPlayerLv : MonoBehaviour
     RaycastHit hitInfo;
     public LayerMask layerMask;
 
-
     public UIManager uIManager;
     public GameObject scanObject;
+
+    public QuestManager questManager;
 
     private void Start()
     {
@@ -44,6 +47,7 @@ public class TestPlayerLv : MonoBehaviour
         Move();
         CharacterRotation();
         NpcAction();
+        TestMonsterKill();
     }
 
     // 움직임 실행
@@ -87,4 +91,15 @@ public class TestPlayerLv : MonoBehaviour
             }
         }
     }
+
+    public void TestMonsterKill()
+    {
+        if(Input.GetKeyDown (KeyCode.Alpha1))
+        {
+            onDead.Invoke();
+            uIManager.talkQuestIndex++;
+            questManager.questId += 10;
+        }
+    }
+
 }

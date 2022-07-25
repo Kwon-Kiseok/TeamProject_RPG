@@ -10,6 +10,8 @@ public class Man_Npc : MonoBehaviour
 
     public QuestManager questManager;
 
+    public UnityEngine.Events.UnityEvent onTalk;
+    public UIManager uiManager;
     private void Start()
     {
         questGoingIcon.SetActive(true);
@@ -18,11 +20,12 @@ public class Man_Npc : MonoBehaviour
     private void Update()
     {
         QuestHuntMonster();
+        TestOnTalk();
     }
 
     public void QuestHuntMonster()
     {
-        if (questManager.monsterHuntCount >= 10)
+        if (questManager.questId == 50)
         {
             questClearIcon.SetActive(true);
             questGoingIcon.SetActive(false);
@@ -31,6 +34,15 @@ public class Man_Npc : MonoBehaviour
         {
             questClearIcon.SetActive(false);
             return;
+        }
+    }
+
+    public void TestOnTalk()
+    {
+        if (uiManager.talkQuestIndex == 5)
+        {
+            onTalk.Invoke();
+            questManager.questId = 60;
         }
     }
 }

@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public bool isAction;
     public int talkIndex;
 
+    public int talkQuestIndex = 0;
+
     //private void Start()
     //{
     //    Debug.Log(questManager.CheckQuest());
@@ -36,8 +38,8 @@ public class UIManager : MonoBehaviour
         if(talkData == null)
         {
             isAction = false;
+            talkQuestIndex++;
             talkIndex = 0;
-            Debug.Log(questManager.CheckQuest(_id));
             return;
         }
         if(_isNpc)
