@@ -24,6 +24,7 @@ namespace HOGUS.Scripts.Character
         private EquipmentSystem equipmentSystem;
         private CombatSystem combatSystem;
         public Transform weaponEquipPos;
+        public Transform floatingDamageTr;
 
         public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
@@ -31,6 +32,7 @@ namespace HOGUS.Scripts.Character
 
         public bool IsSkill { get { return isSkill; } set { isSkill = value; } }
 
+        public GameObject damageText;
         public GameObject skillPosition;
         public GameObject IceFactory;
         public float throwPower = 15f;
@@ -121,14 +123,9 @@ namespace HOGUS.Scripts.Character
         readonly float returnToOriginSpeedVal = 0.5f;
         readonly float InvokeDodgeOutTime = 0.4f;
 
-        readonly int DodgeRequireMP = 10;
+        public readonly int DodgeRequireMP = 10;
         public void Dodge()
         {
-            if (GetCurrentStatus().CurMP < DodgeRequireMP)
-            {
-                return;
-            }
-
             StopCoroutine(coImmune(0));
             StartCoroutine(coImmune(dodgeImmuneTime));
 
@@ -146,15 +143,10 @@ namespace HOGUS.Scripts.Character
             currentStat.Speed *= returnToOriginSpeedVal;
         }
 
-        readonly int ComboRequireMP = 30;
+        public readonly int ComboRequireMP = 30;
         public void ComboAttack()
         {
             if (equipmentSystem.equipWeapon == null)
-            {
-                return;
-            }
-
-            if (GetCurrentStatus().CurMP < ComboRequireMP)
             {
                 return;
             }
@@ -167,15 +159,9 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        readonly int IceBallRequireMP = 40;
+        public readonly int IceBallRequireMP = 40;
         public void IceBall()
         {
-
-            if(GetCurrentStatus().CurMP < IceBallRequireMP)
-            {
-                return;
-            }
-
             isSkill = true;
             if (magicSkill.cool && isSkill)
             {
@@ -241,7 +227,7 @@ namespace HOGUS.Scripts.Character
             }
         }
         
-        readonly float PlayerHitImmuneTime = 2f;
+        readonly float PlayerHitImmuneTime = 1f;
         public override void Damaged(int damage)
         {
             // 무적상태거나 죽으면 데미지를 받지 않음
@@ -252,7 +238,10 @@ namespace HOGUS.Scripts.Character
             // 현재 회피율에 따라 확률적으로 피할 수 있음
             else if(Random.Range(1, 100) <= currentStat.DodgeChance)
             {
-                Debug.Log("Guard");
+                GameObject dodgeTextGO = Instantiate(damageText);
+                dodgeTextGO.transform.position = floatingDamageTr.position;
+                dodgeTextGO.GetComponent<TextMesh>().text = "Dodge";
+                dodgeTextGO.GetComponent<TextMesh>().color = Color.gray;
                 return;
             }
 
@@ -261,6 +250,12 @@ namespace HOGUS.Scripts.Character
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
             currentStat.TakeDamage(damage);
+
+            GameObject damageTextGO = Instantiate(damageText);
+            damageTextGO.transform.position = floatingDamageTr.position;
+            damageTextGO.GetComponent<TextMesh>().text = damage.ToString();
+            damageTextGO.GetComponent<TextMesh>().color = Color.red;
+
             if (currentStat.CurHP == 0)
             {
                 Die();

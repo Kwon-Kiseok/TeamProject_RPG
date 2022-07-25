@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &422054575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422054576}
+  m_Layer: 6
+  m_Name: FloatingDamageTr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422054576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422054575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.107, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7629722981992977365}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7629722980720244267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1884,7 @@ GameObject:
   - component: {fileID: 7629722981992977361}
   - component: {fileID: 7629722981992977360}
   - component: {fileID: 7629722981992977375}
+  - component: {fileID: 389444444}
   m_Layer: 6
   m_Name: HandMonster
   m_TagString: Enemy
@@ -1875,6 +1907,7 @@ Transform:
   - {fileID: 7629722980720244268}
   - {fileID: 7629722980806995565}
   - {fileID: 8384235296282397391}
+  - {fileID: 422054576}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1979,7 +2012,19 @@ MonoBehaviour:
   animator: {fileID: 0}
   onDead:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 389444444}
+        m_TargetAssemblyTypeName: QuestReporter, Assembly-CSharp
+        m_MethodName: Report
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   uIManager: {fileID: 0}
   questManager: {fileID: 0}
   targetRadius: 5
@@ -1990,13 +2035,32 @@ MonoBehaviour:
   baseStat: {fileID: 11400000, guid: b7c10b410bcb7ae41a663c5e833da595, type: 2}
   player: {fileID: 0}
   targetTr: {fileID: 0}
+  floatingDamageTr: {fileID: 422054576}
   monsterAgent: {fileID: 0}
   meshes: []
+  damageText: {fileID: 7480548549689167644, guid: 93ab6ad1b1f05ad46b9c7ef118604a79,
+    type: 3}
   weaponGO: {fileID: 0}
   fireballGO: {fileID: 0}
   HPBarPrefab: {fileID: 2864682805739527010, guid: 5d81f49e9f16de749a52914a5a1d7213,
     type: 3}
   HPBarOffset: {x: -0.5, y: 2.5, z: 0}
+--- !u!114 &389444444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7629722981992977374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad0ac605c0b52b4a80d268e193df008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
+  target: {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
+  successCount: 5
+  colliderTags: []
 --- !u!1 &7629722982021694390
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,8 +30,12 @@ namespace HOGUS.Scripts.State
 
         public void StateUpdate()
         {
+            if(player.moveDir != Vector3.zero)
+            {
+                player.stateMachine.SetState(player.dicState[PlayerState.Move]);
+            }
             // 피격 상태는 코루틴이 종료됨과 동시에 종료 되어야 함
-            if(!player.Immune && player.stateMachine.CurrentState == player.dicState[PlayerState.Damaged])
+            if(!player.Immune)
             {
                 player.stateMachine.SetState(player.dicState[PlayerState.Idle]);
             }
