@@ -2281,8 +2281,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.8724256, z: 1}
+  m_Center: {x: -0, y: 1.0385518, z: -0}
 --- !u!195 &5421067092290337077
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2333,6 +2333,11 @@ MonoBehaviour:
   Name: 
   moveDir: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+  uIManager: {fileID: 0}
+  questManager: {fileID: 0}
   targetRadius: 5
   targetRange: 2
   targetDistance: 0
@@ -2341,8 +2346,11 @@ MonoBehaviour:
   baseStat: {fileID: 11400000, guid: 7fab8c64b628ef44fbdd82138143d232, type: 2}
   player: {fileID: 0}
   targetTr: {fileID: 0}
+  floatingDamageTr: {fileID: 0}
   monsterAgent: {fileID: 5421067092290337077}
   meshes: []
+  damageText: {fileID: 0}
+  dropItem: {fileID: 0}
   weaponGO: {fileID: 0}
   fireballGO: {fileID: 0}
   HPBarPrefab: {fileID: 0}

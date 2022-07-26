@@ -2040,6 +2040,8 @@ MonoBehaviour:
   meshes: []
   damageText: {fileID: 7480548549689167644, guid: 93ab6ad1b1f05ad46b9c7ef118604a79,
     type: 3}
+  dropItem: {fileID: 5565732517130564943, guid: 18ddb475eb0a78840a31848402941f03,
+    type: 3}
   weaponGO: {fileID: 0}
   fireballGO: {fileID: 0}
   HPBarPrefab: {fileID: 2864682805739527010, guid: 5d81f49e9f16de749a52914a5a1d7213,
