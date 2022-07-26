@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.State;
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Interface;
+
 
 namespace HOGUS.Scripts.Character
 {
@@ -121,6 +123,10 @@ namespace HOGUS.Scripts.Character
 
             Destroy(hpBar);
             Destroy(gameObject);
+            if(enemyType == EnemyType.WarChief)
+            {
+                LoadingSceneController.LoadScene("EnddingScene");
+            }
         }
 
         public override void Damaged(int damage)
