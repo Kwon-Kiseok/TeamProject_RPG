@@ -6,6 +6,7 @@ namespace HOGUS.Scripts.Manager
     // 효과음
     public enum SFX
     {
+        ATTACK,
         BUTTON,
     }
     // 배경음
@@ -36,76 +37,76 @@ namespace HOGUS.Scripts.Manager
             this.bgmSource.loop = true;
         }
 
-        public static void PlayBGM(BGM bgmType)
+        public void PlayBGM(BGM bgmType)
         {
             var type = (int)bgmType;
             Instance.bgmSource.clip = Instance.bgmList[type];
             Instance.bgmSource.Play();
         }
 
-        public static void PlaySFX(SFX sfxType)
+        public void PlaySFX(SFX sfxType)
         {
             var sfxIndex = (int)sfxType;
             Instance.sfxSource.PlayOneShot(Instance.sfxList[sfxIndex], Instance.sfxSource.volume);
         }
 
-        public static void StopBGM()
+        public void StopBGM()
         {
             Instance.bgmSource.Stop();
             Debug.Log("StopBGM");
         }
 
-        public static void StopSFX()
+        public void StopSFX()
         {
             Instance.sfxSource.Stop();
         }
 
-        public static void PauseBGM()
+        public void PauseBGM()
         {
             Instance.bgmSource.Pause();
         }
 
-        public static void ReplayBGM()
+        public void ReplayBGM()
         {
             Instance.bgmSource.Play();
         }
 
-        public static void SetMuteSFX(bool mute)
+        public void SetMuteSFX(bool mute)
         {
             Instance.sfxSource.mute = mute;
         }
 
-        public static void SetMuteBGM(bool mute)
+        public void SetMuteBGM(bool mute)
         {
             Instance.bgmSource.mute = mute;
         }
 
-        public static void SetVolumeSFX(float value)
+        public void SetVolumeSFX(float value)
         {
             Instance.sfxSource.volume = value;
         }
 
-        public static void SetVolumeBGM(float value)
+        public void SetVolumeBGM(float value)
         {
             Instance.bgmSource.volume = value;
         }
 
-        public static float GetVolumeSFX()
+        public float GetVolumeSFX()
         {
             return Instance.sfxSource.volume;
         }
 
-        public static float GetVolumeBGM()
+        public float GetVolumeBGM()
         {
             return Instance.bgmSource.volume;
         }
 
-        public static bool GetMuteSFX()
+        public bool GetMuteSFX()
         {
             return Instance.sfxSource.mute;
         }
 
-        public static bool GetMuteBGM()
+        public bool GetMuteBGM()
         {
             return Instance.bgmSource.mute;
         }

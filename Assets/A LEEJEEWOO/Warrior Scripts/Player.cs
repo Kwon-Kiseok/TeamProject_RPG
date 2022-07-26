@@ -8,6 +8,7 @@ using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.State;
+using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.Object.Item;
 using HOGUS.Scripts.CustomSystem;
 using HOGUS.Scripts.Interface;

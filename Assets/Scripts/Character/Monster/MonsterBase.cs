@@ -197,6 +197,6 @@ namespace HOGUS.Scripts.Character
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, targetRadius);
         }
-    }
 #endif
+    }
 }
