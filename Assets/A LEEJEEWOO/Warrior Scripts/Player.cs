@@ -8,6 +8,7 @@ using HOGUS.Scripts.DP;
 using HOGUS.Scripts.Data;
 using HOGUS.Scripts.Enums;
 using HOGUS.Scripts.State;
+using HOGUS.Scripts.Manager;
 using HOGUS.Scripts.Object.Item;
 using HOGUS.Scripts.CustomSystem;
 using HOGUS.Scripts.Interface;
@@ -223,11 +224,13 @@ namespace HOGUS.Scripts.Character
                 if (stateMachine.CurrentState != dicState[PlayerState.Attack])
                 {
                     stateMachine.SetState(dicState[PlayerState.Attack]);
+                    AudioManager.Instance.PlaySFX("BasicAttack");
                     return;
                 }
                 else if (stateMachine.CurrentState == dicState[PlayerState.Attack])
                 {
                     animator.SetTrigger("doWeaponAttack");
+                    AudioManager.Instance.PlaySFX("BasicAttack");
                 }
             }
         }

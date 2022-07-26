@@ -9,6 +9,12 @@ public class StatusWindow : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(User_Status.activeSelf)
+        {
+            OnClickCloseButton();
+            return;
+        }
+
         User_Status.SetActive(true);
     }
 

@@ -3,111 +3,94 @@ using UnityEngine;
 
 namespace HOGUS.Scripts.Manager
 {
-    // 효과음
-    public enum SFX
+    [System.Serializable]
+    public class Sound
     {
-        BUTTON,
-    }
-    // 배경음
-    public enum BGM
-    {
-        MAINMENU,
+        public string name;
+        public AudioClip clip;
     }
 
     public class AudioManager : MonoSingleton<AudioManager>
     {
         [SerializeField]
-        private AudioSource sfxSource = null;
+        private AudioSource[] sfxSource = null;
 
         [SerializeField]
         private AudioSource bgmSource = null;
 
         [SerializeField]
-        private AudioClip[] sfxList = { };
+        private Sound[] sfxList = { };
 
         [SerializeField]
-        private AudioClip[] bgmList = { };
+        private Sound[] bgmList = { };
+
+        public string[] playSoundNames;
 
         protected AudioManager() { }
 
         private void Start()
         {
-            this.sfxSource.loop = false;
-            this.bgmSource.loop = true;
+            playSoundNames = new string[sfxSource.Length];
         }
 
-        public static void PlayBGM(BGM bgmType)
+        public void PlayBGM(string _name)
         {
-            var type = (int)bgmType;
-            Instance.bgmSource.clip = Instance.bgmList[type];
-            Instance.bgmSource.Play();
+            //var type = (int)bgmType;
+            //Instance.bgmSource.clip = Instance.bgmList[type];
+            //Instance.bgmSource.Play();
         }
 
-        public static void PlaySFX(SFX sfxType)
+        public void PlaySFX(string _name)
         {
-            var sfxIndex = (int)sfxType;
-            Instance.sfxSource.PlayOneShot(Instance.sfxList[sfxIndex], Instance.sfxSource.volume);
+            for(int i = 0; i < sfxList.Length; i++)
+            {
+                if(_name == sfxList[i].name)
+                {
+                    for(int j = 0; j < sfxSource.Length; j++)
+                    {
+                        if(!sfxSource[j].isPlaying)
+                        {
+                            playSoundNames[j] = sfxList[i].name;
+                            sfxSource[j].clip = sfxList[i].clip;
+                            sfxSource[j].Play();
+                            return;
+                        }
+                    }
+                    return;
+                }
+            }
         }
 
-        public static void StopBGM()
+        public void StopBGM()
         {
             Instance.bgmSource.Stop();
             Debug.Log("StopBGM");
         }
 
-        public static void StopSFX()
+        public void StopAllSFX()
         {
-            Instance.sfxSource.Stop();
+            for(int i = 0; i < sfxSource.Length; i++)
+            {
+                sfxSource[i].Stop();
+            }
         }
 
-        public static void PauseBGM()
+        public void StopSFX(string _name)
+        {
+            for(int i = 0; i < sfxSource.Length; i++)
+            {
+                if(playSoundNames[i] == _name)
+                {
+                    sfxSource[i].Stop();
+                    break;
+                }
+            }
+        }
+
+        public void PauseBGM()
         {
             Instance.bgmSource.Pause();
         }
 
-        public static void ReplayBGM()
-        {
-            Instance.bgmSource.Play();
-        }
-
-        public static void SetMuteSFX(bool mute)
-        {
-            Instance.sfxSource.mute = mute;
-        }
-
-        public static void SetMuteBGM(bool mute)
-        {
-            Instance.bgmSource.mute = mute;
-        }
-
-        public static void SetVolumeSFX(float value)
-        {
-            Instance.sfxSource.volume = value;
-        }
-
-        public static void SetVolumeBGM(float value)
-        {
-            Instance.bgmSource.volume = value;
-        }
-
-        public static float GetVolumeSFX()
-        {
-            return Instance.sfxSource.volume;
-        }
-
-        public static float GetVolumeBGM()
-        {
-            return Instance.bgmSource.volume;
-        }
-
-        public static bool GetMuteSFX()
-        {
-            return Instance.sfxSource.mute;
-        }
-
-        public static bool GetMuteBGM()
-        {
-            return Instance.bgmSource.mute;
-        }
     }
 }

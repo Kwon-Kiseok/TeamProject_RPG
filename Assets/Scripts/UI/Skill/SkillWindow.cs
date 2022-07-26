@@ -16,10 +16,14 @@ public class SkillWindow : MonoBehaviour
 
     private bool ActiveButtonCheck;
 
-    private bool SkillWindowOpen;
-
     public void OnClickSkillButton()
     {
+        if(playerSkillWindow.activeSelf)
+        {
+            OnClickCloseButton();
+            return;
+        }
+
         ActiveButtonCheck = true;
         playerSkillWindow.SetActive(true);
         activeSkillWindow.SetActive(true);

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using HOGUS.Scripts.Manager;
 
 public struct st_ObstacleRendererInfo
@@ -20,7 +19,7 @@ public class SeeThroughObstacles : MonoBehaviour, IUpdatableObject
     private Color TransparentColor = new Color(1f, 1f, 1f, 0.2f);
     private Color OriginColor = new Color(1f, 1f, 1f, 1f);
     private string sharderColorParamName = "_Color";
-    private Shader transparentShader;
+    public Shader transparentShader;
     private RaycastHit[] transparentedRaycasts;
     private LayerMask transparentedLayer;
 
@@ -54,7 +53,7 @@ public class SeeThroughObstacles : MonoBehaviour, IUpdatableObject
         // layermask가 Obstacle로 설정된 오브젝트만 감지
         transparentedLayer = 1 << LayerMask.NameToLayer("Obstacle");
         // 반투명쉐이더로 사용할 기본 transparent 쉐이더
-        transparentShader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
+        //transparentShader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
     }
 
     private void TransparentProcess()

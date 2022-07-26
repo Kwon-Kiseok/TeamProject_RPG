@@ -172,7 +172,6 @@ namespace HOGUS.Scripts.Inventory
             {
                 slots[i].BaseItem = null;
             }
-            Debug.Log(baseitems.Count);
         }
 
         public void AddItem(BaseItem _baseItem)
