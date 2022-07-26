@@ -11,6 +11,8 @@ public class BossProjectTile : MonoBehaviour
     public int damage;         
     private NavMeshAgent navi;
     public Transform target;
+    public ParticleSystem explosion;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -27,6 +29,7 @@ public class BossProjectTile : MonoBehaviour
             var player = collision.gameObject.GetComponent<Player>();
             player.GetCurrentStatus().TakeDamage(damage);       
             Destroy(gameObject);
+            Instantiate(explosion, transform.position, Quaternion.identity);
         }
 
         Debug.Log(collision.gameObject.name + " " + collision.gameObject.tag);
