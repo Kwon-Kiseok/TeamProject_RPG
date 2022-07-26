@@ -17,7 +17,7 @@ MonoBehaviour:
   description: You have to kill the devil
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
-  - {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
+  - {fileID: 11400000, guid: bde41153be7913d4282f3fe2d0b7ac0c, type: 2}
   initialSuccessValue: {fileID: 0}
   needSuccessToComplete: 1
   canReceiveReportsDuringCompletion: 0
