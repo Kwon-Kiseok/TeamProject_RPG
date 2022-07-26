@@ -21,9 +21,11 @@ namespace HOGUS.Scripts.Character
         PlayerStat currentStat;     // 현재 상태를 나타내는 사용될 스탯
 
         public WeaponItem weaponPrefab;
-        private EquipmentSystem equipmentSystem;
+        public EquipmentSystem equipmentSystem;
         private CombatSystem combatSystem;
+        public Transform startTr;
         public Transform weaponEquipPos;
+        public Transform floatingDamageTr;
 
         public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
@@ -31,9 +33,11 @@ namespace HOGUS.Scripts.Character
 
         public bool IsSkill { get { return isSkill; } set { isSkill = value; } }
 
+        public GameObject damageText;
         public GameObject skillPosition;
         public GameObject IceFactory;
         public float throwPower = 15f;
+        private float restartTimer = 3f;
 
         public SkillBtn magicSkill;
         public SkillBtn dodgeSkill;
@@ -79,7 +83,10 @@ namespace HOGUS.Scripts.Character
         public override void OnFixedUpdate(float deltaTime)
         {
             if (IsDead)
+            {
+                Restart(deltaTime);
                 return;
+            }
 
             joystick.GetMove();
             Turn();
@@ -121,14 +128,9 @@ namespace HOGUS.Scripts.Character
         readonly float returnToOriginSpeedVal = 0.5f;
         readonly float InvokeDodgeOutTime = 0.4f;
 
-        readonly int DodgeRequireMP = 10;
+        public readonly int DodgeRequireMP = 10;
         public void Dodge()
         {
-            if (GetCurrentStatus().CurMP < DodgeRequireMP)
-            {
-                return;
-            }
-
             StopCoroutine(coImmune(0));
             StartCoroutine(coImmune(dodgeImmuneTime));
 
@@ -146,15 +148,10 @@ namespace HOGUS.Scripts.Character
             currentStat.Speed *= returnToOriginSpeedVal;
         }
 
-        readonly int ComboRequireMP = 30;
+        public readonly int ComboRequireMP = 30;
         public void ComboAttack()
         {
             if (equipmentSystem.equipWeapon == null)
-            {
-                return;
-            }
-
-            if (GetCurrentStatus().CurMP < ComboRequireMP)
             {
                 return;
             }
@@ -167,15 +164,9 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-        readonly int IceBallRequireMP = 40;
+        public readonly int IceBallRequireMP = 40;
         public void IceBall()
         {
-
-            if(GetCurrentStatus().CurMP < IceBallRequireMP)
-            {
-                return;
-            }
-
             isSkill = true;
             if (magicSkill.cool && isSkill)
             {
@@ -241,7 +232,7 @@ namespace HOGUS.Scripts.Character
             }
         }
         
-        readonly float PlayerHitImmuneTime = 2f;
+        readonly float PlayerHitImmuneTime = 1f;
         public override void Damaged(int damage)
         {
             // 무적상태거나 죽으면 데미지를 받지 않음
@@ -252,7 +243,10 @@ namespace HOGUS.Scripts.Character
             // 현재 회피율에 따라 확률적으로 피할 수 있음
             else if(Random.Range(1, 100) <= currentStat.DodgeChance)
             {
-                Debug.Log("Guard");
+                GameObject dodgeTextGO = Instantiate(damageText);
+                dodgeTextGO.transform.position = floatingDamageTr.position;
+                dodgeTextGO.GetComponent<TextMesh>().text = "Dodge";
+                dodgeTextGO.GetComponent<TextMesh>().color = Color.gray;
                 return;
             }
 
@@ -261,6 +255,12 @@ namespace HOGUS.Scripts.Character
             StartCoroutine(coImmune(PlayerHitImmuneTime));
 
             currentStat.TakeDamage(damage);
+
+            GameObject damageTextGO = Instantiate(damageText);
+            damageTextGO.transform.position = floatingDamageTr.position;
+            damageTextGO.GetComponent<TextMesh>().text = damage.ToString();
+            damageTextGO.GetComponent<TextMesh>().color = Color.red;
+
             if (currentStat.CurHP == 0)
             {
                 Die();
@@ -282,8 +282,40 @@ namespace HOGUS.Scripts.Character
             Debug.Log("Player Dead");
         }
 
-        public void TestEquip()
+        public void Restart(float deltaTime)
         {
+            if (IsDead)
+            {
+                while (restartTimer > 0)
+                {
+                    restartTimer -= deltaTime;
+                    return;
+                }
+
+                animator.SetTrigger("DoRevive");
+                stateMachine.SetState(dicState[PlayerState.Idle]);
+                transform.position = startTr.position;
+                GetCurrentStatus().CurrentEXP *= 0.5f;
+                GetCurrentStatus().CurHP = GetCurrentStatus().MaxHP / 2;
+                IsDead = false;
+                restartTimer = 3f;
+            }
+        }
+
+        public void Equip()
+        {
+            var currentEquipItem = (EquipmentItem)HOGUS.Scripts.Inventory.Inventory.Instance.BaseItem;
+            if (!equipmentSystem.SatisfyRequirementStats(currentEquipItem))
+            {
+                return;
+            }
+
+            HOGUS.Scripts.Inventory.Inventory.Instance.Wear();
+            if (currentEquipItem is WeaponItem)
+            {
+                weaponPrefab = (WeaponItem)currentEquipItem;
+            }
+
             if (equipmentSystem.equipWeapon == null)
             {
                 var weapon = ScriptableObject.CreateInstance<WeaponItem>();
@@ -292,6 +324,7 @@ namespace HOGUS.Scripts.Character
             }
             else
             {
+                HOGUS.Scripts.Inventory.Inventory.Instance.TakeOff();
                 equipmentSystem.DoUnequip(EquipPart.WEAPON);
             }
         }
@@ -327,7 +360,7 @@ namespace HOGUS.Scripts.Character
 
 
         private float time_current = 0f;
-        private float time_recover = 3f;
+        private float time_recover = 5f;
         private readonly int recoverDiff = 1;
         private void Recover(float deltaTime)
         {            
@@ -341,6 +374,34 @@ namespace HOGUS.Scripts.Character
                 currentStat.CurHP = Mathf.Clamp(currentStat.CurHP + recoverDiff, 0, currentStat.MaxHP);
                 time_current = 0f;
             }
+        }
+
+        private DropItem tempItem;
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.CompareTag("DropItem"))
+            {
+                tempItem = other.gameObject.GetComponent<DropItem>();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag("DropItem"))
+            {
+                tempItem = null;
+            }
+        }
+
+        public void TakeItem()
+        {
+            if (tempItem == null) return;
+
+            HOGUS.Scripts.Inventory.Inventory.Instance.AddItem(tempItem.item);
+            tempItem.IsTaken = true;
+            
+            if(joystick.takeButtonGO.activeSelf)
+                joystick.takeButtonGO.SetActive(false);
         }
     }
 }

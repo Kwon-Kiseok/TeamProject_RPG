@@ -35,31 +35,5 @@ public class Slot : MonoBehaviour
     public void ItemOnClick()
     {
         Inventory.Instance.BaseItem = BaseItem;
-    }
-
-    //public void ShowItemData()
-    //{
-    //    //
-    //    Debug.Log("BaseItem.id: " + BaseItem.id);
-    //    Debug.Log("(int)ItemType.armor: " + (int)ItemType.armor);
-    //    Debug.Log("(int)ItemType.None: " + (int)ItemType.None);
-    //    Debug.Log("//////////////////////////////////////////////////");
-
-    //    if (BaseItem.id >= (int)ItemType.armor && BaseItem.id < (int)ItemType.None)
-    //    {
-    //        ArmorItem val = (ArmorItem)BaseItem;
-            
-    //        Debug.Log(val.itemName);
-    //        //Debug.Log(val.defense);
-    //        //Debug.Log(val.requireLevel);
-
-    //    }
-    //    else if (BaseItem.id >= (int)ItemType.weapon && BaseItem.id < (int)ItemType.armor)
-    //    {
-    //        WeaponItem val = (WeaponItem)BaseItem;
-    //        Debug.Log(val.attackSpeed);
-    //    }        
-    //}
-
-    
+    }  
 }

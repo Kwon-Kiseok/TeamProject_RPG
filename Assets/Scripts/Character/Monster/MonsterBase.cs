@@ -35,8 +35,11 @@ namespace HOGUS.Scripts.Character
         Stat currentStat;
         public Player player;
         public Transform targetTr;
+        public Transform floatingDamageTr;
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
+        public GameObject damageText;
+        public GameObject dropItem;
         public GameObject weaponGO;
         public GameObject fireballGO;
 
@@ -112,6 +115,10 @@ namespace HOGUS.Scripts.Character
             questManager.questId += 10;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
+
+            var dropItemGO = Instantiate<GameObject>(dropItem);
+            dropItemGO.transform.position = transform.position;
+
             Destroy(hpBar);
             Destroy(gameObject);
         }
@@ -121,6 +128,11 @@ namespace HOGUS.Scripts.Character
             StartCoroutine(OnDamageFlickering());
 
             currentStat.TakeDamage(damage);
+
+            GameObject damageTextGO = Instantiate(damageText);
+            damageTextGO.transform.position = floatingDamageTr.position;
+            damageTextGO.GetComponent<TextMesh>().text = damage.ToString();
+
             enemyHPBarSlider.value = bar.UpdateGage(currentStat.CurHP, currentStat.MaxHP);
             if (currentStat.CurHP == 0)
             {                

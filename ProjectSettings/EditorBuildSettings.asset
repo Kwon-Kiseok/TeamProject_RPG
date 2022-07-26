@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/A LEEJEEWOO/Scene/MainTitleMenu.unity
     guid: 23a753667b957294caa1b75a5b717ea8
   - enabled: 1
+    path: Assets/Scenes/MainGameScene.unity
+    guid: 6284e341f1374eb47a60ee694dc1e1e6
+  - enabled: 1
     path: Assets/A LEEJEEWOO/Scene/GameClearScene1.unity
     guid: b36a31f13818d794fbddbec7bcd3c198
   - enabled: 1

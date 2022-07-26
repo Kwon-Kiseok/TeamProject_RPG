@@ -34,13 +34,11 @@ public class AttackCollision : MonoBehaviour
         if(other.CompareTag("Enemy"))
         {
             var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
-            Debug.Log(other.name + " " + damage);
             other.GetComponent<MonsterBase>().Damaged(damage);
         }
         else if (other.CompareTag("Player"))
         {
             var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
-            Debug.Log(other.name + " " + damage);
             other.GetComponent<Player>().Damaged(damage);
         }
     }

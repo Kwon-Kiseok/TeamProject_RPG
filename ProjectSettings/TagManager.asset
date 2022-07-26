@@ -12,6 +12,7 @@ TagManager:
   - Obstacle
   - NPC
   - TalkPanel
+  - DropItem
   layers:
   - Default
   - TransparentFX

@@ -40,17 +40,12 @@ public class SkillBtn : MonoBehaviour
 
             StartCoroutine("CoolTimeCounter");
         }
-        else
-        {
-            Debug.Log("스킬사용불가");
-        }
     }
    
     IEnumerator Cooltime()
     {
         while(skillFilter.fillAmount > 0)
         {
-            
             skillFilter.fillAmount -= 1 * Time.smoothDeltaTime / coolTime;
             yield return null;
             cool = false;

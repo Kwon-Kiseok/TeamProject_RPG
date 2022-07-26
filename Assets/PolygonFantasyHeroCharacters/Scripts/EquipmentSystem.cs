@@ -27,7 +27,7 @@ namespace HOGUS.Scripts.CustomSystem
         /// 방어구 아이템 장착 함수
         /// </summary>
         public void DoEquip(EquipPart part, ArmorItem armorItem)
-        {
+        {            
             // 현재 해당 부위를 장착하고 있다면 장착 해제 후 교환
             if (dictEquipmets.ContainsKey(part))
             {
@@ -44,7 +44,7 @@ namespace HOGUS.Scripts.CustomSystem
         /// 무기 아이템 장착 함수
         /// </summary>
         public void DoEquip(EquipPart part, WeaponItem weaponItem)
-        {
+        {            
             if (equipWeapon != null)
             {
                 DoUnequip(part);
@@ -81,6 +81,21 @@ namespace HOGUS.Scripts.CustomSystem
                 dictEquipmets.Remove(part);
             }
 
+        }
+
+        /// <summary>
+        /// 현재 아이템 장착 가능한지 검사
+        /// </summary>
+        public bool SatisfyRequirementStats(EquipmentItem item)
+        {
+            if(item.requireLevel <= player.GetCurrentStatus().Level
+                && item.requireStrength <= player.GetCurrentStatus().Strength
+                && item.requireAgility <= player.GetCurrentStatus().Dexterity)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void AsyncOperationHandle_Complete(AsyncOperationHandle<GameObject> handle)

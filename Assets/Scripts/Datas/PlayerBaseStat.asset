@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerBaseStat
   m_EditorClassIdentifier: 
   level: 5
-  maxHP: 4
+  maxHP: 2
   curHP: 0
   minDamage: 5
   maxDamage: 10

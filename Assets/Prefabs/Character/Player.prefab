@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1099101874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099101875}
+  m_Layer: 8
+  m_Name: FloatingDamageTr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099101875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099101874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8493493425606938739}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1342198014371135247
 GameObject:
   m_ObjectHideFlags: 0
@@ -31642,6 +31673,7 @@ Transform:
   - {fileID: 1342198015067426411}
   - {fileID: 1342198014371135244}
   - {fileID: 8136458175051279755}
+  - {fileID: 1099101875}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31713,7 +31745,12 @@ MonoBehaviour:
   joystick: {fileID: 0}
   baseStat: {fileID: 11400000, guid: 1360b76575ad39f4e9fe5f6a7cb9cefd, type: 2}
   weaponPrefab: {fileID: 11400000, guid: a2f7ee6a42a9e494d92392b66037b599, type: 2}
+  equipmentSystem: {fileID: 0}
+  startTr: {fileID: 0}
   weaponEquipPos: {fileID: 3098308600786968880}
+  floatingDamageTr: {fileID: 1099101875}
+  damageText: {fileID: 7480548549689167644, guid: 93ab6ad1b1f05ad46b9c7ef118604a79,
+    type: 3}
   skillPosition: {fileID: 1342198015067426410}
   IceFactory: {fileID: 3793904978824336715, guid: ee3fc4d009d97b54b914b507642bcfd4,
     type: 3}
@@ -69494,6 +69531,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MinimapIcon_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 418951628584409043, guid: 868e671738a8c5a449f5cf8a82f89776,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 868e671738a8c5a449f5cf8a82f89776, type: 3}

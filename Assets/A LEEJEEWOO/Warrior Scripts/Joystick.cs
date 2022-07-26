@@ -13,6 +13,8 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler
     public RectTransform leverTr;
     private float radius;
 
+    public GameObject takeButtonGO;
+
     [SerializeField]
     private Vector3 direction;
     private Vector3 originalPos;
