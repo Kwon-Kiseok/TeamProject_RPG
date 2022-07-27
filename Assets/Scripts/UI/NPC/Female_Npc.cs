@@ -20,7 +20,6 @@ public class Female_Npc : MonoBehaviour
     private void Update()
     {
         QuestIconController();
-        TestOnTalk();
     }
 
     public void QuestIconController()
@@ -34,10 +33,9 @@ public class Female_Npc : MonoBehaviour
 
     public void TestOnTalk()
     {
-        if (uiManager.talkQuestIndex == 6)
+        if (uiManager.talkQuestIndex == 5)
         {
             onTalk.Invoke();
-            questManager.questId = 70;
         }
     }
 }

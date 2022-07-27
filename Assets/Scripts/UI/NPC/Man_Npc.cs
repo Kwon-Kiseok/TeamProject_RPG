@@ -20,7 +20,6 @@ public class Man_Npc : MonoBehaviour
     private void Update()
     {
         QuestHuntMonster();
-        TestOnTalk();
     }
 
     public void QuestHuntMonster()
@@ -39,10 +38,9 @@ public class Man_Npc : MonoBehaviour
 
     public void TestOnTalk()
     {
-        if (uiManager.talkQuestIndex == 5)
+        if (uiManager.talkQuestIndex == 4)
         {
             onTalk.Invoke();
-            questManager.questId = 60;
         }
     }
 }

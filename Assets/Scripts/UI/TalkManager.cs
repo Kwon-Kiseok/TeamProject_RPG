@@ -24,8 +24,8 @@ public class TalkManager : MonoBehaviour
         talkData.Add(3000, new string[] { "조심해!" });
 
         // 늙은 고블린 퀘스트
-        talkData.Add(10 + 1000, new string[] { "어서오시게, 용사여..", "강해보이는군.", "내 부탁 하나 들어주겠는가?", "근처의 몬스터 1마리만 잡아주게" });
-        talkData.Add(21 + 1000, new string[] { "1마리만 부탁하네"});
+        talkData.Add(10 + 1000, new string[] { "어서오시게, 용사여..", "강해보이는군.", "내 부탁 하나 들어주겠는가?", "근처의 몬스터 2마리만 잡아주게" });
+        talkData.Add(21 + 1000, new string[] { "2마리만 부탁하네"});
 
         talkData.Add(30 + 1000, new string[] { "고맙다네. 도움 받고 염치없지만..", "혹시 괜찮다면 마을사람들을 구출해줄 수 있겠나?" });
 
