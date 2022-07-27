@@ -60,7 +60,6 @@ public class TaskGroup
     {
         if (IsComplete)
             return;
-
         State = TaskGroupState.Complete;
 
         foreach (var task in tasks)

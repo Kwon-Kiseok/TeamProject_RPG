@@ -23,7 +23,6 @@ public class OldMan_Npc : MonoBehaviour
     {
         QuestIconController();
         QuestHuntMonster();
-        TestOnTalk();
     }
 
     public void QuestIconController()
@@ -42,7 +41,7 @@ public class OldMan_Npc : MonoBehaviour
             questClearIcon.SetActive(true);
             questGoingIcon.SetActive(false);
         }
-        else if (questManager.questId >= 40)
+        else if (questManager.questId > 30)
         {
             questClearIcon.SetActive(false);
             return;
@@ -51,15 +50,15 @@ public class OldMan_Npc : MonoBehaviour
 
     public void TestOnTalk()
     {
-        if(uiManager.talkQuestIndex == 1)
+        if (uiManager.talkQuestIndex == 0)
         {
+            Debug.Log("talkQuestIndex: 1");
             onTalk.Invoke();
-            questManager.questId = 20;
         }
-        if (uiManager.talkQuestIndex == 3)
+        if (uiManager.talkQuestIndex == 2)
         {
+            Debug.Log("talkQuestIndex: 3");
             onTalk.Invoke();
-            questManager.questId = 40;
         }
     }
 }
