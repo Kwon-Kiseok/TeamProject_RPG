@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: OrnateGreatAxe.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 70ee28b21e7c3ad419156cc59081c6e9
+    m_Address: Assets/Prefabs/UI_k/Canvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4b8d2741162489b428c3f2fb2766c6ea, type: 2}
   m_SchemaSet:

@@ -21,7 +21,6 @@ public class TouchTest : MonoBehaviour
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    Debug.Log("터치시작");
 
                     Vector3 touchPosToVector3 = new Vector3(touch.position.x, touch.position.y, 100);
                     touchPos = Camera.main.ScreenToWorldPoint(touchPosToVector3);
