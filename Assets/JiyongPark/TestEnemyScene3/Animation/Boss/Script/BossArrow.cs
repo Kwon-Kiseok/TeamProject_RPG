@@ -9,7 +9,6 @@ namespace HOGUS.Scripts.Character
     {
         Rigidbody rigid;
         public int damage;
-
         private void Awake()
         {
             rigid = GetComponent<Rigidbody>();
@@ -17,11 +16,17 @@ namespace HOGUS.Scripts.Character
         }
 
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Player")
+            if (other.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Player Hit");
+                var player = other.gameObject.GetComponent<Player>();
+                player.Damaged(damage);
+                Destroy(gameObject);
+            }
+            if (other.gameObject.CompareTag("Floor"))
+            {
                 Destroy(gameObject);
             }
         }

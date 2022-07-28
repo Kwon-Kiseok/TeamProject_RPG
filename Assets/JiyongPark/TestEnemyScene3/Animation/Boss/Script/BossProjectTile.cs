@@ -18,20 +18,27 @@ public class BossProjectTile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         navi = GetComponent<NavMeshAgent>();
+    }
+    private void Update()
+    {
         navi.SetDestination(target.position);
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player Hit");
-            var player = collision.gameObject.GetComponent<Player>();
-            player.GetCurrentStatus().TakeDamage(damage);       
+            var player = other.gameObject.GetComponent<Player>();
+            player.Damaged(damage);
+           //Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
-            Instantiate(explosion, transform.position, Quaternion.identity);
         }
 
-        Debug.Log(collision.gameObject.name + " " + collision.gameObject.tag);
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+
+        Debug.Log(other.gameObject.name + " " + other.gameObject.tag);
     }
 }

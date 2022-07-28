@@ -121,10 +121,10 @@ namespace HOGUS.Scripts.Character
 
             Destroy(hpBar);
             Destroy(gameObject);
-            if(enemyType == EnemyType.WarChief)
-            {
-                LoadingSceneController.LoadScene("EnddingScene");
-            }
+            //if(enemyType == EnemyType.WarChief)
+            //{
+            //    LoadingSceneController.LoadScene("EnddingScene");
+            //}
         }
 
         public override void Damaged(int damage)

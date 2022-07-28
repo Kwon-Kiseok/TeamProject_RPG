@@ -30,7 +30,7 @@ public class ProjectileObject : MonoBehaviour
         {
             Debug.Log("Player Hit");
             var player = other.gameObject.GetComponent<Player>();
-            player.GetCurrentStatus().TakeDamage(damage);       // 플레이어가 설정된 만큼의 데미지를 받음
+            player.Damaged(damage);       // 플레이어가 설정된 만큼의 데미지를 받음
             Destroy(gameObject);
         }
 

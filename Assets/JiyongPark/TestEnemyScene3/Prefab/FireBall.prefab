@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3243917971496076464}
   - component: {fileID: 3243917971481919984}
   - component: {fileID: 3243917971481835600}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4835,7 +4835,7 @@ GameObject:
   - component: {fileID: 3243917971496076466}
   - component: {fileID: 3243917971481919986}
   - component: {fileID: 3243917971481835602}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9659,7 +9659,7 @@ GameObject:
   - component: {fileID: 3243917971496076468}
   - component: {fileID: 3243917971481919988}
   - component: {fileID: 3243917971481835604}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14483,7 +14483,7 @@ GameObject:
   - component: {fileID: 3243917971496076470}
   - component: {fileID: 3243917971481919990}
   - component: {fileID: 3243917971481835606}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: Core2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19310,9 +19310,9 @@ GameObject:
   - component: {fileID: 8379888702731822852}
   - component: {fileID: 8379888702731822853}
   - component: {fileID: 1500450667}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: FireBall
-  m_TagString: EnemyAttack
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19428,6 +19428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 30
+  damage: 10
   lifeTime: 5
   dir: {x: 0, y: 0, z: 0}
