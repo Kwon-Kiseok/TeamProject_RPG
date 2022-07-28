@@ -48,6 +48,7 @@ namespace HOGUS.Scripts.Character
         public Transform spellPort;
         public Transform spellPort2;
         public Transform arrowSpawnPort;
+        public bool isAttacking = false;
 
         public GameObject HPBarPrefab;
         private GameObject hpBar;
@@ -69,7 +70,7 @@ namespace HOGUS.Scripts.Character
 
             stateMachine = new StateMachine(state_Idle);
             player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            //targetTr = player.gameObject.GetComponent<Transform>();
+            targetTr = player.gameObject.GetComponent<Transform>();
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             bossAgent = GetComponent<NavMeshAgent>();
             meshes = GetComponentsInChildren<MeshRenderer>();
@@ -77,7 +78,6 @@ namespace HOGUS.Scripts.Character
             currentStat = Instantiate(baseStat);
 
             bossAgent.speed = currentStat.Speed;
-            StartCoroutine(Think());
             SetHPBar();
         }
 
@@ -103,6 +103,7 @@ namespace HOGUS.Scripts.Character
 
         IEnumerator Think()
         {
+            isAttacking = true;
             yield return new WaitForSeconds(0.1f);
 
             int randomAction = Random.Range(0, 4);
@@ -140,7 +141,7 @@ namespace HOGUS.Scripts.Character
         IEnumerator electricArrow()
         {
             animator.SetTrigger("Pattern_2");
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.2f);
             GameObject instantSpell3 = Instantiate(secondSpell, arrowSpawnPort.transform.position
                 , arrowSpawnPort.transform.rotation);
             BossArrow bossSkill = instantSpell3.GetComponent<BossArrow>();
@@ -191,12 +192,21 @@ namespace HOGUS.Scripts.Character
         {
             Targeting(deltaTime);
 
-            stateMachine.DoStateFixedUpdate();
+            //stateMachine.DoStateFixedUpdate();
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            stateMachine.DoStateUpdate();
+            //stateMachine.DoStateUpdate();
+            if(targetDistance <= bossAgent.stoppingDistance && !isAttacking)
+            {
+                StartCoroutine(Think());
+            }
+            else if(targetDistance > bossAgent.stoppingDistance)
+            {
+                StopCoroutine(Think());
+                isAttacking = false;
+            }
         }
 
         public void LookTarget(float deltaTime)
