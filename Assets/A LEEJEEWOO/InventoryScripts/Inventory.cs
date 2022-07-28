@@ -38,6 +38,11 @@ namespace HOGUS.Scripts.Inventory
 
         protected Inventory() { }
 
+        public void InitSet()
+        {
+            BaseItem = null;
+        }
+
         public void Wear()
         {
             if (_baseItem is ArmorItem)
@@ -157,7 +162,7 @@ namespace HOGUS.Scripts.Inventory
             }
             _originWimage = _Wimage.sprite;
             _originSimage = _Simage.sprite;
-
+            BaseItem = null;
             FreshSlot();
         }
 
@@ -174,16 +179,18 @@ namespace HOGUS.Scripts.Inventory
             }
         }
 
-        public void AddItem(BaseItem _baseItem)
+        public bool AddItem(BaseItem _baseItem)
         {
             if (baseitems.Count < slots.Length)
             {
                 baseitems.Add(_baseItem);
                 FreshSlot();
+                return true;
             }
             else
             {
-                print("½½·ÔÀÌ °¡µæ Ã¡½À´Ï´Ù.");
+                Debug.Log("Slots full.");
+                return false;
             }
         }
     }

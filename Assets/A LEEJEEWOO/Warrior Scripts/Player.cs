@@ -400,11 +400,15 @@ namespace HOGUS.Scripts.Character
         {
             if (tempItem == null) return;
 
-            HOGUS.Scripts.Inventory.Inventory.Instance.AddItem(tempItem.item);
-            tempItem.IsTaken = true;
-            
-            if(joystick.takeButtonGO.activeSelf)
-                joystick.takeButtonGO.SetActive(false);
+            if (HOGUS.Scripts.Inventory.Inventory.Instance.AddItem(tempItem.item))
+            {
+                tempItem.IsTaken = true;
+
+                if (joystick.takeButtonGO.activeSelf)
+                    joystick.takeButtonGO.SetActive(false);
+            }
+            else
+                return;
         }
     }
 }

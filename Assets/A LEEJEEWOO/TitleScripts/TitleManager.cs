@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+using HOGUS.Scripts.Manager;
+
 public class TitleManager : MonoBehaviour
 {    
     public void StartGame()
@@ -20,7 +22,7 @@ public class TitleManager : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("게임종료");        
-        Application.Quit();
+        Debug.Log("게임종료");
+        GameManager.Instance.IsGameOver = true;
     }
 }
