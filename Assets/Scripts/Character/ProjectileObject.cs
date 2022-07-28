@@ -33,7 +33,5 @@ public class ProjectileObject : MonoBehaviour
             player.Damaged(damage);       // 플레이어가 설정된 만큼의 데미지를 받음
             Destroy(gameObject);
         }
-
-        Debug.Log(other.gameObject.name + " " + other.gameObject.tag);
     }
 }

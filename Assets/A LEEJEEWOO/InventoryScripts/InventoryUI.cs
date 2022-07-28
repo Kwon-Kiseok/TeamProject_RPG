@@ -15,6 +15,8 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
+        Inventory.Instance.InitSet();
+
         InventoryPanel.SetActive(false);
         StatusPanel.SetActive(false);
     }

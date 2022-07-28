@@ -46,6 +46,8 @@ public class DropItem : MonoBehaviour, IUpdatableObject
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (other.gameObject.GetComponent<AttackCollision>() != null)
+                return;
             other.gameObject.GetComponent<Player>().joystick.takeButtonGO.SetActive(true);
         }
     }
@@ -54,6 +56,8 @@ public class DropItem : MonoBehaviour, IUpdatableObject
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (other.gameObject.GetComponent<AttackCollision>() != null)
+                return;
             other.gameObject.GetComponent<Player>().joystick.takeButtonGO.SetActive(false);
         }
     }
