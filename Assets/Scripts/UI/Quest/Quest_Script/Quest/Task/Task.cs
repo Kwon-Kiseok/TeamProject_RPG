@@ -49,6 +49,15 @@ public class Task : ScriptableObject
     public event StateChangedHandler onStateChanged;
     public event SuccessChangedHandler onSuccessChanged;
 
+    private QuestManager questManager;
+    private UIManager uiManager;
+
+    private void Awake()
+    {
+        questManager = FindObjectOfType<QuestManager>();
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
     public int CurrentSuccess
     {
         get => currentSuccess;
@@ -92,8 +101,11 @@ public class Task : ScriptableObject
             CurrentSuccess = initialSuccessValue.GetValue(this);
     }
 
+    // Äù½ºÆ® ¿Ï·á
     public void End()
     {
+        questManager.questId += 10;
+        uiManager.talkQuestIndex++;
         onStateChanged = null;
         onSuccessChanged = null;
     }

@@ -14,19 +14,18 @@ public class UIManager : MonoBehaviour
     public bool isAction;
     public int talkIndex;
 
-    public int talkQuestIndex = 0;
+    public OldMan_Npc oldNpc;
+    public Man_Npc manNpc;
+    public Female_Npc femaleNpc;
 
-    //private void Start()
-    //{
-    //    Debug.Log(questManager.CheckQuest());
-    //}
+    public int talkQuestIndex = 0;
+    public int killQuestIndex = 0;
 
     // player가 바라보는 raycast에서 layer object를 만나는 부분에서 이 함수 호출
     public void Action(GameObject _scanObj)
     {
         scanObject = _scanObj;
         ObjData objData = scanObject.GetComponent<ObjData>();
-        Debug.Log(objData);
         Talk(objData.id, objData.isNpc);
 
         talkPanel.SetActive(isAction);
@@ -36,14 +35,17 @@ public class UIManager : MonoBehaviour
     {
         int questTalkIndex = questManager.GetQuestTalkIndex(_id);
         string talkData = talkManager.GetTalk(_id + questTalkIndex, talkIndex);
-        if(talkData == null)
+        if (talkData == null)
         {
             isAction = false;
-            talkQuestIndex++;
+            Debug.Log("대화 끝남");
+            oldNpc.TestOnTalk();
+            manNpc.TestOnTalk();
+            femaleNpc.TestOnTalk();
             talkIndex = 0;
             return;
         }
-        if(_isNpc)
+        if (_isNpc)
         {
             talkText.text = talkData;
         }

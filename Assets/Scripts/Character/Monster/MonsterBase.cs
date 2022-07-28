@@ -113,8 +113,6 @@ namespace HOGUS.Scripts.Character
         {
             IsDead = true;
             onDead.Invoke();
-            uIManager.talkQuestIndex++;
-            questManager.questId += 10;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
 

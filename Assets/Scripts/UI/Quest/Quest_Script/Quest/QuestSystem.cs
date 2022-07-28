@@ -56,6 +56,9 @@ public class QuestSystem : MonoBehaviour
     public event QuestRegisteredHandler onAchievementRegistered;
     public event QuestCompletedHandler onAchievementCompleted;
 
+    public UIManager uIManager;
+    public QuestManager questManager;
+
     public IReadOnlyList<Quest> ActiveQuests => activeQuests;
     public IReadOnlyList<Quest> CompletedQuests => completedQuests;
     public IReadOnlyList<Quest> ActiveAchievements => activeAchievements;
@@ -120,7 +123,9 @@ public class QuestSystem : MonoBehaviour
     private void ReceiveReport(List<Quest> quests, string category, object target, int successCount)
     {
         foreach (var quest in quests.ToArray())
+        {
             quest.ReceiveReport(category, target, successCount);
+        }
     }
 
     public void CompleteWaitingQuests()
