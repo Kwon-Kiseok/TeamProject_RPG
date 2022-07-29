@@ -16,8 +16,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2fc70e7bacd889f43951280478a43eae, type: 3}
   quality: 0
   rarity: 0
-  itemName: Arctic boots
-  itemDescription: 
+  itemName: "\uC544\uD2F1 \uBD80\uCE20"
+  itemDescription: "\uAC89\uC774 \uD654\uB824\uD55C\uB9CC\uD07C \uC54C\uB9F9\uC774\uAC00
+    \uBCFC\uAED8 \uC5C6\uB294 \uBD80\uCE20"
   itemWidth: 0
   itemHeight: 0
   durability: 11

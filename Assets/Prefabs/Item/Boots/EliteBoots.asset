@@ -17,7 +17,8 @@ MonoBehaviour:
   quality: 2
   rarity: 6
   itemName: "\uD0C8\uB77C\uC0E4\uC758 \uBD80\uCE20"
-  itemDescription: I wish there was a cold resistance.
+  itemDescription: "\uB0C9\uAC00\uC800\uD56D\uC774 \uBD99\uC744\uAEBC \uCC98\uB7FC
+    \uC0DD\uACBC\uC9C0\uB9CC \uADF8\uB0E5 \uD30C\uB780\uBD80\uCE20"
   itemWidth: 0
   itemHeight: 0
   durability: 30

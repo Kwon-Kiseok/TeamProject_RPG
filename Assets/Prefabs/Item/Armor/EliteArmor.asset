@@ -17,7 +17,8 @@ MonoBehaviour:
   quality: 2
   rarity: 6
   itemName: "\uD0C8\uB77C\uC0E4\uC758 \uAC11\uC637"
-  itemDescription: I have no idea
+  itemDescription: "\uC5C4\uB9C8\uD55C\uD14C \uB4F1\uC9DD\uB9DE\uC544\uB3C4 \uC544\uD504\uC9C0
+    \uC54A\uC73C\uB824\uACE0 \uB9CC\uB4E0 \uAC11\uC637"
   itemWidth: 0
   itemHeight: 0
   durability: 80

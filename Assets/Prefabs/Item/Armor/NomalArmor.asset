@@ -16,7 +16,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 4f8f65e440f1f8c46bef0f29a07289d5, type: 3}
   quality: 0
   rarity: 2
-  itemName: Arctic Furs
+  itemName: "\uC544\uD2F1 \uD37C\uC2A4"
   itemDescription: "\uAC8C\uC784\uC2DC\uC791\uC2DC \uBC1B\uB294 \uC720\uC77C\uD55C
     \uB808\uC5B4\uC544\uC774\uD15C \uC81C\uC791\uC790\uAC00 \uB9DE\uB294\uAC8C \uC2EB\uC5B4\uC11C
     \uB808\uC5B4\uB85C \uC124\uC815\uB42C\uB2E4."

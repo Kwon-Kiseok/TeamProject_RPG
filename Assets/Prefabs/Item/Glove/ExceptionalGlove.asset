@@ -16,8 +16,10 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 873571c2f075e474693332e71f2c6dbb, type: 3}
   quality: 1
   rarity: 1
-  itemName: Trang-Oul's Claws
-  itemDescription: 
+  itemName: "\uD2B8\uB791\uC6B8 \uD06C\uB85C\uC6B0\uC988"
+  itemDescription: "\uB178\uAC00\uB2E4 \uD558\uC2DC\uB358 \uC544\uC800\uC528\uC5D0\uAC8C
+    \uAD6C\uAC78\uD574\uC11C \uBC1B\uC544\uC628 \uBAA9\uC7A5\uAC11\uB514\uC790\uC778\uC744
+    \uB530\uC628 \uC7A5\uAC11"
   itemWidth: 0
   itemHeight: 0
   durability: 16

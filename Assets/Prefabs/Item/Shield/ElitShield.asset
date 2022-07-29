@@ -17,7 +17,8 @@ MonoBehaviour:
   quality: 2
   rarity: 6
   itemName: "\uC2A4\uD53C\uB9AC\uD2B8 \uC274\uB4DC"
-  itemDescription: I have a shield, but I can't block it.
+  itemDescription: "\uBC29\uD328\uB294 \uC874\uC7AC\uD558\uB294\uB370 \uB9C9\uC744\uC218\uB294
+    \uC5C6\uB2E4."
   itemWidth: 0
   itemHeight: 0
   durability: 50
