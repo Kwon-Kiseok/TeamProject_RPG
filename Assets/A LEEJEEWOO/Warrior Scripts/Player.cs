@@ -21,7 +21,8 @@ namespace HOGUS.Scripts.Character
         public PlayerStat baseStat;        // 기초 베이스 스탯
         PlayerStat currentStat;     // 현재 상태를 나타내는 사용될 스탯
 
-        public WeaponItem weaponPrefab;
+        public WeaponItem weaponItem;
+        public ArmorItem armorItem;
         public EquipmentSystem equipmentSystem;
         private CombatSystem combatSystem;
         public Transform startTr;
@@ -316,18 +317,25 @@ namespace HOGUS.Scripts.Character
             HOGUS.Scripts.Inventory.Inventory.Instance.Wear();
             if (currentEquipItem is WeaponItem)
             {
-                weaponPrefab = (WeaponItem)currentEquipItem;
+                weaponItem = (WeaponItem)currentEquipItem;
+            }
+            else if(currentEquipItem is ArmorItem)
+            {
+                armorItem = (ArmorItem)currentEquipItem;
+
+                equipmentSystem.DoEquip((EquipPart)armorItem.type, armorItem);
+                return;
             }
 
             if (equipmentSystem.equipWeapon == null)
             {
                 var weapon = ScriptableObject.CreateInstance<WeaponItem>();
-                weapon.CopyValue(weaponPrefab);
+                weapon.CopyValue(weaponItem);
                 equipmentSystem.DoEquip(EquipPart.WEAPON, weapon);
             }
             else
             {
-                HOGUS.Scripts.Inventory.Inventory.Instance.TakeOff();
+                //HOGUS.Scripts.Inventory.Inventory.Instance.TakeOff();
                 equipmentSystem.DoUnequip(EquipPart.WEAPON);
             }
         }
