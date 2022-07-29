@@ -386,6 +386,11 @@ namespace HOGUS.Scripts.Character
             {
                 tempItem = other.gameObject.GetComponent<DropItem>();
             }
+            // Ãß¶ô»ç
+            else if(other.gameObject.CompareTag("DeathTrigger"))
+            {
+                Die();
+            }
         }
 
         private void OnTriggerExit(Collider other)
