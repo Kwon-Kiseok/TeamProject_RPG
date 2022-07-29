@@ -41,7 +41,7 @@ namespace HOGUS.Scripts.Character
         public NavMeshAgent monsterAgent;
         public MeshRenderer[] meshes;
         public GameObject damageText;
-        public GameObject dropItem;
+        public GameObject[] dropItem;
         public GameObject weaponGO;
         public GameObject fireballGO;
 
@@ -109,6 +109,34 @@ namespace HOGUS.Scripts.Character
             yield return new WaitForSeconds(cooltime);
         }
 
+        #region Drop Chance
+        readonly float normalChance = 85f;
+        readonly float exceptionalChance = 10f;
+        readonly float eliteChance = 5f;
+
+        readonly int normalIndex = 0;
+        readonly int exceptionalIndex = 1;
+        readonly int eliteIndex = 2;
+        #endregion
+
+        public void DropItem()
+        {
+            var dropGrade = Random.Range(1, 100);
+            GameObject dropItemGO;
+            if (dropGrade <= eliteChance)
+            {
+                dropItemGO = Instantiate<GameObject>(dropItem[eliteIndex]);
+            }
+            else if (dropGrade <= exceptionalChance)
+            {
+                dropItemGO = Instantiate<GameObject>(dropItem[exceptionalIndex]);
+            }
+            else
+                dropItemGO = Instantiate<GameObject>(dropItem[normalIndex]);
+
+            dropItemGO.transform.position = transform.position;
+        }
+
         public override void Die()
         {
             IsDead = true;
@@ -116,8 +144,7 @@ namespace HOGUS.Scripts.Character
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
 
-            var dropItemGO = Instantiate<GameObject>(dropItem);
-            dropItemGO.transform.position = transform.position;
+            DropItem();
 
             Destroy(hpBar);
             Destroy(gameObject);
