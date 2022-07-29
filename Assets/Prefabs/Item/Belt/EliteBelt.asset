@@ -17,7 +17,8 @@ MonoBehaviour:
   quality: 2
   rarity: 6
   itemName: "\uD0C8\uB77C\uC0E4\uC758 \uBCA8\uD2B8"
-  itemDescription: Even if you wear this belt, your pants will go down.
+  itemDescription: "\uBCA8\uD2B8\uB97C \uCC29\uC6A9\uD558\uBA74 \uBC29\uC5B4\uB825\uC740
+    \uC624\uB974\uC9C0\uB9CC \uBC14\uC9C0\uB294 \uB0B4\uB824\uAC04\uB2E4."
   itemWidth: 0
   itemHeight: 0
   durability: 30
