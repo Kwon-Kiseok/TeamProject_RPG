@@ -17,7 +17,7 @@ MonoBehaviour:
   description: "\uB0A8\uC790\uB97C \uB458\uB7EC\uC2FC \uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58\uD558\uC138\uC694"
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
-  - {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
+  - {fileID: 11400000, guid: 146797e6368cc0f4eb9f56ee28c34373, type: 2}
   initialSuccessValue: {fileID: 0}
   needSuccessToComplete: 2
   canReceiveReportsDuringCompletion: 0

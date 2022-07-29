@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ff3cf5bdf2f6345800434ede44fe7c, type: 3}
   m_Name: Target_PunchMonster
   m_EditorClassIdentifier: 
-  value: {fileID: 0}
+  value: {fileID: 8330257193199056488, guid: c4a5458b325668e4591e0ae5868a0cac, type: 3}

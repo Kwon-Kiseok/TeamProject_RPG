@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ff3cf5bdf2f6345800434ede44fe7c, type: 3}
   m_Name: Target_MagicMonster
   m_EditorClassIdentifier: 
-  value: {fileID: 0}
+  value: {fileID: 5620326386243217142, guid: 534cfe728b10d3f4e840d7c085052c34, type: 3}
