@@ -33,7 +33,12 @@ public class PlayerHP_Bar : MonoBehaviour, IUpdatableObject
 
     public void OnUpdate(float deltaTime)
     {
-        slider.value = (float)player.GetCurrentStatus().CurHP / player.GetCurrentStatus().MaxHP;
+        if(player.GetCurrentStatus().CurHP <= 0)
+        {
+            slider.value = 0;
+        }
+        else
+            slider.value = (float)player.GetCurrentStatus().CurHP / player.GetCurrentStatus().MaxHP;
         hpTMP.text = $"{player.GetCurrentStatus().CurHP} / {player.GetCurrentStatus().MaxHP}";
     }
 }
