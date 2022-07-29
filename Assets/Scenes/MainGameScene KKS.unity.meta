@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/UI/Quest/QuestDataObj/Task/Target/Target_MagicMonster.asset.meta
+guid: 146797e6368cc0f4eb9f56ee28c34373
+NativeFormatImporter:
+========
 guid: 57e80e74375984242af11217711f5ed6
 DefaultImporter:
+>>>>>>>> master:Assets/Scenes/MainGameScene KKS.unity.meta
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

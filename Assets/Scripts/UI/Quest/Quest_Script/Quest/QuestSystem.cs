@@ -56,9 +56,6 @@ public class QuestSystem : MonoBehaviour
     public event QuestRegisteredHandler onAchievementRegistered;
     public event QuestCompletedHandler onAchievementCompleted;
 
-    public UIManager uIManager;
-    public QuestManager questManager;
-
     public IReadOnlyList<Quest> ActiveQuests => activeQuests;
     public IReadOnlyList<Quest> CompletedQuests => completedQuests;
     public IReadOnlyList<Quest> ActiveAchievements => activeAchievements;
