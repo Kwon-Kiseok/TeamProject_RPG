@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ff3cf5bdf2f6345800434ede44fe7c, type: 3}
   m_Name: Target_Devil
   m_EditorClassIdentifier: 
-  value: {fileID: 5576042093013287145, guid: 53b9b2b551c28d44ea891ffbb3c73a41, type: 3}
+  value: {fileID: 1546652726959183497, guid: 1309dd7215a89ea44abc45254cf35829, type: 3}

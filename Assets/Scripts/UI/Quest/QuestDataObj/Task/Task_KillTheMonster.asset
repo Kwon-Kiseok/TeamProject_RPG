@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
   codeName: KILL_THE_MONSTER_5
-  description: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58\uD558\uC2DC\uC624"
+  description: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58\uD558\uC138\uC694"
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
-  - {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
+  - {fileID: 11400000, guid: bf29bd0de7b81a348a3f570964a1aab7, type: 2}
   initialSuccessValue: {fileID: 0}
   needSuccessToComplete: 2
   canReceiveReportsDuringCompletion: 0
