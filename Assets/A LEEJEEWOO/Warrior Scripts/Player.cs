@@ -27,7 +27,7 @@ namespace HOGUS.Scripts.Character
         public Transform startTr;
         public Transform weaponEquipPos;
         public Transform floatingDamageTr;
-
+        private BossBase bossBase;
         public readonly Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
         bool isSkill;
@@ -276,7 +276,6 @@ namespace HOGUS.Scripts.Character
         public override void Die()
         {
             IsDead = true;
-
             // 죽은 다음 수행 될...
             // DeadCheck와는 구분되야 하긴 할듯
             animator.SetInteger("DeadIndex", Random.Range(0, 4));

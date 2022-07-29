@@ -18,6 +18,9 @@ public class AttackCollision : MonoBehaviour
         // 몬스터라면 Stat
         if(gameObject.CompareTag("Enemy"))
             CharacterStat = GetComponentInParent<MonsterBase>().GetCurrentStat();
+        // 보스
+        else if (gameObject.CompareTag("Boss"))
+            CharacterStat = GetComponentInParent<BossBase>().GetCurrentStat();
         // 검사 후 몬스터가 아니라면 플레이어
         else if (gameObject.CompareTag("Player"))
             CharacterStat = GetComponentInParent<Player>().GetCurrentStatus();
@@ -35,6 +38,11 @@ public class AttackCollision : MonoBehaviour
         {
             var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
             other.GetComponent<MonsterBase>().Damaged(damage);
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            var damage = Random.Range(CharacterStat.MinDamage, CharacterStat.MaxDamage);
+            other.GetComponent<BossBase>().Damaged(damage);
         }
         else if (other.CompareTag("Player"))
         {

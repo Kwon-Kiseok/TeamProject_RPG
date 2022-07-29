@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WarChiefStat
   m_EditorClassIdentifier: 
   level: 1
-  maxHP: 500
-  curHP: 500
+  maxHP: 1
+  curHP: 1
   minDamage: 3
   maxDamage: 5
   defense: 0

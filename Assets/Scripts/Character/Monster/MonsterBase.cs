@@ -109,6 +109,7 @@ namespace HOGUS.Scripts.Character
             yield return new WaitForSeconds(cooltime);
         }
 
+        readonly float destroyTime = 3f;
         public override void Die()
         {
             IsDead = true;
@@ -116,15 +117,14 @@ namespace HOGUS.Scripts.Character
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
 
+            animator.SetTrigger("DoDie");
+
             var dropItemGO = Instantiate<GameObject>(dropItem);
             dropItemGO.transform.position = transform.position;
 
             Destroy(hpBar);
-            Destroy(gameObject);
-            //if(enemyType == EnemyType.WarChief)
-            //{
-            //    LoadingSceneController.LoadScene("EnddingScene");
-            //}
+            GetComponent<BoxCollider>().enabled = false;
+            Destroy(gameObject, destroyTime);
         }
 
         public override void Damaged(int damage)

@@ -60,15 +60,15 @@ namespace HOGUS.Scripts.Character
 
         private void Start()
         {
-            var state_Idle = new BossIdleState(this);
-            var state_Chase = new BossChaseState(this);
-            var state_Attack = new BossAttackState(this);
+            //var state_Idle = new BossIdleState(this);
+            //var state_Chase = new BossChaseState(this);
+            //var state_Attack = new BossAttackState(this);
 
-            dicState.Add(EnemyState.Idle, state_Idle);
-            dicState.Add(EnemyState.Chase, state_Chase);
-            dicState.Add(EnemyState.Attack, state_Attack);
+            //dicState.Add(EnemyState.Idle, state_Idle);
+            //dicState.Add(EnemyState.Chase, state_Chase);
+            //dicState.Add(EnemyState.Attack, state_Attack);
 
-            stateMachine = new StateMachine(state_Idle);
+            //stateMachine = new StateMachine(state_Idle);
             player = GameObject.FindWithTag("Player").GetComponent<Player>();
             targetTr = player.gameObject.GetComponent<Transform>();
             targetTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -85,10 +85,7 @@ namespace HOGUS.Scripts.Character
         {
             return currentStat;
         }
-        public override void Attack()
-        {
 
-        }
         private void SetHPBar()
         {
             enemyHPBarCanvas = GameObject.Find("HPCanvas").GetComponent<Canvas>();
@@ -102,7 +99,7 @@ namespace HOGUS.Scripts.Character
         }
 
         IEnumerator Think()
-        {
+        { 
             isAttacking = true;
             yield return new WaitForSeconds(0.1f);
 
@@ -120,7 +117,10 @@ namespace HOGUS.Scripts.Character
             }
         }
 
-
+        public override void Attack()
+        {
+            
+        }
         // 패턴 2가지 
 
         IEnumerator electricBall()
@@ -128,45 +128,47 @@ namespace HOGUS.Scripts.Character
             animator.SetTrigger("Pattern_1");
             yield return new WaitForSeconds(0.5f);
             GameObject instantSpell = Instantiate(spell, spellPort.transform.position, spellPort.transform.rotation);
-            BossProjectTile bossSpell = instantSpell.GetComponent<BossProjectTile>();
+            BossProjectile bossSpell = instantSpell.GetComponent<BossProjectile>();
             bossSpell.target = targetTr;
             yield return new WaitForSeconds(0.6f);
             GameObject instantSpell2 = Instantiate(spell, spellPort2.transform.position, spellPort2.transform.rotation);
-            BossProjectTile bossSpell2 = instantSpell2.GetComponent<BossProjectTile>();
+            BossProjectile bossSpell2 = instantSpell2.GetComponent<BossProjectile>();
             bossSpell2.target = targetTr;
             yield return new WaitForSeconds(2.0f);
-            StartCoroutine(Think());
+            isAttacking = false;
+
+            //StartCoroutine(Think());
         }
 
         IEnumerator electricArrow()
         {
             animator.SetTrigger("Pattern_2");
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1f);
             GameObject instantSpell3 = Instantiate(secondSpell, arrowSpawnPort.transform.position
                 , arrowSpawnPort.transform.rotation);
             BossArrow bossSkill = instantSpell3.GetComponent<BossArrow>();
             yield return new WaitForSeconds(2.0f);
-            StartCoroutine(Think());
-        }
+            isAttacking = false;
 
+
+            //StartCoroutine(Think());
+        }
+        readonly float destroyTime = 5f;
         public override void Die()
         {
+            StopAllCoroutines();
             IsDead = true;
             onDead.Invoke();
-            uIManager.talkQuestIndex++;
-            questManager.questId += 10;
+            //uIManager.talkQuestIndex++;
+            //questManager.questId += 10;
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
-
+            animator.SetTrigger("DoDie");
             var dropItemGO = Instantiate<GameObject>(dropItem);
             dropItemGO.transform.position = transform.position;
 
             Destroy(hpBar);
-            Destroy(gameObject);
-            if (enemyType == EnemyType.WarChief)
-            {
-                LoadingSceneController.LoadScene("EnddingScene");
-            }
+            Destroy(gameObject, destroyTime);
         }
 
         public override void Damaged(int damage)
@@ -180,21 +182,22 @@ namespace HOGUS.Scripts.Character
             damageTextGO.GetComponent<TextMesh>().text = damage.ToString();
 
             enemyHPBarSlider.value = bar.UpdateGage(currentStat.CurHP, currentStat.MaxHP);
+            
             if (currentStat.CurHP == 0)
             {
                 Die();
             }
-
-            Debug.Log(currentStat.CurHP);
         }
 
         public override void OnFixedUpdate(float deltaTime)
         {
-            Targeting(deltaTime);
-
+            if (currentStat.CurHP != 0)
+            {
+                Targeting(deltaTime);
+            }
             //stateMachine.DoStateFixedUpdate();
         }
-
+        
         public override void OnUpdate(float deltaTime)
         {
             //stateMachine.DoStateUpdate();
@@ -204,8 +207,8 @@ namespace HOGUS.Scripts.Character
             }
             else if(targetDistance > bossAgent.stoppingDistance)
             {
-                StopCoroutine(Think());
                 isAttacking = false;
+                StopCoroutine(Think());
             }
         }
 

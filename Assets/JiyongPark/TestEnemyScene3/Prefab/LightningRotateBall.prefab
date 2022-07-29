@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8609131347424686933}
   - component: {fileID: 981014296812731269}
   - component: {fileID: 1180078314762605755}
-  - component: {fileID: 8210539396954286524}
   - component: {fileID: 1903753593429792500}
-  m_Layer: 0
+  - component: {fileID: 3247197293521533252}
+  m_Layer: 14
   m_Name: LightningRotateBall
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4805743065117678413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13, y: 5.5, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5469736933155840381}
@@ -117,7 +117,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 7
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -129,21 +129,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8210539396954286524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805743065117678413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224414a037090ff49b1be88d581dbcbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
-  target: {fileID: 0}
-  explosion: {fileID: 0}
 --- !u!135 &1903753593429792500
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -157,6 +142,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3247197293521533252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4805743065117678413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 224414a037090ff49b1be88d581dbcbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  target: {fileID: 0}
+  explosion: {fileID: 1165064344457562314, guid: a86329f3b3e54e84291434d5d7ae05d6,
+    type: 3}
+  lifeTime: 10
 --- !u!1 &6265516879802021983
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ GameObject:
   - component: {fileID: 6048199575027497917}
   - component: {fileID: 5342489002748776106}
   - component: {fileID: 1634253332877453956}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4938,7 +4940,7 @@ GameObject:
   - component: {fileID: 6551544532028753539}
   - component: {fileID: 793633896691651359}
   - component: {fileID: 8859895785672352645}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9708,7 +9710,7 @@ GameObject:
   - component: {fileID: 6031440118478674988}
   - component: {fileID: 1724903756213853013}
   - component: {fileID: 32718443478406686}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14478,7 +14480,7 @@ GameObject:
   - component: {fileID: 5469736933155840381}
   - component: {fileID: 6665023230366291930}
   - component: {fileID: 4112726915087373376}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: LightningRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
