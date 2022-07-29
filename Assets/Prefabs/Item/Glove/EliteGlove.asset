@@ -17,7 +17,8 @@ MonoBehaviour:
   quality: 2
   rarity: 6
   itemName: "\uD0C8\uB77C\uC0E4\uC758 \uAE00\uB7EC\uBE0C"
-  itemDescription: Ice balls are fired from the sword.
+  itemDescription: "\uC544\uC774\uC2A4\uBCFC\uC774 \uC7A5\uAC11\uC5D0\uC11C \uB098\uAC00\uB294\uAC70
+    \uAC19\uC9C0\uB9CC \uC0AC\uC2E4 \uCE7C\uC5D0\uC11C \uB098\uAC04\uB2E4."
   itemWidth: 0
   itemHeight: 0
   durability: 30

@@ -16,8 +16,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e3349c9ba5050ac44b8443212cd13def, type: 3}
   quality: 1
   rarity: 5
-  itemName: Trang-Oul's Guise
-  itemDescription: 
+  itemName: "\uD2B8\uB791\uC6B8 \uAE30\uC5B4\uC2A4"
+  itemDescription: "\uAC89\uACFC\uC18D\uC774 \uB2E4\uB978\uC0AC\uB78C\uC744 \uBE44\uC720\uD574
+    \uB9CC\uB4E0 \uD22C\uAD6C"
   itemWidth: 0
   itemHeight: 0
   durability: 40

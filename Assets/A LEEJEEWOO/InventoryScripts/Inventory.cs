@@ -19,6 +19,9 @@ namespace HOGUS.Scripts.Inventory
         [SerializeField] TextMeshProUGUI _name; //
         [SerializeField] TextMeshProUGUI _Rarity;//
         [SerializeField] TextMeshProUGUI _level; //
+        [SerializeField] TextMeshProUGUI _STR; //
+        [SerializeField] TextMeshProUGUI _DEX; //
+
         [SerializeField] TextMeshProUGUI _Quality;//
         [SerializeField] TextMeshProUGUI _arm_wea_shi_Type;//        
         [SerializeField] TextMeshProUGUI _Defend; //
@@ -105,7 +108,9 @@ namespace HOGUS.Scripts.Inventory
                     {
                         var equipment = (EquipmentItem) _baseItem;
                         
-                        _level.text = $"레벨 : {equipment.requireLevel}";//equipment.requireLevel.ToString();
+                        _level.text = $"필요 레벨 : {equipment.requireLevel}";//equipment.requireLevel.ToString();
+                        _STR.text = $"필요 힘 : {equipment.requireStrength}";
+                        _DEX.text = $"필요 민첩 : {equipment.requireAgility}";
                         _Durability.text = $"내구도 : {equipment.durability}";//equipment.durability.ToString();
                     }
                     if (_baseItem is ArmorItem)
@@ -120,7 +125,7 @@ namespace HOGUS.Scripts.Inventory
                         var wea = (WeaponItem)_baseItem;
 
                         _arm_wea_shi_Type.text = $"타입 : {wea.type}";//wea.type.ToString();
-                        _Defend.text = $"공격력 : {wea.minDamage}";//wea.minDamage.ToString();
+                        _Defend.text = $"공격력 : {wea.minDamage} - {wea.maxDamage}";//wea.minDamage.ToString();
                         //_maxpower.text = $"최대공격력 : {wea.maxDamage}";//wea.maxDamage.ToString();
                     }
                     if (_baseItem is ShieldItem)

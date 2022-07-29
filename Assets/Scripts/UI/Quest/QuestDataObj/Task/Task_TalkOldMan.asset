@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: 567f1d814b71845469eece242334a31f, type: 2}
   codeName: TALK_THE_OLDMAN
-  description: You need to talk to an old man
+  description: "\uB299\uC740 \uB0A8\uC790\uC640 \uB300\uD654\uD558\uC138\uC694"
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
   - {fileID: 11400000, guid: f560c3c95e9047b499267bf63667211e, type: 2}
