@@ -19,8 +19,6 @@ namespace HOGUS.Scripts.Character
         private bool isLooking = false;
 
         public UnityEngine.Events.UnityEvent onDead;
-        public UIManager uIManager;
-        public QuestManager questManager;
 
         public bool IsLooking { get { return isLooking; } set { isLooking = value; } }
 
