@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: WarChiefStat
   m_EditorClassIdentifier: 
   level: 1
-  maxHP: 1
-  curHP: 1
+  maxHP: 200
+  curHP: 200
   minDamage: 3
   maxDamage: 5
   defense: 0
   dodgeChance: 0
   speed: 3
   attackSpeed: 1
-  killexp: 100
+  killexp: 1500

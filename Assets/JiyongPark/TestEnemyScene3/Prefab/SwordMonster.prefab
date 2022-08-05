@@ -1625,6 +1625,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  uIManager: {fileID: 0}
+  questManager: {fileID: 0}
   targetRadius: 5
   targetRange: 2
   targetDistance: 0

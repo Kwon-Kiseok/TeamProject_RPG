@@ -398,6 +398,11 @@ namespace HOGUS.Scripts.Character
             {
                 Die();
             }
+
+            if(other.gameObject.CompareTag("Portal"))
+            {
+                transform.position = new Vector3(-81.54f, 9.66f, -34.26f);
+            }
         }
 
         private void OnTriggerExit(Collider other)

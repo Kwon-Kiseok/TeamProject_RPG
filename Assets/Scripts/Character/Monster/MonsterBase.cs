@@ -96,7 +96,7 @@ namespace HOGUS.Scripts.Character
 
         public override void Attack()
         {
-            if(enemyType == EnemyType.MagicMonster)
+            if(enemyType == EnemyType.MagicMonster && !IsDead)
             {
                 // fireballGO º“»Ø
                 GameObject InstantSpell = Instantiate(fireballGO, weaponGO.transform.position, weaponGO.transform.rotation);
@@ -116,7 +116,6 @@ namespace HOGUS.Scripts.Character
             onDead.Invoke();
             player.GetCurrentStatus().CurrentEXP += currentStat.KillEXP;
             bar.enabled = false;
-
             animator.SetTrigger("DoDie");
 
             var dropItemGO = Instantiate<GameObject>(dropItem);
