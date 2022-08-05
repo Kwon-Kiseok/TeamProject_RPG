@@ -53,11 +53,11 @@ namespace HOGUS.Scripts.Character
             animator.SetTrigger("Pattern_1");
             yield return new WaitForSeconds(0.5f);
             GameObject instantSpell = Instantiate(spell, spellPort.transform.position, spellPort.transform.rotation);
-            BossProjectTile bossSpell = instantSpell.GetComponent<BossProjectTile>();
+            BossProjectile bossSpell = instantSpell.GetComponent<BossProjectile>();
             bossSpell.target = player;
             yield return new WaitForSeconds(0.6f);
             GameObject instantSpell2 = Instantiate(spell, spellPort2.transform.position, spellPort2.transform.rotation);
-            BossProjectTile bossSpell2 = instantSpell2.GetComponent<BossProjectTile>();
+            BossProjectile bossSpell2 = instantSpell2.GetComponent<BossProjectile>();
             bossSpell2.target = player;
             yield return new WaitForSeconds(2.0f);
             StartCoroutine(Think());

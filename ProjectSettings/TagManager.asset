@@ -14,7 +14,7 @@ TagManager:
   - TalkPanel
   - DropItem
   - Floor
-  - DeathTrigger
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -30,12 +30,12 @@ TagManager:
   - Projectile
   - Player
   - PlayerCollisionOnly
+  - BossProjectile
   - 
   - 
   - 
   - 
-  - 
-  - 
+  - PatternObstacle
   - Obstacle
   - 
   - 

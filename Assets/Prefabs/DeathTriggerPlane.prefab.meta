@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/JiyongPark/TestEnemyScene.jiyongpark.unity.meta
+guid: 21af7f1b314174a418902f02850425d6
+DefaultImporter:
+========
 guid: 3b5454131ade1da4cb9ce063e89863f5
 PrefabImporter:
+>>>>>>>> master:Assets/Prefabs/DeathTriggerPlane.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
