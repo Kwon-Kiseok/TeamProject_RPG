@@ -21,4 +21,4 @@ MonoBehaviour:
   dodgeChance: 0
   speed: 3
   attackSpeed: 1
-  killexp: 400
+  killexp: 1000
