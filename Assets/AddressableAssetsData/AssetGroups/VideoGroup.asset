@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: VideoGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: VideoGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b25bdcd6a63d71246be7fc3d48caefc8
+  m_SerializeEntries:
+  - m_GUID: 7961b94638cc44b4698d143bce7dd5dc
+    m_Address: TitleVideo.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 46585e84756e61544bfeeb33c5db5111
+    m_Address: Assets/A LEEJEEWOO/image/GOMCAM 20220724_1746450721.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3691fb43695d65c44b6bc4f6a619e86f
+    m_Address: Assets/A LEEJEEWOO/image/GOMCAM 20220725_1733580022.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cae9413a24aa4754a8b13f840dd6e40e
+    m_Address: Assets/A LEEJEEWOO/image/LoadingVideo.mp4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4b8d2741162489b428c3f2fb2766c6ea, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 202487016c33ce740b3e20af8705ffa2, type: 2}
+    - {fileID: 11400000, guid: 0dbd31f0b5225864ea0442b8da3404d3, type: 2}

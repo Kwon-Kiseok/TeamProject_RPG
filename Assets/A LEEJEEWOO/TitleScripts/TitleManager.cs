@@ -24,5 +24,6 @@ public class TitleManager : MonoBehaviour
     {
         Debug.Log("게임종료");
         GameManager.Instance.IsGameOver = true;
+        Application.Quit();
     }
 }
