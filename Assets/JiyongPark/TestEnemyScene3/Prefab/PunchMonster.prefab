@@ -555,8 +555,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  uIManager: {fileID: 0}
-  questManager: {fileID: 0}
   targetRadius: 5
   targetRange: 1.5
   targetDistance: 0
@@ -590,8 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
-  target: {fileID: 11400000, guid: f622242248ba9fe46b9fb23994dcf485, type: 2}
-  successCount: 5
+  target: {fileID: 11400000, guid: c09097f10a13bb3428290884af4d5ea5, type: 2}
+  successCount: 1
   colliderTags: []
 --- !u!1 &8330257193203205049
 GameObject:

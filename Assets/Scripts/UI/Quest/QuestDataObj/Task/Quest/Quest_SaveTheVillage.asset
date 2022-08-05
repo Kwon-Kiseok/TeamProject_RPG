@@ -15,7 +15,7 @@ MonoBehaviour:
   category: {fileID: 11400000, guid: 432b39b55d52a0947affe3ab375d53c6, type: 2}
   icon: {fileID: 0}
   codeName: SAVE_THE_VILLAGE
-  displayName: Save the village
+  displayName: "\uC758\uBBF8\uC5C6\uB294 \uB9C8\uC744 \uAD6C\uCD9C!"
   description: You need to save the village
   taskGroups:
   - tasks:

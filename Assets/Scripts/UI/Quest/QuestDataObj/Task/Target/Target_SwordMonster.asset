@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ff3cf5bdf2f6345800434ede44fe7c, type: 3}
   m_Name: Target_SwordMonster
   m_EditorClassIdentifier: 
-  value: {fileID: 5421067092290337075, guid: 92103731207d2084fa57bb906b2d5950, type: 3}
+  value: {fileID: 3863788056942815859, guid: 92103731207d2084fa57bb906b2d5950, type: 3}

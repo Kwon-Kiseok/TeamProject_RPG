@@ -16,8 +16,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 68b5c9c5ce6cdee46840b8be88d6142e, type: 3}
   quality: 0
   rarity: 0
-  itemName: Arctic Mitts
-  itemDescription: 
+  itemName: "\uC544\uD2F1 \uBBF8\uD2F0\uC2A4"
+  itemDescription: "\uAC1C\uBC1C\uC790\uAC00 \uCD08\uB4F1\uD559\uAD50 \uBBF8\uC220\uC2DC\uAC04\uC5D0
+    \uCC30\uD751\uC73C\uB85C \uB9CC\uB4E0\uC7A5\uAC11"
   itemWidth: 0
   itemHeight: 0
   durability: 18

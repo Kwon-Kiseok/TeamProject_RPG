@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: bb4ecb66b339f374cb8b399e23a7fbc7, type: 2}
   codeName: KILL_THE_DEVIL
-  description: You have to kill the devil
+  description: "\uB808\uC624\uB9AD\uC744 \uCC98\uCE58\uD558\uC138\uC694"
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
   - {fileID: 11400000, guid: bde41153be7913d4282f3fe2d0b7ac0c, type: 2}

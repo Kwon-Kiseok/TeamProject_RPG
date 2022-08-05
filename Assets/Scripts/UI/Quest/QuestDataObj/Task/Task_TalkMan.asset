@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   category: {fileID: 11400000, guid: 567f1d814b71845469eece242334a31f, type: 2}
   codeName: TALK_THE_MAN
-  description: You Talk The Man
+  description: "\uB0A8\uC790\uC640 \uB300\uD654\uD558\uC138\uC694"
   action: {fileID: 11400000, guid: bcb7fe9730a60054facff1060553ae97, type: 2}
   targets:
   - {fileID: 11400000, guid: 3b64c0d9f681a054fbff930677f7cffb, type: 2}

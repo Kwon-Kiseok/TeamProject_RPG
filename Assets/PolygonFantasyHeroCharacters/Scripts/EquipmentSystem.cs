@@ -32,10 +32,11 @@ namespace HOGUS.Scripts.CustomSystem
             if (dictEquipmets.ContainsKey(part))
             {
                 DoUnequip(part);
+                return;
             }
             else
             {
-                //player.equipedDefense += armorItem.defense;
+                player.GetCurrentStatus().Defense += armorItem.defense;
             }
             dictEquipmets.Add(part, armorItem);
         }
@@ -77,8 +78,10 @@ namespace HOGUS.Scripts.CustomSystem
             }
             else
             {
-                //player.equipedDefense -= dictEquipmets[part].defense;
+                player.GetCurrentStatus().Defense -= dictEquipmets[part].defense;
                 dictEquipmets.Remove(part);
+                HOGUS.Scripts.Inventory.Inventory.Instance.TakeOff();
+                Debug.Log(part);
             }
 
         }
