@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f84dcb3da4ebe849b57031ce906cb2d, type: 3}
   m_Name: PlayerBaseStat
   m_EditorClassIdentifier: 
-  level: 4
-  maxHP: 2
+  level: 1
+  maxHP: 150
   curHP: 0
-  minDamage: 5
-  maxDamage: 10
+  minDamage: 20
+  maxDamage: 30
   defense: 3
   dodgeChance: 5
   speed: 5

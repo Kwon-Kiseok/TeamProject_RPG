@@ -169,6 +169,8 @@ namespace HOGUS.Scripts.Character
 
             Destroy(hpBar);
             Destroy(gameObject, destroyTime);
+
+            SceneManager.LoadScene("GameClearScene1");
         }
 
         public override void Damaged(int damage)
@@ -201,7 +203,7 @@ namespace HOGUS.Scripts.Character
         public override void OnUpdate(float deltaTime)
         {
             //stateMachine.DoStateUpdate();
-            if(targetDistance <= bossAgent.stoppingDistance && !isAttacking)
+            if(targetDistance <= bossAgent.stoppingDistance && !isAttacking &&!IsDead)
             {
                 StartCoroutine(Think());
             }
